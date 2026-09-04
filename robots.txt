@@ -1,0 +1,7 @@
+# Rien de ce site n'est destine a l'indexation : une liste partagee est visible
+# par qui a le lien, et c'est exactement ce que l'app promet au lecteur avant
+# qu'il publie. Chaque page porte aussi son propre <meta name="robots">, les
+# deux instruments ne se remplacant pas : robots.txt demande de ne pas
+# explorer, la balise demande de ne pas indexer ce qui l'aurait ete quand meme.
+User-agent: *
+Disallow: /

@@ -1,0 +1,269 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<!--
+  PAS D'INDEXATION, ET C'EST UNE DÉCISION, PAS UNE PRÉCAUTION. L'app dit au
+  lecteur, avant qu'il publie, « visibles pour toute personne qui a le lien ».
+  Une page indexée rendrait cette phrase fausse, et elle défairait l'argument du
+  code opaque, qui ne vaut que par sa non-énumérabilité : le code ferme le tirage
+  au hasard, un moteur le contournerait par la liste.
+-->
+<meta name="robots" content="noindex, nofollow">
+<title>Une liste sur Toonboxd</title>
+<style>
+  /*
+    La charte du produit, à la main : Pretendard n'est pas servi ici, donc la
+    pile système. Les couleurs sont celles de constants/Colors.tsx, RECOPIÉES et
+    non importées parce que ce fichier vit dans un autre dépôt ; le jour où elles
+    bougent, elles bougent aux deux endroits.
+  */
+  :root {
+    --background: #0E0F13;
+    --surface: #171922;
+    --violet: #7C5CFF;
+    --text: #F4F5F7;
+    --text-muted: #9AA0AE;
+    --border: rgba(255, 255, 255, 0.08);
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    padding: 24px 16px 48px;
+    background: var(--background);
+    color: var(--text);
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    -webkit-font-smoothing: antialiased;
+  }
+  .page { max-width: 720px; margin: 0 auto; }
+  .auteur { display: flex; align-items: center; gap: 10px; margin-bottom: 20px; }
+  /* La pastille de components/Avatar.tsx : un disque violet et l'initiale. */
+  .pastille {
+    width: 32px; height: 32px; border-radius: 9999px;
+    background: var(--violet); color: #FFFFFF;
+    display: flex; align-items: center; justify-content: center;
+    font-weight: 700; font-size: 15px; flex: none;
+  }
+  .pseudo { font-size: 15px; color: var(--text-muted); }
+  h1 { font-size: 28px; line-height: 1.2; margin: 0 0 8px; font-weight: 800; }
+  .description { font-size: 15px; line-height: 1.5; color: var(--text-muted); margin: 0 0 8px; }
+  .compte { font-size: 13px; color: var(--text-muted); margin: 0 0 24px; }
+  .grille {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(110px, 1fr));
+    gap: 16px;
+    margin: 0; padding: 0; list-style: none;
+  }
+  .serie { font-size: 13px; line-height: 1.35; color: var(--text); }
+  /*
+    Le fond `surface` EST le placeholder, la règle de components/SeriesCover.tsx :
+    pas d'illustration de repli. Ratio 2:3, comme dans l'app.
+  */
+  .couverture {
+    width: 100%; aspect-ratio: 2 / 3; border-radius: 8px;
+    background: var(--surface); object-fit: cover; display: block; margin-bottom: 8px;
+  }
+  .titre-serie {
+    display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+  .message { font-size: 15px; color: var(--text-muted); margin: 48px 0; text-align: center; }
+  .pied {
+    margin-top: 48px; padding-top: 20px; border-top: 1px solid var(--border);
+    font-size: 13px; line-height: 1.6; color: var(--text-muted);
+  }
+  .pied strong { color: var(--text); font-weight: 700; }
+</style>
+</head>
+<body>
+<div class="page">
+  <div id="contenu"><p class="message">Chargement.</p></div>
+
+  <!--
+    PAS DE BOUTON DE TÉLÉCHARGEMENT, ET C'EST MESURÉ, PAS SUPPOSÉ : au
+    4 septembre 2026, EXPO_PUBLIC_APP_STORE_ID porte encore son placeholder,
+    donc la fiche App Store N'EXISTE PAS, et le §5 interdit de nommer une
+    destination avant qu'elle existe. La place du bouton est ici, et le commit
+    qui le pose est celui qui a l'adresse (dette datée, DECISIONS.md §8 bis).
+  -->
+  <footer class="pied">
+    <p><strong>Toonboxd</strong>, le suivi de lecture des manhwas, manhuas et webtoons.</p>
+    <p>Métadonnées et couvertures : AniList. Les couvertures restent la propriété de leurs auteurs, studios et éditeurs.</p>
+  </footer>
+</div>
+
+<script>
+/*
+  LA CLÉ ANON EST DANS CETTE PAGE, ET CE N'EST PAS UN OUBLI.
+
+  Elle est déjà dans le bundle de l'app, donc rien de neuf ; ce qui change est
+  qu'elle passe d'un binaire à dépaqueter à un « voir la source ». LA RLS EST CE
+  QUI PROTÈGE, JAMAIS LA CLÉ, et c'est le principe que le projet applique
+  partout : la base refuse ce que l'app ne devrait jamais envoyer.
+
+  Ce que la clé donne à qui la ramasse : le catalogue, déjà ouvert en lecture par
+  policy, et cette fonction, qui rend UNE liste publiée contre son code. Rien
+  d'autre : lists, list_items et profiles rendent [] à la clé seule, et les
+  contrôles 3a et 3b de la bannière le prouvent au lieu de l'affirmer.
+
+  LE CODE VIT DANS LE FRAGMENT, ET LE GAIN EST RÉEL MAIS BORNÉ. Un fragment
+  n'est pas transmis dans la requête HTTP : le code n'apparaît donc dans aucun
+  journal d'accès de l'hébergeur de cette page, ni dans aucun en-tête Referer
+  envoyé à un tiers, là où un ?c=<code> figurerait des deux côtés. La borne
+  s'écrit avec le gain : le code atteint nécessairement Supabase, où il EST la
+  clé de recherche.
+
+  AUCUNE MESURE D'AUDIENCE ICI, et c'est un refus écrit. Cette page est lue par
+  des gens qui n'ont rien accepté, et « aucun suivi, vrai par construction »
+  (docs/COLLECTE.md) est une propriété que ce fichier serait le premier à
+  menacer. Sa réouverture est celle de l'attribution : la première campagne
+  payante.
+
+  LE RENDU PASSE PAR LE DOM ET JAMAIS PAR innerHTML. Le titre et la description
+  sont écrits par un lecteur, et les URL de couverture viennent d'un tiers :
+  textContent et setAttribute échappent par construction, là où une chaîne
+  assemblée à la main oublie les guillemets d'attribut, ce qui est exactement le
+  défaut qu'on n'écrit pas deux fois de la même façon.
+*/
+const URL_BASE = 'https://ifxfemscdxbnnnvcdfgc.supabase.co';
+const CLE_ANON = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImlmeGZlbXNjZHhibm5udmNkZmdjIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODYzNzk4MjksImV4cCI6MjEwMTk1NTgyOX0.ez6EldqHkCxsSL_bmEruO-RkTas87sBkHX9Z_283RmI';
+
+/*
+  L'alphabet du code, celui du check de lists.code_partage : douze caractères
+  sans les quatre glyphes confusables. La validation locale évite un aller-retour
+  sur une adresse tronquée par un client de messagerie ; elle ne garde rien, le
+  serveur ne rendant rien à un code faux non plus.
+*/
+const FORMAT = /^[23456789abcdefghijkmnpqrstuvwxyz]{12}$/;
+
+const contenu = document.getElementById('contenu');
+
+function vider(noeud) {
+  while (noeud.firstChild) noeud.removeChild(noeud.firstChild);
+}
+
+function element(balise, classe, texte) {
+  const noeud = document.createElement(balise);
+  if (classe) noeud.className = classe;
+  if (texte !== undefined) noeud.textContent = texte;
+  return noeud;
+}
+
+function message(phrase) {
+  vider(contenu);
+  contenu.appendChild(element('p', 'message', phrase));
+}
+
+function rendre(liste) {
+  const series = Array.isArray(liste.series) ? liste.series : [];
+  vider(contenu);
+
+  if (liste.auteur) {
+    const bloc = element('div', 'auteur');
+    bloc.appendChild(element('div', 'pastille', liste.auteur.charAt(0).toUpperCase()));
+    bloc.appendChild(element('div', 'pseudo', '@' + liste.auteur));
+    contenu.appendChild(bloc);
+  }
+
+  contenu.appendChild(element('h1', null, liste.titre));
+  if (liste.description) {
+    contenu.appendChild(element('p', 'description', liste.description));
+  }
+
+  /*
+    Le compte VRAI vient du serveur ; les séries sont plafonnées. Quand les deux
+    diffèrent, LA PAGE LE DIT : une troncature muette serait un mensonge, et la
+    fiche de l'app a déjà refusé de mentir sur ce point. Le plafond lui-même
+    n'est pas recopié ici, il se lit dans l'écart des deux valeurs.
+  */
+  const nb = typeof liste.nb === 'number' ? liste.nb : series.length;
+  let compte = nb === 1 ? '1 série' : nb + ' séries';
+  if (nb > series.length) {
+    compte += ', les ' + series.length + ' premières ci-dessous';
+  }
+  contenu.appendChild(element('p', 'compte', compte));
+
+  if (series.length === 0) {
+    contenu.appendChild(element('p', 'message', 'Cette liste ne contient aucune série.'));
+  } else {
+    const grille = element('ul', 'grille');
+    series.forEach(function (serie) {
+      const cellule = element('li', 'serie');
+      if (serie.cover_url) {
+        const image = element('img', 'couverture');
+        image.setAttribute('src', serie.cover_url);
+        image.setAttribute('alt', '');
+        image.setAttribute('loading', 'lazy');
+        image.setAttribute('referrerpolicy', 'no-referrer');
+        cellule.appendChild(image);
+      } else {
+        cellule.appendChild(element('div', 'couverture'));
+      }
+      cellule.appendChild(element('div', 'titre-serie', serie.alias_fr || serie.titre));
+      grille.appendChild(cellule);
+    });
+    contenu.appendChild(grille);
+  }
+
+  document.title = liste.titre + ' - Toonboxd';
+}
+
+async function charger() {
+  const code = window.location.hash.replace('#', '').trim();
+
+  if (!code) {
+    message('Ce lien ne désigne aucune liste.');
+    return;
+  }
+  if (!FORMAT.test(code)) {
+    /*
+      MÊME MESSAGE QUE LE REFUS DU SERVEUR, ET C'EST VOULU : distinguer « ce code
+      n'a pas le bon format » de « cette liste n'est pas publique » donnerait un
+      oracle sur les codes, ce que la fonction refuse déjà en base.
+    */
+    message("Cette liste n'est pas publique, ou elle n'existe plus.");
+    return;
+  }
+
+  try {
+    const reponse = await fetch(URL_BASE + '/rest/v1/rpc/liste_publique', {
+      method: 'POST',
+      headers: {
+        'apikey': CLE_ANON,
+        'Authorization': 'Bearer ' + CLE_ANON,
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ code: code }),
+    });
+
+    if (!reponse.ok) {
+      message("Cette page n'a pas pu se charger. Réessaie.");
+      return;
+    }
+
+    const lignes = await reponse.json();
+    /*
+      Zéro ligne dans les trois cas de refus, indistinctement : code inconnu,
+      liste privée, liste dépubliée. La page ne les sépare pas non plus.
+    */
+    if (!Array.isArray(lignes) || lignes.length === 0) {
+      message("Cette liste n'est pas publique, ou elle n'existe plus.");
+      return;
+    }
+
+    rendre(lignes[0]);
+  } catch (erreur) {
+    message("Cette page n'a pas pu se charger. Réessaie.");
+  }
+}
+
+/*
+  Le fragment change sans recharger la page : deux liens ouverts à la suite dans
+  le même onglet doivent rendre deux listes.
+*/
+window.addEventListener('hashchange', charger);
+charger();
+</script>
+</body>
+</html>
