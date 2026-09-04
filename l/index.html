@@ -45,7 +45,44 @@
     display: flex; align-items: center; justify-content: center;
     font-weight: 700; font-size: 15px; flex: none;
   }
+  .identite { display: flex; flex-direction: column; gap: 2px; min-width: 0; }
   .pseudo { font-size: 15px; color: var(--text-muted); }
+  /*
+    LE TITRE PORTÉ, ET LES SIX TEINTES SONT UNE RECOPIE ASSUMÉE.
+
+    Elles viennent du record privé de components/TitreText.tsx, comme les jetons
+    de charte ci-dessus viennent de constants/Colors.tsx : ce fichier vit dans un
+    autre dépôt, donc il recopie. LE JOUR OÙ ELLES BOUGENT, ELLES BOUGENT AUX
+    DEUX ENDROITS, et le contrôle croisé de web/README.md est ce qui le dit au
+    lieu de l'espérer.
+
+    POURQUOI RECOPIER PLUTÔT QUE RENDRE LE TITRE SANS SA COULEUR. Le critère du
+    28 août 2026 (DECISIONS.md §5) se pose en une question : cet objet
+    existe-t-il ailleurs dans l'app ? Un titre y existe, sur le Profil et dans la
+    galerie, donc la charte gagne, DEUX RENDUS DU MÊME OBJET NE POUVANT PAS
+    DIVERGER. Sa troisième question dit la même chose : TitreText rend un nom ET
+    une couleur, un nom seul serait l'objet à moitié.
+
+    POURQUOI PAS DANS :root, ET C'EST LA BORNE DU §5 DANS SA FORME CSS. Aucun
+    module de l'app n'exporte la couleur d'un titre, ni la table ni un
+    accesseur : le seul moyen d'en faire apparaître une est de rendre TitreText,
+    QUI REND LE NOM D'UN TITRE. Une variable --titre-lecteur serait un jeton de
+    charte disponible à n'importe quelle règle, ce que l'app refuse. Ces six
+    règles ne stylent donc que l'élément qui porte le nom, et un fond ou un
+    liseré qui voudrait la teinte devrait recopier un hexadécimal, une ligne de
+    diff qui dit ce qu'elle fait.
+
+    LES CONTRASTES SE TRANSPORTENT SANS NOUVELLE TABLE : les 7,82 à 7,87 relevés
+    dans TitreText.tsx le sont sur Palette.background, qui EST --background, le
+    fond de ce body. Aucune ne se pose sur --surface, où le relevé serait autre.
+  */
+  .titre-auteur { font-size: 13px; font-weight: 600; line-height: 1.2; }
+  .titre-auteur.lecteur      { color: #FF7C9B; }
+  .titre-auteur.devoreur     { color: #FF833F; }
+  .titre-auteur.insatiable   { color: #CF9F00; }
+  .titre-auteur.finisseur    { color: #00C045; }
+  .titre-auteur.critique     { color: #0BB9AF; }
+  .titre-auteur.beta_testeur { color: #0AB4DD; }
   h1 { font-size: 28px; line-height: 1.2; margin: 0 0 8px; font-weight: 800; }
   .description { font-size: 15px; line-height: 1.5; color: var(--text-muted); margin: 0 0 8px; }
   .compte { font-size: 13px; color: var(--text-muted); margin: 0 0 24px; }
@@ -137,6 +174,35 @@ const CLE_ANON = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsI
 */
 const FORMAT = /^[23456789abcdefghijkmnpqrstuvwxyz]{12}$/;
 
+/*
+  LES SIX LIBELLÉS, RECOPIÉS DE locales/fr.json (profile.title.*), pour la même
+  raison que les teintes et avec une conséquence différente : un libellé qui
+  diverge MENT, une couleur qui diverge décore mal. Les deux entrent dans le même
+  contrôle croisé, parce que la seule parade à une recopie est un instrument qui
+  la compare.
+
+  DEUX FAUSSES SORTIES, ÉCARTÉES AVEC LEUR RAISON. Faire rendre le libellé par
+  liste_publique mettrait de la copie française en base, hors de locales/fr.json,
+  sur un produit qui ajoutera l'anglais. Et afficher le code brut est ce que
+  titreLabel refuse en toutes lettres : un code de titre est une valeur machine.
+
+  UN CODE INCONNU NE REND RIEN, et c'est le default: null de titreLabel et le
+  filtre de fetchTitres, transportés ici. LA BRANCHE EST INATTEIGNABLE
+  AUJOURD'HUI, l'enum portant exactement ces six valeurs depuis le retrait du
+  roster du 4 septembre 2026 ; elle existe pour le chemin de migration, ET SA
+  RAISON EST PLUS FORTE ICI QUE DANS L'APP : un `alter type ... add value` part
+  sans build, et cette page se republie À LA MAIN dans un dépôt séparé, donc sa
+  fenêtre est plus large encore.
+*/
+const TITRE_LIBELLE = {
+  lecteur: 'Lecteur',
+  devoreur: 'Dévoreur',
+  insatiable: 'Insatiable',
+  finisseur: 'Finisseur',
+  critique: 'Critique',
+  beta_testeur: 'Bêta-testeur',
+};
+
 const contenu = document.getElementById('contenu');
 
 function vider(noeud) {
@@ -159,10 +225,43 @@ function rendre(liste) {
   const series = Array.isArray(liste.series) ? liste.series : [];
   vider(contenu);
 
+  /*
+    PAS D'AUTEUR, PAS DE TITRE, ET LA BORNE EST TENUE PAR CE BLOC ET NON PAR UN
+    SECOND TEST : un lecteur peut porter un titre sans avoir choisi de pseudo, et
+    un titre accroché à personne serait une décoration sans porteur. Le titre est
+    donc écrit DANS ce `if`, où il ne peut pas exister seul.
+
+    PAS DE TITRE PORTÉ, RIEN DU TOUT : pas de place creuse, pas de « Aucun
+    titre », pas d'espace réservé. C'est le cas de tout le monde aujourd'hui, et
+    c'est la règle 6.2 du §4 bis, une zone à zéro disparaît sans un mot ; sa
+    borne (« sauf si elle est le seul accès à ce qui la remplirait ») ne
+    s'applique pas, aucun geste ne vivant sur cette page.
+  */
   if (liste.auteur) {
     const bloc = element('div', 'auteur');
     bloc.appendChild(element('div', 'pastille', liste.auteur.charAt(0).toUpperCase()));
-    bloc.appendChild(element('div', 'pseudo', '@' + liste.auteur));
+
+    const identite = element('div', 'identite');
+    identite.appendChild(element('div', 'pseudo', '@' + liste.auteur));
+
+    /*
+      `typeof === 'string'` ET NON UN TEST DE VÉRITÉ, parce que la clé vient du
+      serveur : `TITRE_LIBELLE['constructor']` ou `['toString']` rendent une
+      FONCTION héritée, qui est truthy, et la page écrirait son source à l'écran
+      avec une classe inventée. La colonne est une énumération à six valeurs,
+      donc le cas n'est pas atteignable par la base ; le test coûte un mot et ne
+      dépend pas de ça. C'est la même doctrine que le rendu par textContent
+      ci-dessus : on n'écrit pas deux fois de la même façon un défaut qui vient
+      d'une donnée qu'on ne produit pas.
+      Conséquence utile : seules les six clés propres rendent une chaîne, donc la
+      classe posée est forcément l'une des six.
+    */
+    const libelle = TITRE_LIBELLE[liste.auteur_titre];
+    if (typeof libelle === 'string') {
+      identite.appendChild(element('div', 'titre-auteur ' + liste.auteur_titre, libelle));
+    }
+
+    bloc.appendChild(identite);
     contenu.appendChild(bloc);
   }
 
