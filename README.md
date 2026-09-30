@@ -73,6 +73,8 @@ done
 
 **Relevé du 5 septembre 2026** : `l/index.html` ok (15 766 octets des deux côtés), `robots.txt` ok, `CNAME` 404 attendu, et **`README.md` en écart de 60 lignes, 5 604 octets servis contre 13 262 en source**. La copie de ce fichier-ci était donc périmée de **deux** commits, et personne ne l'avait vu.
 
+**Relevé du 30 septembre 2026**, à la publication de la page d'accueil (la copie du commit `dddc17b`) : quinze fichiers, tous `ok` octet pour octet, sauf `CNAME` (`404`, l'exemption attendue) ; témoin pris sur le `robots.txt` d'avant la page (`HEAD~1`), qui rend un écart. **Avant la copie, les deux sens ont été comparés** : `l/index.html` et `robots.txt` servis étaient identiques à leur source, et le `README.md` servi était celui du commit `9e939e8` (5 septembre 2026), une copie en retard et non une correction faite en ligne ; il est recopié, ce relevé compris. Côté `legal/`, le même jour : `index.md` servi déjà identique à la source, section « Sur le site toonboxd.app » comprise, `README.md` en retard et recopié. **Depuis le domaine réel** : les 56 emplacements de couverture reçoivent leur image, aucune en erreur ; `inscrire_lancement` répond `400` (22023) à une adresse mal formée, donc la fonction existe et la requête passe depuis `toonboxd.app`, sans rien écrire ; `/l/` répond `200`, porte `noindex`, et est la nôtre.
+
 **Son témoin, et sans lui un `diff` vide ne prouve rien** : il pourrait venir d'une commande qui ne compare rien, d'un fichier local vide, d'une URL qui rend une 404 de GitHub. Le témoin est le défaut réel, rejoué depuis l'historique :
 
 ```bash
