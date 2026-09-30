@@ -1,7 +1,14 @@
-# Rien de ce site n'est destine a l'indexation : une liste partagee est visible
-# par qui a le lien, et c'est exactement ce que l'app promet au lecteur avant
-# qu'il publie. Chaque page porte aussi son propre <meta name="robots">, les
-# deux instruments ne se remplacant pas : robots.txt demande de ne pas
-# explorer, la balise demande de ne pas indexer ce qui l'aurait ete quand meme.
+# Le site se laisse explorer, sauf /l/. Une liste partagee est visible par qui
+# a le lien, et c'est exactement ce que l'app promet au lecteur avant qu'il
+# publie : elle ne doit pas se trouver par un moteur. La page porte aussi son
+# propre <meta name="robots">, les deux instruments ne se remplacant pas :
+# robots.txt demande de ne pas explorer, la balise demande de ne pas indexer
+# ce qui l'aurait ete quand meme.
+#
+# Jusqu'au 30 septembre 2026 ce fichier disait "Disallow: /", le domaine ne
+# portant que /l/. La page d'accueil l'a rejoint ce jour-la, et elle est faite
+# pour etre trouvee.
 User-agent: *
-Disallow: /
+Disallow: /l/
+
+Sitemap: https://toonboxd.app/sitemap.xml

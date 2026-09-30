@@ -2,7 +2,7 @@
 
 Ce dossier est la **source** des pages web du produit. Il se copie tel quel dans un dépôt public séparé, servi par GitHub Pages sur le domaine apex `toonboxd.app`. Ouvert le 4 septembre 2026 avec l'étape 7.6, le partage des listes.
 
-Aujourd'hui il ne porte qu'une page, `l/index.html`, la consultation publique d'une liste. Le site de la Phase 10 et la migration de `legal/` le rejoindront ici : `constants/Handle.ts` réserve déjà `confidentialite` et `cgu`, et un domaine se sert d'un seul dépôt.
+Il porte deux pages. `l/index.html`, la consultation publique d'une liste, depuis le 4 septembre 2026 ; et depuis le 30 septembre 2026 `index.html`, la page d'accueil du domaine, avec ce qu'elle charge (`assets/fonts/`, `assets/img/` : l'icône, la bannière Nuit étoilée et l'avatar du Profil d'exemple ; `favicon.png`, `apple-touch-icon.png`, `og.png`) et ce qui la fait trouver (`sitemap.xml`, et `robots.txt`, qui n'interdit plus que `/l/`). La migration de `legal/` le rejoindra ici : `constants/Handle.ts` réserve déjà `confidentialite` et `cgu`, et un domaine se sert d'un seul dépôt.
 
 **Le sens est source vers copie, et il n'y en a qu'un.** Une correction faite directement dans le dépôt public se transcrit ici **avant** tout autre changement, sinon la source ment et la recopie suivante écrase la correction. C'est la règle de `legal/README.md`, née d'une divergence réelle le 3 septembre 2026, et elle vaut d'autant plus ici que la page porte des valeurs substituées.
 
@@ -12,13 +12,29 @@ Aujourd'hui il ne porte qu'une page, `l/index.html`, la consultation publique d'
 
 ## Ce que la page contient, et pourquoi ce n'est pas une variable d'environnement
 
-`l/index.html` porte en clair l'URL Supabase et la **clé anon**. Les deux sont substituées depuis `.env` au moment d'écrire le fichier, jamais lues à l'exécution : une page statique n'a pas d'environnement, et surtout **l'adresse et la clé de la page déployée doivent être vérifiables contre la source**, ce qu'un remplacement au moment de la copie interdirait.
+`l/index.html` porte en clair l'URL Supabase et la **clé anon**, et depuis le 30 septembre 2026 `index.html` porte **les mêmes**, pour lire les couvertures du catalogue. Les deux sont substituées depuis `.env` au moment d'écrire le fichier, jamais lues à l'exécution : une page statique n'a pas d'environnement, et surtout **l'adresse et la clé de la page déployée doivent être vérifiables contre la source**, ce qu'un remplacement au moment de la copie interdirait.
 
 **Sur la clé, l'argument est écrit dans le fichier et il se résume ici** : elle est déjà dans le bundle de l'app, donc rien de neuf ; ce qui change est qu'elle passe d'un binaire à dépaqueter à un « voir la source ». **La RLS est ce qui protège, jamais la clé.** Ce qu'elle donne : le catalogue, déjà ouvert en lecture par policy, et `liste_publique`, qui rend une liste publiée contre son code. Les contrôles ci-dessous le prouvent au lieu de l'affirmer.
 
+## La page d'accueil, et ce qu'elle refuse de charger
+
+`index.html` est une page statique écrite à la main : pas de build, pas de framework, donc **l'artefact et la source restent le même fichier** et le contrôle de fraîcheur ci-dessous la couvre par un `diff` d'octets, comme `l/`. Ses sections : l'accroche (le suivi et le retour de hiatus réunis sur un écran Reprendre), les fonctionnalités, le retour de hiatus, le profil, les listes, les tarifs, la vie privée, les questions ; ses couleurs, sa police et ses textes sont ceux de l'app.
+
+**Ce que la page charge, et d'où**, avec la même règle que `l/` pour la même raison, une page lue par des gens qui n'ont rien accepté : ni cookie, ni mesure d'audience, ni police d'un CDN. La police est Pretendard, les trois `.otf` de `assets/fonts/` du dépôt de l'app réduits au latin et convertis en woff2 (14 Ko chacun) ; le point médian et le cadratin ont été **laissés hors du sous-ensemble**. Les icônes sont celles de Phosphor (MIT), recopiées en symboles dans la page.
+
+**Les couvertures passent par le chemin de l'app, et jamais par ce dossier.** La page lit la table `series` avec la clé anon, sur les colonnes de `LIST_COLUMNS` (`services/seriesService.ts`), de deux façons qui sont celles de l'app : par identifiant pour les séries désignées (`fetchSeriesByIds`, associées par `id` puisque `in` n'ordonne rien), et par popularité puis `id` pour les murs de couvertures (`fetchPopularSeries`, le collage de l'accueil de l'onboarding). L'image vient de l'adresse que porte `cover_url`, chez AniList, en variante `medium` (230 px de large, un tiers du poids de `large`) ; une adresse qui n'est pas celle d'AniList passe telle quelle. **Le repli n'est pas une branche** : le fond de chaque emplacement est le placeholder, la règle de `components/SeriesCover.tsx`, et un réseau mort laisse la page lisible. **Conséquence à connaître** : le visiteur contacte Supabase et AniList, comme sur une liste partagée ; rien n'y est mesuré, mais ce n'est plus une page qui ne parle qu'à son hébergeur.
+
+**Une seule bannière illustrée, et à un seul endroit** (décisions de l'utilisateur, 30 septembre 2026) : la première version en portait six en décor, retirées ; la section Profil montre ensuite l'écran Profil de l'app dans un téléphone, avec la bannière Nuit étoilée, l'avatar du clan Hwasan (`assets/images/User-avatar.png` du dépôt de l'app, réduit à 144 px) et le titre porté Bêta-testeur. Les deux images sont copiées dans `assets/img/`. L'image de partage `og.png` ne porte ni bannière ni couverture.
+
+**La page écrit une chose, et une seule** : l'email qu'un visiteur donne dans la fenêtre « Me prévenir du lancement », par `inscrire_lancement` (bannière « les inscriptions au lancement » de `toonboxd-schema.sql`), avec la même clé anon. La table est fermée au client, lecture comprise, et une adresse déjà inscrite répond comme une nouvelle. Sans JavaScript, ou sans `<dialog>`, les boutons gardent leur lien `mailto:` vers `contact@toonboxd.app`. L'inventaire est `docs/COLLECTE.md` (section 2, `inscriptions_lancement`) et la politique porte une section « Sur le site toonboxd.app ».
+
+**Les textes qui ressemblent à l'app sont ceux de l'app** : la notification vient de `supabase/functions/envoyer-notifications/chaines.ts`, apostrophe droite comprise ; la boîte « Cette série a repris ? », la note de reprise, la recherche et les titres viennent de `locales/fr.json`. Les seuils des titres (1 000, 5 000, 20 000 chapitres, 25 séries terminées, 20 notées) ont été relus dans `titres_profil` le 30 septembre 2026 ; **un seuil qui bouge est une migration, et cette page bouge avec elle**.
+
+**Le bouton principal envoie un email à `contact@toonboxd.app`** (« Me prévenir du lancement »), et le badge « Bientôt sur l'App Store » n'est pas un lien : la fiche n'existe pas, et le §5 interdit de nommer une destination avant qu'elle existe. **Le commit qui a l'adresse de la fiche** remplace les trois boutons et le badge par le badge officiel d'Apple et son lien, et ajoute `downloadUrl` au JSON-LD de la page.
+
 ## Publication
 
-1. Un dépôt public, le **contenu** de ce dossier à sa racine (`l/`, `robots.txt`, `CNAME`, et ce `README.md`).
+1. Un dépôt public, le **contenu** de ce dossier à sa racine (`index.html`, `assets/`, `l/`, `favicon.png`, `apple-touch-icon.png`, `og.png`, `robots.txt`, `sitemap.xml`, `CNAME`, et ce `README.md`).
 2. Settings, Pages, source « Deploy from a branch », branche `main`, dossier `/ (root)`.
 3. Chez OVH, les quatre `A` de l'apex vers `185.199.108.153`, `185.199.109.153`, `185.199.110.153`, `185.199.111.153`, et un `AAAA` si l'IPv6 est voulue. Le `CNAME` du dépôt porte déjà `toonboxd.app`.
 4. Attendre le certificat (Settings, Pages, « Enforce HTTPS » devient cochable). Compter quelques minutes, parfois une heure.
@@ -29,8 +45,11 @@ Aujourd'hui il ne porte qu'une page, `l/index.html`, la consultation publique d'
 ## Ce qui se vérifie avant de publier
 
 - La bannière `TOONBOXD : la lecture publique d'une liste` est **jouée** dans `toonboxd-scripts/toonboxd-schema.sql`. Sans elle, `liste_publique` n'existe pas et la page rend « Cette liste n'est pas publique » sur un lien valide.
-- Aucun `__SUPABASE` ne reste dans `l/index.html` : `grep -c '__SUPABASE' web/l/index.html` rend `0`.
-- La clé substituée est bien l'**anon** et pas la `service_role` : son corps décodé porte `"role":"anon"`. La `service_role` contourne la RLS, donc la publier annulerait tout ce que cette étape a fermé. C'est le seul contrôle de ce fichier qui puisse causer un dommage irréversible s'il est sauté.
+- La bannière `TOONBOXD : les inscriptions au lancement` est **jouée**. Sans elle, `inscrire_lancement` n'existe pas, PostgREST rend `404`, et la fenêtre répond « L'inscription n'a pas abouti » à chaque envoi : rien ne se perd, mais rien ne s'inscrit.
+- `legal/` est **republiée avec sa section « Sur le site toonboxd.app »**, AVANT cette page : la fenêtre renvoie à la politique au moment où elle demande l'adresse, et une politique qui ne dit rien du site ferait de ce renvoi une promesse vide.
+- Aucun `__SUPABASE` ne reste dans `l/index.html` ni dans `index.html` : `grep -c '__SUPABASE' web/l/index.html web/index.html` rend `0` pour les deux.
+- **Les deux pages portent la même adresse et la même clé** : `diff <(sed -n "s/^const CLE_ANON = '\(.*\)';/\1/p" web/l/index.html) <(sed -n "s/^ *var CLE_ANON = '\(.*\)';/\1/p" web/index.html)` est vide, et la même forme sur `URL_BASE`. Relevé du 30 septembre 2026 : identiques.
+- La clé substituée est bien l'**anon** et pas la `service_role`, dans les deux pages : son corps décodé porte `"role":"anon"`. La `service_role` contourne la RLS, donc la publier annulerait tout ce que cette étape a fermé. C'est le seul contrôle de ce fichier qui puisse causer un dommage irréversible s'il est sauté.
 - La bannière `TOONBOXD : le titre de l'auteur sur la page publique` est **jouée** (titres 4, 4 septembre 2026). Sans elle, `liste_publique` ne rend pas `auteur_titre` et la page rend la liste **sans le titre**, silencieusement : c'est le cas dégradé que la prédiction de la bannière annonce, et il ne se voit que sur un auteur qui en porte un.
 - Le **contrôle croisé des titres** ci-dessous rend zéro écart.
 
@@ -85,6 +104,16 @@ diff <(cut -d' ' -f1 /tmp/page-libelles) /tmp/roster
 diff <(cut -d' ' -f2- /tmp/page-libelles) /tmp/loc-libelles
 ```
 
+**La page d'accueil recopie les mêmes six teintes et les mêmes six libellés** (la galerie du profil), et depuis le 30 septembre 2026 le contrôle la couvre aussi. Ses deux extractions, qui remplacent les deux premières ci-dessus avant de rejouer les quatre `diff` :
+
+```bash
+P=web/index.html
+sed -n "s/^ *\.titre-\([a-z_]*\) *{ color: \(#[0-9A-Fa-f]*\); }/\1 \2/p" "$P"                              > /tmp/page-teintes
+sed -n 's/.*data-titre="\([a-z_]*\)"><b class="titre-[a-z_]*">\([^<]*\)<\/b>.*/\1 \2/p' "$P"                > /tmp/page-libelles
+```
+
+L'attribut `data-titre` n'est porté que par les six entrées de la galerie : le même nom de titre apparaît ailleurs dans la page (sous le pseudo des deux exemples), et une extraction sur la seule classe rendrait sept lignes. **Joué le 30 septembre 2026** : six lignes par extraction, quatre `diff` vides ; témoins, une teinte passée de `#FF7C9B` à `#FF7C9C` et « Critique » passé à « Critiques » font tomber chacun la comparaison qui le vise.
+
 Les quatre `diff` doivent être **vides**, et les cinq extractions doivent rendre **six lignes chacune** : une extraction qui rend zéro ou une ligne est un `diff` qui parle d'autre chose que d'une divergence. Le cas s'est produit à l'écriture, la dernière entrée d'un bloc JSON n'ayant pas de virgule finale, et le contrôle a rendu un écart pour un fichier juste. **Compter les lignes avant de lire les `diff`.**
 
 **Les témoins, joués le 4 septembre 2026 avant de croire le zéro**, sur une copie du dépôt et sur trois forges d'une seule variation chacune : une teinte de la page passée de `#FF7C9B` à `#FF7C9C` fait tomber le premier `diff` ; un libellé passé de « Critique » à « Critiques » fait tomber le quatrième ; un code passé de `finisseur` à `finisseurs` fait tomber le premier et le deuxième. Chacun tombe sur la comparaison qui le vise, et la copie intacte rend zéro. **Sans ces trois, un zéro ne dit rien de plus qu'un `sed` qui ne trouve rien.**
@@ -103,17 +132,21 @@ Le cadratin et le point médian sont bannis du projet (`CLAUDE.md`, *Critical Ru
 
 **Sur la source :**
 
+Le fichier de motifs `/tmp/bannis.txt` se construit par la forme des *Critical Rules* de `CLAUDE.md`, son seul domicile, jamais par un `printf` à échappements, qui a menti le 5 septembre 2026 et survivait dans ce fichier jusqu'au 29 septembre 2026 (`DECISIONS.md` §5). La recopier ici mettrait les deux caractères dans `web/`, dont le balayage attend « rien ».
+
 ```
-printf '\xe2\x80\x94\n\xc2\xb7\n' > /tmp/bannis.txt
-grep -rn -F -f /tmp/bannis.txt web/            # attendu : rien
-grep -c  -F -f /tmp/bannis.txt CLAUDE.md       # témoin positif : > 0
+od -An -tx1 /tmp/bannis.txt                                          # attendu : e2 80 94 0a c2 b7 0a
+grep -c -F -f /tmp/bannis.txt node_modules/react-native/README.md   # témoin tiers, AVANT : 5
+grep -rnI -F -f /tmp/bannis.txt web/                                # attendu : rien
 ```
+
+**Le `-I` est né le 30 septembre 2026 avec la page d'accueil, et il n'est pas une tolérance.** Sa première version portait six illustrations, et le balayage sans lui rendait « Binary file ... matches » sur quatre fichiers (trois `.webp` et `og.png`) : des octets compressés qui forment la séquence par hasard, deux octets sur des dizaines de milliers, et aucun texte. Ces illustrations sont parties le jour même et plus aucun binaire ne matche, **mais le suivant le pourra** : `-I` écarte les binaires et garde tout le texte. **Son témoin, joué ce jour-là** : un fichier texte forgé dans `web/` avec un cadratin est trouvé par `grep -rnI`, puis retiré.
 
 **Sur la page publiée**, après déploiement, et **sur une liste réellement publiée** pour que le contenu rendu par le script soit dans la sortie :
 
 ```
 URL='https://toonboxd.app/l/#<code d une liste publiee>'
-printf 'a\xe2\x80\x94b\n' | grep -c -F -f /tmp/bannis.txt   # témoin forcé : 1
+grep -c -F -f /tmp/bannis.txt node_modules/react-native/README.md   # témoin tiers : 5
 curl -sL 'https://toonboxd.app/l/' | grep -c -F 'Toonboxd'  # la page est la nôtre : > 0
 curl -sL 'https://toonboxd.app/l/' | grep -n -F -f /tmp/bannis.txt   # attendu : rien
 ```
