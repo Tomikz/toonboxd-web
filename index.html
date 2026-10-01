@@ -345,6 +345,67 @@
   .js .hero .notif { animation: arrive 0.9s var(--ease) 1.2s both; }
   @keyframes arrive { from { opacity: 0; transform: translateY(-110%); } to { opacity: 1; transform: none; } }
 
+  /* ---------- La carte du top 5 ---------- */
+  .card-grid { display: grid; gap: 40px; align-items: center; }
+  @media (min-width: 960px) { .card-grid { grid-template-columns: 1fr 1fr; gap: 72px; } }
+  .story-stage { position: relative; display: grid; place-items: center; padding: 16px 0; }
+  .story-stage::before {
+    content: ""; position: absolute; width: 78%; aspect-ratio: 1; border-radius: 50%;
+    background: radial-gradient(closest-side, rgba(255, 194, 75, 0.16), rgba(124, 92, 255, 0.14) 55%, transparent);
+  }
+  .story-box { position: relative; width: 360px; height: 640px; transform: rotate(2deg); }
+  @media (max-width: 419px) {
+    .story-box { width: 306px; height: 544px; }
+    .story { transform: scale(0.85); transform-origin: top left; }
+  }
+
+  /*
+    components/Top5ShareCard.tsx et constants/ShareCard.ts, au point près : le
+    cadre de 360 x 640 (1080 x 1920 à l'export), opaque et sombre, la carte
+    arrondie posée dessus à 16 du bord, le héros incliné à -4° avec sa lueur
+    ambre, la rangée en creux [0, 12, 12, 0], le total, la signature. Les
+    couleurs sont celles de l'objet de marque (5.3 bis) : l'ambre au premier
+    rang et au total, le violet aux numéros 2 à 5, le filet blanc du héros.
+    Seul l'arrondi du cadre est propre à la page : l'image exportée a des coins
+    droits, la page la montre comme une story.
+  */
+  .story {
+    width: 360px; height: 640px; padding: 0 16px; overflow: hidden;
+    display: flex; flex-direction: column; justify-content: center;
+    background: var(--bg); border-radius: 26px;
+    box-shadow: 0 0 0 1px var(--border-strong), 0 50px 90px -30px rgba(0, 0, 0, 0.85);
+    text-align: left;
+  }
+  .sc-card { width: 328px; padding: 12px; border-radius: 23px; background: var(--surface); box-shadow: inset 0 0 0 1px var(--border); }
+  .sc-id { display: flex; align-items: center; gap: 10px; }
+  .sc-avatar { width: 36px; height: 36px; border-radius: 999px; object-fit: cover; }
+  .sc-handle { font-size: 14px; line-height: 18px; font-weight: 600; }
+  .sc-label { font-size: 11px; line-height: 14px; font-weight: 600; color: var(--muted); text-transform: uppercase; letter-spacing: 0.8px; }
+  .sc-hero { display: flex; height: 176px; margin-top: 24px; }
+  .sc-cover-box { width: 112px; padding: 4px 0; margin-right: 22px; flex: none; }
+  .sc-tilt { width: 112px; height: 168px; border-radius: 10px; transform: rotate(-4deg); box-shadow: 0 0 32px 2px rgba(255, 194, 75, 0.45); }
+  .sc-tilt .cov { width: 112px; border-radius: 10px; border: 1px solid rgba(255, 255, 255, 0.9); }
+  .sc-hero-text { width: 170px; padding-top: 4px; }
+  .sc-rank, .sc-total b { display: block; font-weight: 800; font-size: 48px; line-height: 52px; color: var(--amber); font-variant-numeric: tabular-nums; }
+  .sc-title { font-size: 18px; line-height: 24px; font-weight: 600; }
+  .sc-stars { display: flex; gap: 2px; margin-top: 4px; font-size: 14px; color: var(--amber); }
+  .sc-hero-ch { margin-top: 6px; }
+  .sc-row { display: flex; justify-content: center; align-items: flex-start; gap: 8px; margin-top: 28px; }
+  .sc-col { width: 70px; }
+  .sc-col.sc-creux { margin-top: 12px; }
+  .sc-col .cov { width: 70px; border-radius: 8px; }
+  .sc-badge {
+    position: absolute; z-index: 1; left: 5px; bottom: 5px; width: 22px; height: 22px; border-radius: 6px;
+    display: grid; place-items: center; background: rgba(23, 25, 34, 0.9);
+    color: var(--violet); font-size: 14px; line-height: 18px; font-weight: 600; font-variant-numeric: tabular-nums;
+  }
+  .sc-col p { margin-top: 8px; font-size: 11px; line-height: 14px; font-weight: 600; color: var(--muted); text-align: center; }
+  .sc-total { margin-top: 24px; text-align: center; }
+  .sc-total .sc-label { display: block; margin-top: 2px; }
+  .sc-sign { display: flex; align-items: center; justify-content: center; gap: 6px; margin-top: 24px; }
+  .sc-sign img { width: auto; height: 22px; }
+  .sc-sign span { font-size: 14px; line-height: 18px; font-weight: 600; }
+
   /* ---------- Fonctionnalités (bento) ---------- */
   .bento { display: grid; gap: 16px; margin-top: 48px; }
   .cell { position: relative; overflow: hidden; border-radius: var(--r-card); background: var(--surface); padding: 28px; }
@@ -452,7 +513,8 @@
   .pf-top5 { margin: 19px 13px 0; padding: 0 10px 10px; border-radius: 10px; background: var(--surface); box-shadow: inset 0 0 0 1px var(--border); }
   .pf-top5-head { display: flex; align-items: center; justify-content: space-between; height: 36px; }
   .pf-top5-head b { font-size: 15px; font-weight: 600; }
-  .pf-top5-head span { font-size: 12px; font-weight: 600; color: var(--violet); }
+  /* L'oeil de la vitrine (components/Top5Showcase.tsx, eye-outline, violet) : il ouvre la carte en grand. */
+  .pf-top5-head .icon { font-size: 17px; color: var(--violet); }
   .pf-top5 ol { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 6px; }
   .pf-top5 .cov { border-radius: 6px; }
   /* Le numéro de rang : un chiffre violet en texte, qui ordonne sans être une action (§5). */
@@ -657,6 +719,7 @@
         { "@type": "Question", "name": "Qu’est-ce qu’un manhwa tracker ?", "acceptedAnswer": { "@type": "Answer", "text": "Un manhwa tracker est une app qui retient où tu en es dans chacune de tes séries : le dernier chapitre lu, son statut, ta note. Tu n’as plus à tenir une liste dans tes notes ni à relire des chapitres pour retrouver ta place. Toonboxd fait la même chose pour les manhuas et les webtoons." } },
         { "@type": "Question", "name": "Existe-t-il un webtoon tracker en français ?", "acceptedAnswer": { "@type": "Answer", "text": "Oui : Toonboxd est un webtoon tracker entièrement en français, lancé d’abord en France. Son catalogue compte près de 9 700 manhwas, manhuas et webtoons verticaux." } },
         { "@type": "Question", "name": "Comment savoir quand un manhwa en pause reprend ?", "acceptedAnswer": { "@type": "Answer", "text": "Mets-le en pause dans Toonboxd. Quand un lecteur signale sa reprise et que le signalement est validé, tous ceux qui l’avaient en pause reçoivent une notification dans les cinq minutes, et un tap ouvre sa fiche." } },
+        { "@type": "Question", "name": "Comment montrer son top 5 manhwa ?", "acceptedAnswer": { "@type": "Answer", "text": "Compose ton top 5 dans Toonboxd : l’œil de ton top 5, sur ton profil, ouvre ta carte. Ta série numéro 1 en grand avec ta note et ton chapitre, les quatre suivantes dessous, ton total de chapitres lus, au format story. Le libellé « Mon top 5 manhwa » se remplace par le tien, gratuitement." } },
         { "@type": "Question", "name": "Toonboxd est-il gratuit ?", "acceptedAnswer": { "@type": "Answer", "text": "Oui, et sans publicité. La version gratuite suit jusqu’à 30 séries en cours, sans limite pour les séries prévues, en pause, terminées ou abandonnées, avec trois listes modifiables. Toonboxd Pro coûte 17,99 € par an ou 2,99 € par mois, avec 7 jours d’essai sur les deux formules." } },
         { "@type": "Question", "name": "Peut-on lire des chapitres dans l’app ?", "acceptedAnswer": { "@type": "Answer", "text": "Non. Toonboxd n’héberge aucun chapitre. Le bouton « Lire sur… » de chaque fiche ouvre la plateforme officielle où lire la série." } },
         { "@type": "Question", "name": "Faut-il créer un compte ?", "acceptedAnswer": { "@type": "Answer", "text": "Non. L’app crée un compte anonyme, sans email ni mot de passe. Tu peux le lier à ton identifiant Apple pour retrouver ta bibliothèque sur un autre iPhone, et le supprimer entièrement depuis les réglages." } },
@@ -696,6 +759,8 @@
   <symbol id="i-lists" viewBox="0 0 256 256"><path d="M32,64a8,8,0,0,1,8-8H216a8,8,0,0,1,0,16H40A8,8,0,0,1,32,64Zm8,72h64a8,8,0,0,0,0-16H40a8,8,0,0,0,0,16Zm80,48H40a8,8,0,0,0,0,16h80a8,8,0,0,0,0-16Zm128-40c0,36.52-50.28,62.08-52.42,63.16a8,8,0,0,1-7.16,0C186.28,206.08,136,180.52,136,144a32,32,0,0,1,56-21.14A32,32,0,0,1,248,144Zm-16,0a16,16,0,0,0-32,0,8,8,0,0,1-16,0,16,16,0,0,0-32,0c0,20.18,26.21,39.14,40,46.93C205.79,183.15,232,164.19,232,144Z"/></symbol>
   <symbol id="i-arrow" viewBox="0 0 256 256"><path d="M221.66,133.66l-72,72a8,8,0,0,1-11.32-11.32L196.69,136H40a8,8,0,0,1,0-16H196.69L138.34,61.66a8,8,0,0,1,11.32-11.32l72,72A8,8,0,0,1,221.66,133.66Z"/></symbol>
   <symbol id="i-x" viewBox="0 0 256 256"><path d="M205.66,194.34a8,8,0,0,1-11.32,11.32L128,139.31,61.66,205.66a8,8,0,0,1-11.32-11.32L116.69,128,50.34,61.66A8,8,0,0,1,61.66,50.34L128,116.69l66.34-66.35a8,8,0,0,1,11.32,11.32L139.31,128Z"/></symbol>
+  <symbol id="i-eye" viewBox="0 0 256 256"><path d="M247.31,124.76c-.35-.79-8.82-19.58-27.65-38.41C194.57,61.26,162.88,48,128,48S61.43,61.26,36.34,86.35C17.51,105.18,9,124,8.69,124.76a8,8,0,0,0,0,6.5c.35.79,8.82,19.57,27.65,38.4C61.43,194.74,93.12,208,128,208s66.57-13.26,91.66-38.34c18.83-18.83,27.3-37.61,27.65-38.4A8,8,0,0,0,247.31,124.76ZM128,192c-30.78,0-57.67-11.19-79.93-33.25A133.47,133.47,0,0,1,25,128,133.33,133.33,0,0,1,48.07,97.25C70.33,75.19,97.22,64,128,64s57.67,11.19,79.93,33.25A133.46,133.46,0,0,1,231.05,128C223.84,141.46,192.43,192,128,192Zm0-112a48,48,0,1,0,48,48A48.05,48.05,0,0,0,128,80Zm0,80a32,32,0,1,1,32-32A32,32,0,0,1,128,160Z"/></symbol>
+  <symbol id="i-image" viewBox="0 0 256 256"><path d="M208,32H48A16,16,0,0,0,32,48V208a16,16,0,0,0,16,16H208a16,16,0,0,0,16-16V48A16,16,0,0,0,208,32ZM48,48H208v77.38l-24.69-24.7a16,16,0,0,0-22.62,0L53.37,208H48ZM208,208H76l96-96,36,36v60ZM96,120A24,24,0,1,0,72,96,24,24,0,0,0,96,120Zm0-32a8,8,0,1,1-8,8A8,8,0,0,1,96,88Z"/></symbol>
   <symbol id="i-gear" viewBox="0 0 256 256"><path d="M128,80a48,48,0,1,0,48,48A48.05,48.05,0,0,0,128,80Zm0,80a32,32,0,1,1,32-32A32,32,0,0,1,128,160Zm109.94-52.79a8,8,0,0,0-3.89-5.4l-29.83-17-.12-33.62a8,8,0,0,0-2.83-6.08,111.91,111.91,0,0,0-36.72-20.67,8,8,0,0,0-6.46.59L128,41.85,97.88,25a8,8,0,0,0-6.47-.6A112.1,112.1,0,0,0,54.73,45.15a8,8,0,0,0-2.83,6.07l-.15,33.65-29.83,17a8,8,0,0,0-3.89,5.4,106.47,106.47,0,0,0,0,41.56,8,8,0,0,0,3.89,5.4l29.83,17,.12,33.62a8,8,0,0,0,2.83,6.08,111.91,111.91,0,0,0,36.72,20.67,8,8,0,0,0,6.46-.59L128,214.15,158.12,231a7.91,7.91,0,0,0,3.9,1,8.09,8.09,0,0,0,2.57-.42,112.1,112.1,0,0,0,36.68-20.73,8,8,0,0,0,2.83-6.07l.15-33.65,29.83-17a8,8,0,0,0,3.89-5.4A106.47,106.47,0,0,0,237.94,107.21Zm-15,34.91-28.57,16.25a8,8,0,0,0-3,3c-.58,1-1.19,2.06-1.81,3.06a7.94,7.94,0,0,0-1.22,4.21l-.15,32.25a95.89,95.89,0,0,1-25.37,14.3L134,199.13a8,8,0,0,0-3.91-1h-.19c-1.21,0-2.43,0-3.64,0a8.08,8.08,0,0,0-4.1,1l-28.84,16.1A96,96,0,0,1,67.88,201l-.11-32.2a8,8,0,0,0-1.22-4.22c-.62-1-1.23-2-1.8-3.06a8.09,8.09,0,0,0-3-3.06l-28.6-16.29a90.49,90.49,0,0,1,0-28.26L61.67,97.63a8,8,0,0,0,3-3c.58-1,1.19-2.06,1.81-3.06a7.94,7.94,0,0,0,1.22-4.21l.15-32.25a95.89,95.89,0,0,1,25.37-14.3L122,56.87a8,8,0,0,0,4.1,1c1.21,0,2.43,0,3.64,0a8.08,8.08,0,0,0,4.1-1l28.84-16.1A96,96,0,0,1,188.12,55l.11,32.2a8,8,0,0,0,1.22,4.22c.62,1,1.23,2,1.8,3.06a8.09,8.09,0,0,0,3,3.06l28.6,16.29A90.49,90.49,0,0,1,222.9,142.12Z"/></symbol>
   <symbol id="i-caret-right" viewBox="0 0 256 256"><path d="M181.66,133.66l-80,80a8,8,0,0,1-11.32-11.32L164.69,128,90.34,53.66a8,8,0,0,1,11.32-11.32l80,80A8,8,0,0,1,181.66,133.66Z"/></symbol>
   <symbol id="i-play" viewBox="0 0 256 256"><path d="M128,24A104,104,0,1,0,232,128,104.11,104.11,0,0,0,128,24Zm40.55,110.58-52,36A8,8,0,0,1,104,164V92a8,8,0,0,1,12.55-6.58l52,36a8,8,0,0,1,0,13.16Z"/></symbol>
@@ -710,8 +775,8 @@
     </a>
     <nav class="nav" aria-label="Sections">
       <a href="#fonctionnalites">Fonctionnalités</a>
+      <a href="#carte">Top 5</a>
       <a href="#hiatus">Hiatus</a>
-      <a href="#profil">Profil</a>
       <a href="#tarifs">Tarifs</a>
       <a href="#faq">FAQ</a>
     </nav>
@@ -808,6 +873,62 @@
             </div>
           </div>
         </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ La carte du top 5 ============ -->
+  <section class="section" id="carte" aria-labelledby="t-carte">
+    <div class="wrap card-grid">
+      <div class="story-stage" data-reveal>
+        <!--
+          LA CARTE DE PARTAGE DU TOP 5, l'objet que les publicités montreront.
+          Le même lecteur que l'écran Profil plus bas : @toi, son avatar, le Top 5
+          de la vitrine de l'onboarding (TOP5_SHOWCASE) et ses 6 214 chapitres
+          lus. Dans l'app la pastille est celle d'Avatar ; ici elle reprend
+          l'avatar du Profil d'exemple, pour qu'une page ne montre pas deux
+          visages au même pseudo. Les textes sont ceux de shareCard.* dans
+          locales/fr.json.
+        -->
+        <div class="story-box">
+          <div class="story" role="img" aria-label="Carte de partage du top 5 de @toi : numéro 1, Return of the Blossoming Blade, cinq étoiles, 174 chapitres ; puis Eleceed, Solo Leveling, Omniscient Reader et Nano Machine ; 6 214 chapitres lus. Signée Toonboxd.">
+            <div class="sc-card">
+              <div class="sc-id">
+                <img class="sc-avatar" src="/assets/img/avatar-hwasan.webp" alt="" width="36" height="36" loading="lazy">
+                <div><p class="sc-handle">@toi</p><p class="sc-label">Mon top 5 manhwa</p></div>
+              </div>
+              <div class="sc-hero">
+                <div class="sc-cover-box"><div class="sc-tilt"><span class="cov" data-serie="f5afbf55-87f8-412c-9199-78e7bcefab1a"></span></div></div>
+                <div class="sc-hero-text">
+                  <p class="sc-rank">1</p>
+                  <p class="sc-title">Return of the Blossoming Blade</p>
+                  <div class="sc-stars"><svg class="icon"><use href="#i-star"/></svg><svg class="icon"><use href="#i-star"/></svg><svg class="icon"><use href="#i-star"/></svg><svg class="icon"><use href="#i-star"/></svg><svg class="icon"><use href="#i-star"/></svg></div>
+                  <p class="sc-label sc-hero-ch">174 chapitres</p>
+                </div>
+              </div>
+              <ol class="sc-row">
+                <li class="sc-col"><span class="cov" data-serie="e776bf99-757e-4207-9297-721b3562c735"><span class="sc-badge">2</span></span><p>Eleceed</p></li>
+                <li class="sc-col sc-creux"><span class="cov" data-serie="b8b204d2-6848-4743-bc34-7fd9efbecd14"><span class="sc-badge">3</span></span><p>Solo Leveling</p></li>
+                <li class="sc-col sc-creux"><span class="cov" data-serie="aaf7cb3e-0e91-4a94-aa88-47c47ee8f514"><span class="sc-badge">4</span></span><p>Omniscient Reader</p></li>
+                <li class="sc-col"><span class="cov" data-serie="b681780e-4c80-4de3-ba83-c4229ed439c5"><span class="sc-badge">5</span></span><p>Nano Machine</p></li>
+              </ol>
+              <div class="sc-total"><b>6&#8239;214</b><span class="sc-label">chapitres lus</span></div>
+              <div class="sc-sign"><img src="/assets/img/logo-signature.png" alt="" width="13" height="22" loading="lazy"><span>Toonboxd</span></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div>
+        <span class="eyebrow" data-reveal>La carte du top 5</span>
+        <h2 class="h2" id="t-carte" data-reveal>Ton top 5, en une image.</h2>
+        <p class="lead" data-reveal style="--d:1">Ta série numéro 1 en grand, les quatre suivantes dessous, et ton total de chapitres lus. Une image au format story, faite pour être partagée.</p>
+        <ul class="facts">
+          <li data-reveal style="--d:2"><svg class="icon" aria-hidden="true"><use href="#i-star"/></svg><p>Ta note et ton chapitre <span>sur ta série numéro 1, mise en avant.</span></p></li>
+          <li data-reveal style="--d:3"><svg class="icon" aria-hidden="true"><use href="#i-note"/></svg><p>Ton propre libellé <span>à la place de « Mon top 5 manhwa », gratuitement.</span></p></li>
+          <li data-reveal style="--d:4"><svg class="icon" aria-hidden="true"><use href="#i-eye"/></svg><p>Toujours à portée, <span>depuis l’œil de ton top 5 sur ton profil.</span></p></li>
+          <li data-reveal style="--d:5"><svg class="icon" aria-hidden="true"><use href="#i-image"/></svg><p>Au format story, <span>1080 sur 1920 pixels.</span></p></li>
+        </ul>
       </div>
     </div>
   </section>
@@ -973,7 +1094,7 @@
               </div>
               <div class="pf-edit">Modifier le profil</div>
               <div class="pf-top5">
-                <div class="pf-top5-head"><b>Top 5</b><span>Modifier</span></div>
+                <div class="pf-top5-head"><b>Top 5</b><svg class="icon"><use href="#i-eye"/></svg></div>
                 <ol>
                   <li><span class="cov" data-serie="f5afbf55-87f8-412c-9199-78e7bcefab1a"><span class="pf-rank">1</span></span><p>Return of the Blossoming Blade</p></li>
                   <li><span class="cov" data-serie="e776bf99-757e-4207-9297-721b3562c735"><span class="pf-rank">2</span></span><p>Eleceed</p></li>
@@ -1126,6 +1247,10 @@
         <details class="qa">
           <summary>Comment savoir quand un manhwa en pause reprend&nbsp;?<svg class="icon" aria-hidden="true"><use href="#i-caret"/></svg></summary>
           <p>Mets-le en pause dans Toonboxd. Quand un lecteur signale sa reprise et que le signalement est validé, tous ceux qui l’avaient en pause reçoivent une notification dans les cinq minutes, et un tap ouvre sa fiche.</p>
+        </details>
+        <details class="qa">
+          <summary>Comment montrer son top 5 manhwa&nbsp;?<svg class="icon" aria-hidden="true"><use href="#i-caret"/></svg></summary>
+          <p>Compose ton top 5 dans Toonboxd&nbsp;: l’œil de ton top 5, sur ton profil, ouvre ta carte. Ta série numéro 1 en grand avec ta note et ton chapitre, les quatre suivantes dessous, ton total de chapitres lus, au format story. Le libellé «&nbsp;Mon top 5 manhwa&nbsp;» se remplace par le tien, gratuitement.</p>
         </details>
         <details class="qa">
           <summary>Toonboxd est-il gratuit&nbsp;?<svg class="icon" aria-hidden="true"><use href="#i-caret"/></svg></summary>
