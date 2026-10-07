@@ -46,7 +46,8 @@
   cookie, aucune mesure d'audience : la règle de l/, pour la même raison.
 
   CE QU'ELLE ÉCRIT, ET RIEN D'AUTRE : l'email qu'un visiteur donne dans la
-  fenêtre « Me prévenir du lancement », par la fonction inscrire_lancement
+  fenêtre « Me prévenir du lancement », et le téléphone qu'il choisit
+  (iPhone ou Android, depuis le 7 octobre 2026), par la fonction inscrire_lancement
   (bannière « les inscriptions au lancement » de toonboxd-schema.sql), avec la
   même clé anon. La table est fermée en lecture au client : la page écrit, elle
   ne relit jamais. Sans JavaScript, les boutons gardent leur lien mailto.
@@ -655,6 +656,26 @@
   /* Le rouge d'erreur de l'app (constants/Colors.tsx, status.error), hors charte comme là-bas. */
   .modal-champ[aria-invalid="true"] { border-color: #FF6B6B; }
   .modal-erreur { margin-top: 8px; color: #FF6B6B; font-size: 14px; }
+  /*
+    Les deux onglets du téléphone : des boutons radio, donc un seul choix, le
+    clavier et VoiceOver par nature. Le choix porte l'état sélectionné de la
+    charte, une teinte violette à 12 % et un filet, jamais un aplat : la seule
+    surface violette de la fenêtre reste « Me prévenir ». Aucun choix par
+    défaut, pour que la réponse soit celle de la personne.
+  */
+  .modal-tel { min-width: 0; margin: 18px 0 0; padding: 0; border: 0; }
+  .modal-tel legend { padding: 0; margin-bottom: 8px; font-size: 14px; font-weight: 600; }
+  .onglets { display: grid; grid-template-columns: 1fr 1fr; gap: 4px; padding: 4px; border-radius: 999px; background: var(--bg); box-shadow: inset 0 0 0 1px var(--border-strong); }
+  .modal-tel[aria-invalid="true"] .onglets { box-shadow: inset 0 0 0 1px #FF6B6B; }
+  .onglet { position: relative; display: block; }
+  .onglet input { position: absolute; inset: 0; width: 100%; height: 100%; margin: 0; opacity: 0; cursor: pointer; }
+  .onglet span {
+    display: grid; place-items: center; height: 40px; border-radius: 999px;
+    color: var(--muted); font-size: 15px; font-weight: 600; transition: background-color 0.2s, color 0.2s;
+  }
+  .onglet input:checked + span { background: var(--violet-tint); box-shadow: inset 0 0 0 1px rgba(124, 92, 255, 0.5); color: var(--text); }
+  .onglet input:focus-visible + span { outline: 2px solid var(--text); outline-offset: 2px; }
+  .modal-note { margin-top: 8px; color: var(--muted); font-size: 13px; line-height: 1.45; }
   .modal-envoyer { width: 100%; margin-top: 16px; }
   .modal-envoyer[disabled] { opacity: 0.6; cursor: progress; }
   .modal-aide { margin-top: 16px; color: var(--muted); font-size: 13px; line-height: 1.5; }
@@ -662,7 +683,11 @@
   /* Le vert de la charte : une confirmation au sens strict, la ligne existe en base quand la fenêtre l'affiche. */
   .modal-ok { width: 48px; height: 48px; border-radius: 999px; display: grid; place-items: center; background: var(--green-tint); color: var(--green); font-size: 24px; }
   .modal-fin { margin-top: 22px; }
-  .piege { position: absolute; left: -10000px; width: 1px; height: 1px; overflow: hidden; }
+  /*
+    Le champ piège, retiré de la vue sans décalage : un `left` à -10000 faisait
+    déborder la fenêtre, qui défilait, et posait une barre horizontale sous elle.
+  */
+  .piege { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }
   @media (prefers-reduced-motion: no-preference) { .modal[open] { animation: monte 0.35s var(--ease); } }
   @keyframes monte { from { opacity: 0; transform: translateY(12px) scale(0.98); } to { opacity: 1; transform: none; } }
 
@@ -720,11 +745,11 @@
         { "@type": "Question", "name": "Existe-t-il un webtoon tracker en français ?", "acceptedAnswer": { "@type": "Answer", "text": "Oui : Toonboxd est un webtoon tracker entièrement en français, lancé d’abord en France. Son catalogue compte près de 9 700 manhwas, manhuas et webtoons verticaux." } },
         { "@type": "Question", "name": "Comment savoir quand un manhwa en pause reprend ?", "acceptedAnswer": { "@type": "Answer", "text": "Mets-le en pause dans Toonboxd. Quand un lecteur signale sa reprise et que le signalement est validé, tous ceux qui l’avaient en pause reçoivent une notification dans les cinq minutes, et un tap ouvre sa fiche." } },
         { "@type": "Question", "name": "Comment montrer son top 5 manhwa ?", "acceptedAnswer": { "@type": "Answer", "text": "Compose ton top 5 dans Toonboxd : l’œil de ton top 5, sur ton profil, ouvre ta carte. Ta série numéro 1 en grand avec ta note et ton chapitre, les quatre suivantes dessous, ton total de chapitres lus, au format story. Le libellé « Mon top 5 manhwa » se remplace par le tien, gratuitement." } },
-        { "@type": "Question", "name": "Toonboxd est-il gratuit ?", "acceptedAnswer": { "@type": "Answer", "text": "Oui, et sans publicité. La version gratuite suit jusqu’à 30 séries en cours, sans limite pour les séries prévues, en pause, terminées ou abandonnées, avec trois listes modifiables. Toonboxd Pro coûte 17,99 € par an ou 2,99 € par mois, avec 7 jours d’essai sur les deux formules." } },
+        { "@type": "Question", "name": "Toonboxd est-il gratuit ?", "acceptedAnswer": { "@type": "Answer", "text": "Oui, et sans publicité. La version gratuite suit jusqu’à 30 séries en cours, sans limite pour les séries prévues, en pause, terminées ou abandonnées, avec trois listes modifiables. Toonboxd Pro coûte 17,99 € par an ou 2,99 € par mois, avec 7 jours d’essai sur les deux formules à un premier abonnement." } },
         { "@type": "Question", "name": "Peut-on lire des chapitres dans l’app ?", "acceptedAnswer": { "@type": "Answer", "text": "Non. Toonboxd n’héberge aucun chapitre. Le bouton « Lire sur… » de chaque fiche ouvre la plateforme officielle où lire la série." } },
         { "@type": "Question", "name": "Faut-il créer un compte ?", "acceptedAnswer": { "@type": "Answer", "text": "Non. L’app crée un compte anonyme, sans email ni mot de passe. Tu peux le lier à ton identifiant Apple pour retrouver ta bibliothèque sur un autre iPhone, et le supprimer entièrement depuis les réglages." } },
         { "@type": "Question", "name": "Les mangas japonais sont-ils au catalogue ?", "acceptedAnswer": { "@type": "Answer", "text": "Non, et c’est voulu : Toonboxd suit les manhwas, les manhuas et les webtoons. Si une série de ce genre manque, tu peux la suggérer depuis la recherche, gratuitement." } },
-        { "@type": "Question", "name": "Toonboxd existe-t-il sur Android ?", "acceptedAnswer": { "@type": "Answer", "text": "Pas pour l’instant : Toonboxd est une application iPhone, lancée d’abord en France." } },
+        { "@type": "Question", "name": "Toonboxd existe-t-il sur Android ?", "acceptedAnswer": { "@type": "Answer", "text": "Pas pour l’instant : Toonboxd est une application iPhone, lancée d’abord en France. Si tu es sur Android, dis-le en t’inscrivant au lancement sur toonboxd.app : ta réponse compte pour une version Android." } },
         { "@type": "Question", "name": "Quand sort Toonboxd ?", "acceptedAnswer": { "@type": "Answer", "text": "Toonboxd arrive bientôt sur l’App Store. Pour être prévenu du lancement, laisse ton email sur toonboxd.app : on t’écrit une seule fois, ce jour-là." } }
       ]
     }
@@ -1201,7 +1226,7 @@
           </ul>
         </div>
       </div>
-      <p class="plans-note" data-reveal>7 jours offerts sur les deux formules, avec un rappel avant la fin, annulable à tout moment. Si tu arrêtes le Pro, ta bannière reste et toutes tes listes restent visibles&nbsp;: Toonboxd ne verrouille jamais ce que tu as construit.</p>
+      <p class="plans-note" data-reveal>7 jours offerts sur les deux formules à ton premier abonnement, avec un rappel avant la fin, annulable à tout moment. Si tu arrêtes le Pro, ta bannière reste et toutes tes listes restent visibles&nbsp;: Toonboxd ne verrouille jamais ce que tu as construit.</p>
     </div>
   </section>
 
@@ -1254,7 +1279,7 @@
         </details>
         <details class="qa">
           <summary>Toonboxd est-il gratuit&nbsp;?<svg class="icon" aria-hidden="true"><use href="#i-caret"/></svg></summary>
-          <p>Oui, et sans publicité. La version gratuite suit jusqu’à 30 séries en cours, sans limite pour les séries prévues, en pause, terminées ou abandonnées, avec trois listes modifiables. Toonboxd Pro coûte 17,99&nbsp;€ par an ou 2,99&nbsp;€ par mois, avec 7 jours d’essai sur les deux formules.</p>
+          <p>Oui, et sans publicité. La version gratuite suit jusqu’à 30 séries en cours, sans limite pour les séries prévues, en pause, terminées ou abandonnées, avec trois listes modifiables. Toonboxd Pro coûte 17,99&nbsp;€ par an ou 2,99&nbsp;€ par mois, avec 7 jours d’essai sur les deux formules à un premier abonnement.</p>
         </details>
         <details class="qa">
           <summary>Peut-on lire des chapitres dans l’app&nbsp;?<svg class="icon" aria-hidden="true"><use href="#i-caret"/></svg></summary>
@@ -1270,7 +1295,7 @@
         </details>
         <details class="qa">
           <summary>Toonboxd existe-t-il sur Android&nbsp;?<svg class="icon" aria-hidden="true"><use href="#i-caret"/></svg></summary>
-          <p>Pas pour l’instant&nbsp;: Toonboxd est une application iPhone, lancée d’abord en France.</p>
+          <p>Pas pour l’instant&nbsp;: Toonboxd est une application iPhone, lancée d’abord en France. Si tu es sur Android, dis-le en <a href="mailto:contact@toonboxd.app?subject=Pr%C3%A9viens-moi%20du%20lancement%20de%20Toonboxd" data-prevenir>t’inscrivant au lancement</a>&nbsp;: ta réponse compte pour une version Android.</p>
         </details>
         <details class="qa">
           <summary>Quand sort Toonboxd&nbsp;?<svg class="icon" aria-hidden="true"><use href="#i-caret"/></svg></summary>
@@ -1328,17 +1353,25 @@
       <p class="modal-texte">Laisse ton email&nbsp;: on t’écrit une seule fois, le jour où Toonboxd arrive sur l’App Store.</p>
       <label class="modal-label" for="prevenir-email">Ton email</label>
       <input class="modal-champ" id="prevenir-email" name="email" type="email" inputmode="email" autocomplete="email" autocapitalize="off" spellcheck="false" maxlength="254" required placeholder="toi@exemple.fr" aria-describedby="prevenir-erreur prevenir-aide">
+      <fieldset class="modal-tel" id="prevenir-tel" aria-invalid="false" aria-describedby="prevenir-erreur">
+        <legend>Ton téléphone</legend>
+        <div class="onglets">
+          <label class="onglet"><input type="radio" name="plateforme" value="ios"><span>iPhone</span></label>
+          <label class="onglet"><input type="radio" name="plateforme" value="android"><span>Android</span></label>
+        </div>
+        <p class="modal-note" id="prevenir-note" aria-live="polite" hidden>Toonboxd sort d’abord sur iPhone. On te prévient quand même du lancement, et ta réponse compte pour une version Android.</p>
+      </fieldset>
       <p class="modal-erreur" id="prevenir-erreur" role="alert" hidden></p>
       <!-- Un champ piège : invisible pour une personne, rempli par les robots les plus simples. -->
       <div class="piege" aria-hidden="true"><label for="prevenir-site">Laisse ce champ vide</label><input id="prevenir-site" name="site" type="text" tabindex="-1" autocomplete="off"></div>
       <button class="btn btn-primary modal-envoyer" type="submit">Me prévenir</button>
-      <p class="modal-aide" id="prevenir-aide">Ton email est stocké à Paris et ne sert qu’à ce message, puis il est effacé. Pour le retirer avant, écris à <a href="mailto:contact@toonboxd.app">contact@toonboxd.app</a>. <a href="https://tomikz.github.io/toonboxd-legal/">Confidentialité</a></p>
+      <p class="modal-aide" id="prevenir-aide">Ton email et ton téléphone sont stockés à Paris. Ils servent au message de lancement et à savoir combien de lecteurs attendent Android, puis ils sont effacés. Pour les retirer avant, écris à <a href="mailto:contact@toonboxd.app">contact@toonboxd.app</a>. <a href="https://tomikz.github.io/toonboxd-legal/">Confidentialité</a></p>
     </div>
 
     <div data-etat="fait" hidden>
       <span class="modal-ok"><svg class="icon" aria-hidden="true"><use href="#i-check"/></svg></span>
       <h2 class="modal-titre">C’est noté.</h2>
-      <p class="modal-texte">On te prévient dès que Toonboxd sort sur l’App Store.</p>
+      <p class="modal-texte" id="prevenir-merci">On te prévient dès que Toonboxd sort sur l’App Store.</p>
       <button class="btn btn-ghost modal-fin" type="button" data-fermer>Fermer</button>
     </div>
   </form>
@@ -1482,20 +1515,41 @@
     var envoyer = formulaire.querySelector('.modal-envoyer');
     var saisie = formulaire.querySelector('[data-etat="saisie"]');
     var fait = formulaire.querySelector('[data-etat="fait"]');
+    var telephone = document.getElementById('prevenir-tel');
+    var noteAndroid = document.getElementById('prevenir-note');
+    var merci = document.getElementById('prevenir-merci');
     var FORME = /^[^@\s]+@[^@\s]+\.[^@\s]+$/;
     var ECHEC = 'L’inscription n’a pas abouti. Réessaie, ou écris à contact@toonboxd.app.';
+    var MERCI_IPHONE = 'On te prévient dès que Toonboxd sort sur l’App Store.';
+    var MERCI_ANDROID = 'On te prévient du lancement. Et ta réponse compte pour une version Android.';
 
-    var dire = function (message) {
+    /* L'erreur dit sur quoi elle porte : l'adresse, ou le choix du téléphone. */
+    var dire = function (message, cible) {
       erreur.textContent = message;
       erreur.hidden = !message;
-      champ.setAttribute('aria-invalid', message ? 'true' : 'false');
+      champ.setAttribute('aria-invalid', message && cible !== 'telephone' ? 'true' : 'false');
+      telephone.setAttribute('aria-invalid', message && cible === 'telephone' ? 'true' : 'false');
     };
-    var confirmer = function () {
+    /* Le téléphone choisi, `ios` ou `android` (les valeurs de push_tokens), ou '' tant que rien n'est choisi. */
+    var choisi = function () {
+      var coche = formulaire.querySelector('input[name="plateforme"]:checked');
+      return coche ? coche.value : '';
+    };
+    var confirmer = function (plateforme) {
+      merci.textContent = plateforme === 'android' ? MERCI_ANDROID : MERCI_IPHONE;
       formulaire.reset();
+      noteAndroid.hidden = true;
       saisie.hidden = true;
       fait.hidden = false;
       fait.querySelector('[data-fermer]').focus();
     };
+
+    formulaire.querySelectorAll('input[name="plateforme"]').forEach(function (onglet) {
+      onglet.addEventListener('change', function () {
+        noteAndroid.hidden = choisi() !== 'android';
+        if (telephone.getAttribute('aria-invalid') === 'true') dire('');
+      });
+    });
 
     document.querySelectorAll('[data-prevenir]').forEach(function (lien) {
       lien.addEventListener('click', function (e) {
@@ -1503,6 +1557,7 @@
         saisie.hidden = false;
         fait.hidden = true;
         envoyer.disabled = false;
+        noteAndroid.hidden = choisi() !== 'android';
         dire('');
         fenetre.showModal();
         champ.focus();
@@ -1518,22 +1573,28 @@
       e.preventDefault();
       var adresse = champ.value.trim().toLowerCase();
       if (adresse.length < 6 || adresse.length > 254 || !FORME.test(adresse)) {
-        dire('Cette adresse n’a pas l’air valide.');
+        dire('Cette adresse n’a pas l’air valide.', 'adresse');
         champ.focus();
         return;
       }
-      if (formulaire.elements.site.value) { confirmer(); return; }
+      var plateforme = choisi();
+      if (plateforme !== 'ios' && plateforme !== 'android') {
+        dire('Choisis ton téléphone : iPhone ou Android.', 'telephone');
+        formulaire.querySelector('input[name="plateforme"]').focus();
+        return;
+      }
+      if (formulaire.elements.site.value) { confirmer(plateforme); return; }
 
       envoyer.disabled = true;
       dire('');
       fetch(URL_BASE + '/rest/v1/rpc/inscrire_lancement', {
         method: 'POST',
         headers: { 'apikey': CLE_ANON, 'Authorization': 'Bearer ' + CLE_ANON, 'Content-Type': 'application/json' },
-        body: JSON.stringify({ adresse: adresse }),
+        body: JSON.stringify({ adresse: adresse, plateforme: plateforme }),
       }).then(function (r) {
-        if (r.ok) { confirmer(); return; }
+        if (r.ok) { confirmer(plateforme); return; }
         envoyer.disabled = false;
-        dire(r.status === 400 ? 'Cette adresse n’a pas l’air valide.' : ECHEC);
+        dire(r.status === 400 ? 'Cette adresse n’a pas l’air valide.' : ECHEC, 'adresse');
       }).catch(function () {
         envoyer.disabled = false;
         dire(ECHEC);
