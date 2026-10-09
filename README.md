@@ -70,12 +70,14 @@ cd web
 for f in $(find . -type f | sed 's|^\./||'); do
   code=$(curl -s -o /tmp/s.tmp -w '%{http_code}' "https://toonboxd.app/$f")
   if   [ "$code" != "200" ];        then echo "$f : HTTP $code"
-  elif diff -q "$f" /tmp/s.tmp >/dev/null; then echo "$f : ok"
+  elif git show "HEAD:web/$f" | cmp -s - /tmp/s.tmp; then echo "$f : ok"
   else echo "$f : ECART $(diff "$f" /tmp/s.tmp | grep -c '^[<>]') lignes"; fi
 done
 ```
 
 **Une seule exemption, et elle est nommée plutôt que silencieuse** : `CNAME` rend `404`, et c'est correct. GitHub Pages le **consomme** comme configuration du domaine au lieu de le servir. Toute autre ligne qui n'est pas `ok` est un défaut.
+
+**La source est le contenu enregistré, `git show HEAD:web/$f`, et non le fichier du dossier** (depuis le 9 octobre 2026). Sous Windows, `core.autocrlf` met des fins de ligne CRLF dans la copie de travail, et `git archive` en met autant : la boucle d'avant, qui comparait le fichier du dossier, rendait un écart sur chaque fichier texte d'une page servie juste, un octet par ligne. C'est la leçon du 1er octobre 2026 sur le clone public, portée ici sur la source ; `HEAD` doit être le commit copié.
 
 **Relevé du 5 septembre 2026** : `l/index.html` ok (15 766 octets des deux côtés), `robots.txt` ok, `CNAME` 404 attendu, et **`README.md` en écart de 60 lignes, 5 604 octets servis contre 13 262 en source**. La copie de ce fichier-ci était donc périmée de **deux** commits, et personne ne l'avait vu.
 
@@ -84,6 +86,8 @@ done
 **Relevé du 1er octobre 2026**, à la publication de la carte du top 5 (la copie du commit `b097cc0`) : la copie servie était identique, contenu enregistré contre contenu enregistré, à la source publiée la veille ; **une comparaison sur la copie de travail du clone rendait cinq faux écarts**, les fins de ligne que Git convertit sous Windows, et c'est la comparaison des contenus enregistrés (`git show`) qui tranche. Après la copie : seize fichiers `ok` octet pour octet, `CNAME` à `404` ; témoin pris sur l'`index.html` de la veille, qui rend un écart. Depuis le domaine réel, les cinq couvertures de la carte, son avatar et son logo chargés, aucune erreur.
 
 **Relevé du 7 octobre 2026**, à la publication du téléphone dans la fenêtre d'inscription, dans l'ordre que la page exige : la bannière du téléphone jouée d'abord, puis contrôlée de l'extérieur par trois appels qui n'écrivent rien (un téléphone `windows` refusé en 400, l'appel sans téléphone de la page d'avant résolu, un paramètre inconnu rendu en 404 pour témoin) ; la politique republiée ensuite et relue en ligne (« iPhone ou Android » présent, date du 7 octobre, aucun caractère banni ni entité) ; la page enfin. Avant chaque copie, les deux sens comparés sur les contenus enregistrés : aucune correction en ligne, le `README.md` de `legal/` seulement en retard. Après la copie de la page, quinze fichiers `ok` et `CNAME` à `404`, sous témoin. **Sur le domaine réel, une barre de défilement horizontale de 15 px restait sous la fenêtre** sans que rien ne déborde (`scrollWidth` égal à `clientWidth`), et disparaissait au premier recalcul : la fenêtre interdit désormais le défilement horizontal, et la page est republiée avec ce remède.
+
+**Relevé du 9 octobre 2026**, à la publication de « Android ensuite », des tarifs Pro de l'app, de la recherche, des épinglées, du cadre et de la pluie (la copie du commit `53e8c6b`) : avant chaque copie, les deux sens comparés sur les contenus enregistrés, la politique et la page servies identiques à la source d'avant (`53e8c6b~1`), donc ni correction en ligne ni copie en retard, sous deux témoins (la page de `91d3e88` et la politique neuve rendent chacune un écart). La politique publiée d'abord et relue en ligne (date du 9 octobre, « douze mois après ton inscription », aucun caractère banni), la page ensuite. Après la copie : vingt-cinq fichiers, vingt-quatre `ok` et `CNAME` à `404` ; témoin pris sur l'`index.html` de `aab7953`, qui rend un écart de 167 lignes. **La première boucle, sur un `git archive` du commit, a rendu cinq faux écarts**, les cinq fichiers texte, chacun plus long d'un octet par ligne (682 octets contre 668 pour les 14 lignes de `robots.txt`) : la même page comparée aux contenus enregistrés est `ok` partout, et la boucle ci-dessus compare désormais ceux-là. Depuis le domaine réel : `inscrire_lancement` rend toujours `400` (22023) à une adresse mal formée, sans rien écrire ; les sept images du cadre et les pétales répondent `200` en `image/webp` et se décodent ; aucune erreur dans la console. **La bannière « la durée des inscriptions au lancement » n'est pas encore jouée**, et rien n'en dépend avant le 30 septembre 2027.
 
 **Son témoin, et sans lui un `diff` vide ne prouve rien** : il pourrait venir d'une commande qui ne compare rien, d'un fichier local vide, d'une URL qui rend une 404 de GitHub. Le témoin est le défaut réel, rejoué depuis l'historique :
 
