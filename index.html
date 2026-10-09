@@ -287,7 +287,10 @@
   .island { position: absolute; top: 11px; left: 50%; width: 88px; height: 26px; margin-left: -44px; border-radius: 20px; background: #050507; }
   .status-dots { display: flex; gap: 4px; align-items: flex-end; }
   .status-dots i { display: block; width: 4px; border-radius: 1px; background: var(--text); }
-  .app-head { padding: 8px 16px 12px; }
+  .app-head { padding: 8px 16px 10px; }
+  /* components/SearchField.tsx sous le compte de Reprendre (9 octobre 2026), à l'échelle de l'écran. */
+  .app-search { display: flex; align-items: center; gap: 7px; height: 35px; margin: 0 12px 11px; padding: 0 10px; border-radius: 10px; background: var(--surface); color: var(--muted); font-size: 13px; }
+  .app-search .icon { font-size: 16px; }
   .app-title { font-weight: 800; font-size: 26px; letter-spacing: -0.02em; line-height: 1.2; }
   .app-sub { color: var(--muted); font-size: 13px; margin-top: 2px; font-variant-numeric: tabular-nums; }
   .cards { display: grid; gap: 11px; padding: 0 12px; }
@@ -343,10 +346,16 @@
   /*
     La notification arrive par-dessus l'écran Reprendre : l'app la montre aussi
     ouverte (Notif 3), et c'est le moment que la page raconte, le suivi d'abord,
-    le retour ensuite.
+    le retour ensuite. Elle repart comme une bannière d'iOS, puis revient : sans
+    ce départ, elle cacherait pour toujours l'en-tête et le champ de recherche
+    de Reprendre (9 octobre 2026). Sous « Réduire les animations », elle reste.
   */
-  .js .hero .notif { animation: arrive 0.9s var(--ease) 1.2s both; }
-  @keyframes arrive { from { opacity: 0; transform: translateY(-110%); } to { opacity: 1; transform: none; } }
+  .js .hero .notif { animation: passe 11s var(--ease) 1.2s infinite both; }
+  @keyframes passe {
+    0% { opacity: 0; transform: translateY(-110%); }
+    7%, 52% { opacity: 1; transform: none; }
+    59%, 100% { opacity: 0; transform: translateY(-110%); }
+  }
 
   /* ---------- La carte du top 5 ---------- */
   .card-grid { display: grid; gap: 40px; align-items: center; }
@@ -417,7 +426,8 @@
     .c-lib    { grid-column: 1 / 8; grid-row: 1 / 3; }
     .c-rate   { grid-column: 8 / 13; }
     .c-read   { grid-column: 8 / 13; }
-    .c-search { grid-column: 1 / 13; }
+    .c-pin    { grid-column: 1 / 7; }
+    .c-search { grid-column: 7 / 13; }
   }
 
   .shelf { margin-top: 24px; display: grid; gap: 20px; }
@@ -441,8 +451,14 @@
     background: var(--raised);
   }
 
-  .c-search { display: grid; gap: 24px; align-items: center; }
-  @media (min-width: 900px) { .c-search { grid-template-columns: 1fr 1fr; gap: 48px; padding: 36px; } }
+  .c-search { display: grid; gap: 24px; align-content: start; }
+  .pin-demo { display: grid; gap: 10px; margin-top: 22px; }
+  .pin-row { display: grid; grid-template-columns: 30px 1fr auto; align-items: center; gap: 12px; padding: 8px 12px 8px 8px; border-radius: 14px; background: var(--bg); }
+  .pin-row .cov { width: 30px; border-radius: 5px; }
+  .pin-row p { font-size: 15px; font-weight: 600; }
+  .pin-row .icon { color: var(--pin); font-size: 15px; }
+  /* La carte levée du glisser des épinglées : elle suit le doigt, détachée et un peu inclinée. */
+  .pin-row.levee { transform: translateX(10px) rotate(-1.5deg); box-shadow: 0 0 0 1px var(--border-strong), 0 16px 30px -12px rgba(0, 0, 0, 0.75); }
   .field { display: flex; align-items: center; gap: 10px; height: 52px; padding: 0 18px; border-radius: 14px; background: var(--bg); color: var(--muted); font-size: 16px; }
   .field .icon { font-size: 20px; }
   .suggest { display: inline-flex; align-items: center; gap: 8px; margin-top: 14px; font-weight: 600; font-size: 15px; }
@@ -506,6 +522,31 @@
   .pf-avatar { width: 60px; height: 60px; padding: 2px; border-radius: 999px; background: var(--bg); }
   .pf-avatar img { width: 100%; height: 100%; border-radius: 999px; object-fit: cover; }
   .pf-handle { margin-top: 10px; font-weight: 800; font-size: 20px; line-height: 1.25; letter-spacing: -0.01em; }
+
+  /*
+    Le cadre Roses (components/CadreRoses.tsx, constants/CadresGeometrie.ts),
+    sur le disque de l'avatar de 56 posé dans une boîte de 100 : la couronne de
+    feuillage au diamètre sur 0,69, cinq roses posées par angle et distance,
+    six étoiles à quatre branches, la brume et le halo lavande. Les roses
+    respirent et les étoiles s'allument, comme RosesAnimees ; sous « Réduire les
+    animations », le cadre reste immobile, comme RosesFixes.
+  */
+  .pf-identity.encadre { margin-top: -50px; }
+  .pf-cadre { position: relative; width: 100px; height: 100px; margin-bottom: -14px; cursor: pointer; }
+  .pf-cadre > * { position: absolute; }
+  .pf-cadre .pf-avatar { left: 20px; top: 20px; box-shadow: 0 -4px 8px 1px rgba(214, 205, 255, 0.5), 0 0 6px 1px rgba(222, 214, 255, 0.55); }
+  .pf-couronne { left: 9.4px; top: 9.4px; width: 81.2px; height: 81.2px; }
+  .pf-rose { height: auto; }
+  .pf-etoile { width: 6.2px; height: 6.2px; color: #F6F3FF; opacity: 0.5; filter: drop-shadow(0 0 2px rgba(222, 214, 255, 0.85)); }
+  @media (prefers-reduced-motion: no-preference) {
+    .pf-rose { animation: respire 4s ease-in-out infinite alternate; animation-delay: calc(var(--ph) * -4s); }
+    .pf-etoile { animation: scintille 3.2s ease-in-out infinite; animation-delay: calc(var(--ph) * -3.2s); }
+  }
+  @keyframes respire { from { transform: rotate(-2deg) scale(1); } to { transform: rotate(2deg) scale(1.05); } }
+  @keyframes scintille { 0%, 100% { opacity: 0.15; } 50% { opacity: 0.95; } }
+  /* La pluie de pétales (components/PluieDePetales.tsx) tombe dans l'écran, sous la barre d'onglets. */
+  .pf-pluie { position: absolute; inset: 0; overflow: hidden; pointer-events: none; }
+  .pf-pluie img { position: absolute; left: 0; top: 0; height: auto; will-change: transform, opacity; }
   .pf-title { margin-top: 2px; font-size: 12px; font-weight: 600; }
   .pf-counters { display: grid; grid-template-columns: 1fr 1fr; gap: 7px; padding: 12px 13px 0; text-align: center; }
   .pf-counters b { display: block; font-weight: 800; font-size: 20px; line-height: 1.3; color: #FFFFFF; font-variant-numeric: tabular-nums; }
@@ -760,8 +801,8 @@
         { "@type": "Question", "name": "Peut-on lire des chapitres dans l’app ?", "acceptedAnswer": { "@type": "Answer", "text": "Non. Toonboxd n’héberge aucun chapitre. Le bouton « Lire sur… » de chaque fiche ouvre la plateforme officielle où lire la série." } },
         { "@type": "Question", "name": "Faut-il créer un compte ?", "acceptedAnswer": { "@type": "Answer", "text": "Non. L’app crée un compte anonyme, sans email ni mot de passe. Tu peux le lier à ton identifiant Apple pour retrouver ta bibliothèque sur un autre iPhone, et le supprimer entièrement depuis les réglages." } },
         { "@type": "Question", "name": "Les mangas japonais sont-ils au catalogue ?", "acceptedAnswer": { "@type": "Answer", "text": "Non, et c’est voulu : Toonboxd suit les manhwas, les manhuas et les webtoons. Si une série de ce genre manque, tu peux la suggérer depuis la recherche, gratuitement." } },
-        { "@type": "Question", "name": "Toonboxd existe-t-il sur Android ?", "acceptedAnswer": { "@type": "Answer", "text": "Pas pour l’instant : Toonboxd est une application iPhone, lancée d’abord en France. Si tu es sur Android, dis-le en t’inscrivant au lancement sur toonboxd.app : ta réponse compte pour une version Android." } },
-        { "@type": "Question", "name": "Quand sort Toonboxd ?", "acceptedAnswer": { "@type": "Answer", "text": "Toonboxd arrive bientôt sur l’App Store. Pour être prévenu du lancement, laisse ton email sur toonboxd.app : on t’écrit une seule fois, ce jour-là." } }
+        { "@type": "Question", "name": "Toonboxd existe-t-il sur Android ?", "acceptedAnswer": { "@type": "Answer", "text": "Android ensuite : Toonboxd sort d’abord sur iPhone, en France, et la version Android suit. Choisis Android en t’inscrivant au lancement sur toonboxd.app : on t’écrit le jour où elle arrive." } },
+        { "@type": "Question", "name": "Quand sort Toonboxd ?", "acceptedAnswer": { "@type": "Answer", "text": "Toonboxd arrive bientôt sur l’App Store, et sur Android ensuite. Pour être prévenu, laisse ton email sur toonboxd.app et choisis ton téléphone : on t’écrit une seule fois, le jour où Toonboxd arrive dessus." } }
       ]
     }
   ]
@@ -862,6 +903,7 @@
                 <p class="app-title">Tes lectures</p>
                 <p class="app-sub">4 séries en cours</p>
               </div>
+              <div class="app-search"><svg class="icon"><use href="#i-search"/></svg>Cherche dans tes lectures</div>
               <div class="cards">
                 <div class="rc">
                   <span class="cov" data-serie="e776bf99-757e-4207-9297-721b3562c735" data-tot></span>
@@ -979,7 +1021,7 @@
         <article class="cell c-lib" data-reveal>
           <span class="tag"><svg class="icon"><use href="#i-books"/></svg>Bibliothèque</span>
           <h3 class="h3">Chaque série a son statut.</h3>
-          <p class="p">Des carrousels par statut, une grille complète, un tri et un filtre par genre.</p>
+          <p class="p">Des carrousels par statut, une grille complète, un tri, un filtre par genre, et une recherche dans toute ta bibliothèque.</p>
           <div class="chips" aria-label="Les cinq statuts">
             <span class="chip">Prévu</span><span class="chip on">En cours</span><span class="chip">En pause</span><span class="chip">Terminé</span><span class="chip">Abandonné</span>
           </div>
@@ -1016,7 +1058,18 @@
           <span class="readon" aria-hidden="true">Lire sur…<svg class="icon"><use href="#i-out"/></svg></span>
         </article>
 
-        <article class="cell c-search" data-reveal>
+        <article class="cell c-pin" data-reveal>
+          <span class="tag"><svg class="icon"><use href="#i-pin"/></svg>Reprendre</span>
+          <h3 class="h3">Tes épinglées, dans ton ordre.</h3>
+          <p class="p">Glisse tes séries épinglées pour les ranger comme tu veux, et retrouve une lecture en tapant son nom.</p>
+          <div class="pin-demo" aria-hidden="true">
+            <div class="field"><svg class="icon"><use href="#i-search"/></svg>Cherche dans tes lectures</div>
+            <div class="pin-row"><span class="cov" data-serie="e776bf99-757e-4207-9297-721b3562c735"></span><p>Eleceed</p><svg class="icon"><use href="#i-pin"/></svg></div>
+            <div class="pin-row levee"><span class="cov" data-serie="aaf7cb3e-0e91-4a94-aa88-47c47ee8f514"></span><p>Omniscient Reader</p><svg class="icon"><use href="#i-pin"/></svg></div>
+          </div>
+        </article>
+
+        <article class="cell c-search" data-reveal style="--d:1">
           <div>
             <span class="tag"><svg class="icon"><use href="#i-search"/></svg>Recherche</span>
             <h3 class="h3">Près de 9&#8239;700 séries. Il manque la tienne&nbsp;? Suggère-la.</h3>
@@ -1098,7 +1151,7 @@
   <section class="section" id="profil" aria-labelledby="t-profil">
     <div class="wrap">
       <h2 class="h2" id="t-profil" data-reveal>Ton profil, ta vitrine.</h2>
-      <p class="lead" data-reveal style="--d:1">Un top 5 que tu composes, des titres qui se débloquent en lisant, et une bannière à ton image.</p>
+      <p class="lead" data-reveal style="--d:1">Un top 5 que tu composes, des titres qui se débloquent en lisant, et un profil à ton image&nbsp;: bannière, cadre et animation.</p>
 
       <div class="profile-grid">
         <div class="stage" data-reveal>
@@ -1111,7 +1164,7 @@
             titre rare. Le Top 5 est la vitrine de l'onboarding
             (app/onboarding/top5.tsx, TOP5_SHOWCASE), dans son ordre.
           -->
-          <div class="phone" role="img" aria-label="L’écran Profil de Toonboxd : la bannière Nuit étoilée, l’avatar, @toi, le titre Bêta-testeur, 86 séries, 6 214 chapitres lus, et un top 5 : Return of the Blossoming Blade, Eleceed, Solo Leveling, Omniscient Reader, Nano Machine.">
+          <div class="phone" role="img" aria-label="L’écran Profil de Toonboxd : la bannière Nuit étoilée, l’avatar dans le cadre Roses, une pluie de pétales à l’ouverture, @toi, le titre Bêta-testeur, 86 séries, 6 214 chapitres lus, et un top 5 : Return of the Blossoming Blade, Eleceed, Solo Leveling, Omniscient Reader, Nano Machine.">
             <div class="screen">
               <div class="pf-banner">
                 <img src="/assets/img/nuit-etoile.webp" alt="" width="1536" height="512" loading="lazy">
@@ -1119,8 +1172,13 @@
                 <div class="pf-banner-body"></div>
                 <span class="pf-gear"><svg class="icon"><use href="#i-gear"/></svg></span>
               </div>
-              <div class="pf-identity">
-                <span class="pf-avatar"><img src="/assets/img/avatar-hwasan.webp" alt="" width="144" height="144" loading="lazy"></span>
+              <div class="pf-identity encadre">
+                <div class="pf-cadre" data-rejouer>
+                  <span class="pf-avatar"><img src="/assets/img/avatar-hwasan.webp" alt="" width="144" height="144" loading="lazy"></span>
+                  <img class="pf-couronne" src="/assets/img/profil/couronne-roses.webp" alt="" width="260" height="260" loading="lazy">
+                  <img class="pf-rose" src="/assets/img/profil/rose-grande.webp" alt="" style="left:20.1px;top:62.6px;width:17.9px;--ph:0" loading="lazy"><img class="pf-rose" src="/assets/img/profil/rose-moyenne.webp" alt="" style="left:42.7px;top:73.3px;width:14.6px;--ph:0.4" loading="lazy"><img class="pf-rose" src="/assets/img/profil/rose-grande.webp" alt="" style="left:62.9px;top:63.3px;width:16.2px;--ph:0.7" loading="lazy"><img class="pf-rose" src="/assets/img/profil/rose-petite.webp" alt="" style="left:72.7px;top:37.7px;width:11.4px;--ph:0.2" loading="lazy"><img class="pf-rose" src="/assets/img/profil/rose-petite.webp" alt="" style="left:18.8px;top:33.8px;width:9.7px;--ph:0.55" loading="lazy">
+                  <svg class="pf-etoile" viewBox="0 0 10 10" style="left:14.4px;top:20.9px;--ph:0"><path fill="currentColor" d="M5 0 Q5.6 4.4 10 5 Q5.6 5.6 5 10 Q4.4 5.6 0 5 Q4.4 4.4 5 0Z"/></svg><svg class="pf-etoile" viewBox="0 0 10 10" style="left:76.0px;top:16.1px;--ph:0.33"><path fill="currentColor" d="M5 0 Q5.6 4.4 10 5 Q5.6 5.6 5 10 Q4.4 5.6 0 5 Q4.4 4.4 5 0Z"/></svg><svg class="pf-etoile" viewBox="0 0 10 10" style="left:79.4px;top:76.0px;--ph:0.66"><path fill="currentColor" d="M5 0 Q5.6 4.4 10 5 Q5.6 5.6 5 10 Q4.4 5.6 0 5 Q4.4 4.4 5 0Z"/></svg><svg class="pf-etoile" viewBox="0 0 10 10" style="left:19.2px;top:79.4px;--ph:0.5"><path fill="currentColor" d="M5 0 Q5.6 4.4 10 5 Q5.6 5.6 5 10 Q4.4 5.6 0 5 Q4.4 4.4 5 0Z"/></svg><svg class="pf-etoile" viewBox="0 0 10 10" style="left:63.2px;top:30.7px;--ph:0.15"><path fill="currentColor" d="M5 0 Q5.6 4.4 10 5 Q5.6 5.6 5 10 Q4.4 5.6 0 5 Q4.4 4.4 5 0Z"/></svg><svg class="pf-etoile" viewBox="0 0 10 10" style="left:30.7px;top:25.9px;--ph:0.8"><path fill="currentColor" d="M5 0 Q5.6 4.4 10 5 Q5.6 5.6 5 10 Q4.4 5.6 0 5 Q4.4 4.4 5 0Z"/></svg>
+                </div>
                 <p class="pf-handle">@toi</p>
                 <p class="pf-title titre-beta_testeur">Bêta-testeur</p>
               </div>
@@ -1141,6 +1199,7 @@
               </div>
               <p class="pf-lists">Listes<svg class="icon"><use href="#i-caret-right"/></svg></p>
 
+              <div class="pf-pluie" data-pluie></div>
               <div class="tabbar">
                 <span><svg class="icon"><use href="#i-play"/></svg>Reprendre</span>
                 <span><svg class="icon"><use href="#i-search"/></svg>Recherche</span>
@@ -1232,12 +1291,11 @@
             <li><svg class="icon" aria-hidden="true"><use href="#i-check"/></svg>Tout ce que fait la version gratuite</li>
             <li><svg class="icon" aria-hidden="true"><use href="#i-check"/></svg>Séries en cours illimitées</li>
             <li><svg class="icon" aria-hidden="true"><use href="#i-check"/></svg>Listes illimitées</li>
-            <li><svg class="icon" aria-hidden="true"><use href="#i-check"/></svg>Statistiques de lecture</li>
-            <li><svg class="icon" aria-hidden="true"><use href="#i-check"/></svg>Les six bannières illustrées du profil</li>
+            <li><svg class="icon" aria-hidden="true"><use href="#i-check"/></svg>Bannières illustrées et animées, animations et cadres de profil</li>
           </ul>
         </div>
       </div>
-      <p class="plans-note" data-reveal>7 jours offerts sur les deux formules à ton premier abonnement, avec un rappel avant la fin, annulable à tout moment. Si tu arrêtes le Pro, ta bannière reste et toutes tes listes restent visibles&nbsp;: Toonboxd ne verrouille jamais ce que tu as construit.</p>
+      <p class="plans-note" data-reveal>7 jours offerts sur les deux formules à ton premier abonnement, annulable à tout moment. Si tu arrêtes le Pro, ta bannière reste et toutes tes listes restent visibles&nbsp;: Toonboxd ne verrouille jamais ce que tu as construit.</p>
     </div>
   </section>
 
@@ -1306,11 +1364,11 @@
         </details>
         <details class="qa">
           <summary>Toonboxd existe-t-il sur Android&nbsp;?<svg class="icon" aria-hidden="true"><use href="#i-caret"/></svg></summary>
-          <p>Pas pour l’instant&nbsp;: Toonboxd est une application iPhone, lancée d’abord en France. Si tu es sur Android, dis-le en <a href="mailto:contact@toonboxd.app?subject=Pr%C3%A9viens-moi%20du%20lancement%20de%20Toonboxd" data-prevenir>t’inscrivant au lancement</a>&nbsp;: ta réponse compte pour une version Android.</p>
+          <p>Android ensuite&nbsp;: Toonboxd sort d’abord sur iPhone, en France, et la version Android suit. Choisis Android en <a href="mailto:contact@toonboxd.app?subject=Pr%C3%A9viens-moi%20du%20lancement%20de%20Toonboxd" data-prevenir>t’inscrivant au lancement</a>&nbsp;: on t’écrit le jour où elle arrive.</p>
         </details>
         <details class="qa">
           <summary>Quand sort Toonboxd&nbsp;?<svg class="icon" aria-hidden="true"><use href="#i-caret"/></svg></summary>
-          <p>Toonboxd arrive bientôt sur l’App Store. Pour être prévenu du lancement, <a href="mailto:contact@toonboxd.app?subject=Pr%C3%A9viens-moi%20du%20lancement%20de%20Toonboxd" data-prevenir>laisse ton email</a>&nbsp;: on t’écrit une seule fois, ce jour-là.</p>
+          <p>Toonboxd arrive bientôt sur l’App Store, et sur Android ensuite. Pour être prévenu, <a href="mailto:contact@toonboxd.app?subject=Pr%C3%A9viens-moi%20du%20lancement%20de%20Toonboxd" data-prevenir>laisse ton email</a> et choisis ton téléphone&nbsp;: on t’écrit une seule fois, le jour où Toonboxd arrive dessus.</p>
         </details>
       </div>
     </div>
@@ -1327,7 +1385,7 @@
         <div class="wall-veil" aria-hidden="true"></div>
         <div class="final-in">
           <h2 class="h2" id="t-final"><span>Tous tes manhwas et webtoons.</span> <span>Un seul endroit.</span></h2>
-          <p class="lead">Toonboxd arrive bientôt sur l’App Store, en France.</p>
+          <p class="lead">Toonboxd arrive bientôt sur l’App Store, en France. Android ensuite.</p>
           <div class="hero-actions">
             <a class="btn btn-primary" href="mailto:contact@toonboxd.app?subject=Pr%C3%A9viens-moi%20du%20lancement%20de%20Toonboxd" data-prevenir>Me prévenir du lancement</a>
           </div>
@@ -1361,7 +1419,7 @@
     <div data-etat="saisie">
       <img class="modal-icone" src="/assets/img/icone-96.png" alt="" width="48" height="48">
       <h2 class="modal-titre" id="prevenir-titre">Sois prévenu du lancement</h2>
-      <p class="modal-texte">Laisse ton email&nbsp;: on t’écrit une seule fois, le jour où Toonboxd arrive sur l’App Store.</p>
+      <p class="modal-texte">Laisse ton email&nbsp;: on t’écrit une seule fois, le jour où Toonboxd arrive sur ton téléphone.</p>
       <label class="modal-label" for="prevenir-email">Ton email</label>
       <input class="modal-champ" id="prevenir-email" name="email" type="email" inputmode="email" autocomplete="email" autocapitalize="off" spellcheck="false" maxlength="254" required placeholder="toi@exemple.fr" aria-describedby="prevenir-erreur prevenir-aide">
       <fieldset class="modal-tel" id="prevenir-tel" aria-invalid="false" aria-describedby="prevenir-erreur">
@@ -1370,13 +1428,13 @@
           <label class="onglet"><input type="radio" name="plateforme" value="ios"><span>iPhone</span></label>
           <label class="onglet"><input type="radio" name="plateforme" value="android"><span>Android</span></label>
         </div>
-        <p class="modal-note" id="prevenir-note" aria-live="polite" hidden>Toonboxd sort d’abord sur iPhone. On te prévient quand même du lancement, et ta réponse compte pour une version Android.</p>
+        <p class="modal-note" id="prevenir-note" aria-live="polite" hidden>Toonboxd sort d’abord sur iPhone, Android ensuite. On t’écrit le jour où il arrive sur Android.</p>
       </fieldset>
       <p class="modal-erreur" id="prevenir-erreur" role="alert" hidden></p>
       <!-- Un champ piège : invisible pour une personne, rempli par les robots les plus simples. -->
       <div class="piege" aria-hidden="true"><label for="prevenir-site">Laisse ce champ vide</label><input id="prevenir-site" name="site" type="text" tabindex="-1" autocomplete="off"></div>
       <button class="btn btn-primary modal-envoyer" type="submit">Me prévenir</button>
-      <p class="modal-aide" id="prevenir-aide">Ton email et ton téléphone sont stockés à Paris. Ils servent au message de lancement et à savoir combien de lecteurs attendent Android, puis ils sont effacés. Pour les retirer avant, écris à <a href="mailto:contact@toonboxd.app">contact@toonboxd.app</a>. <a href="https://tomikz.github.io/toonboxd-legal/">Confidentialité</a></p>
+      <p class="modal-aide" id="prevenir-aide">Ton email et ton téléphone sont stockés à Paris et ne servent qu’à t’annoncer l’arrivée de Toonboxd sur ton téléphone. Ils sont effacés une fois ce message parti, au plus tard 12 mois après ton inscription. Pour les retirer avant, écris à <a href="mailto:contact@toonboxd.app">contact@toonboxd.app</a>. <a href="https://tomikz.github.io/toonboxd-legal/">Confidentialité</a></p>
     </div>
 
     <div data-etat="fait" hidden>
@@ -1491,6 +1549,65 @@
     });
   }
 
+  /*
+    LA PLUIE DE PÉTALES, components/PluieDePetales.tsx à l'échelle de l'écran
+    (0,8) : 28 pétales, un par colonne tirée au hasard, plus grands, plus
+    opaques et plus rapides au premier plan, qui apparaissent sur trois secondes
+    et traversent l'écran en 3,5 à 5 secondes, balancés, poussés par un vent,
+    retournés. Elle se joue quand l'écran Profil entre dans la page, comme à
+    l'ouverture du profil, et se rejoue d'un toucher sur l'avatar (« Touche ton
+    avatar pour la revoir »). Sous « Réduire les animations », elle ne se joue
+    pas, comme dans l'app.
+  */
+  var pluie = document.querySelector('[data-pluie]');
+  var pleuvoir = function () {
+    if (calme || !pluie || typeof pluie.animate !== 'function') return;
+    while (pluie.firstChild) pluie.removeChild(pluie.firstChild);
+    var L = pluie.clientWidth, H = pluie.clientHeight, N = 28, k = 0.8;
+    if (!L || !H) return;
+    var colonnes = [];
+    for (var c = 0; c < N; c++) colonnes.push(c);
+    for (var i = N - 1; i > 0; i--) { var j = Math.floor(Math.random() * (i + 1)); var x = colonnes[i]; colonnes[i] = colonnes[j]; colonnes[j] = x; }
+    var sens = Math.random() < 0.5 ? -1 : 1;
+    var entre = function (a, b, t) { return a + (b - a) * t; };
+    colonnes.forEach(function (colonne) {
+      var p = Math.pow(Math.random(), 1.3);
+      var taille = entre(24, 46, p) * k, marge = taille * 1.5;
+      var traversee = entre(5000, 3500, p) * entre(0.92, 1, Math.random());
+      var periode = entre(2.4, 1.5, p), phase = Math.random() * Math.PI * 2;
+      var x0 = (colonne + Math.random()) * (L / N) - taille / 2;
+      var amplitude = entre(8, 24, Math.random()) * k, vent = sens * entre(6, 24, Math.random()) * k;
+      var rot0 = Math.random() * 360, rot = entre(-45, 45, Math.random());
+      var ret0 = Math.random() * 360, ret = (Math.random() < 0.5 ? -1 : 1) * entre(120, 300, Math.random());
+      var bascule = entre(-25, 25, Math.random()), opacite = entre(0.6, 0.95, p);
+      var petale = document.createElement('img');
+      petale.src = '/assets/img/profil/petale-' + (1 + Math.floor(Math.random() * 5)) + '.webp';
+      petale.alt = '';
+      petale.style.width = taille.toFixed(1) + 'px';
+      var etapes = [];
+      for (var e = 0; e <= 24; e++) {
+        var t = e / 24, angle = 2 * Math.PI * (t * traversee / 1000) / periode + phase;
+        etapes.push({
+          opacity: e === 0 ? 0 : opacite,
+          transform: 'perspective(500px) translate(' + (x0 + vent * t + amplitude * Math.sin(angle)).toFixed(1) + 'px,' + (-marge + t * (H + 2 * marge)).toFixed(1) + 'px)'
+            + ' rotateZ(' + (rot0 + rot * t + 18 * Math.cos(angle)).toFixed(1) + 'deg)'
+            + ' rotateY(' + (ret0 + ret * t).toFixed(1) + 'deg) rotateX(' + (bascule * Math.sin(angle)).toFixed(1) + 'deg)',
+        });
+      }
+      pluie.appendChild(petale);
+      var vol = petale.animate(etapes, { duration: traversee, delay: Math.random() * 3000, easing: 'linear', fill: 'both' });
+      vol.onfinish = function () { if (petale.parentNode) petale.parentNode.removeChild(petale); };
+    });
+  };
+  if (pluie && 'IntersectionObserver' in window) {
+    var vue = new IntersectionObserver(function (entrees) {
+      if (entrees.some(function (e) { return e.isIntersecting; })) { pleuvoir(); vue.disconnect(); }
+    }, { threshold: 0.5 });
+    vue.observe(pluie);
+  }
+  var rejouer = document.querySelector('[data-rejouer]');
+  if (rejouer) rejouer.addEventListener('click', pleuvoir);
+
   /* Les -1 et +1 de Reprendre : ils bougent le numéro, et rien d'autre ne bouge. */
   document.querySelectorAll('[data-pas]').forEach(function (bouton) {
     bouton.addEventListener('click', function () {
@@ -1532,7 +1649,7 @@
     var FORME = /^[^@\s]+@[^@\s]+\.[^@\s]+$/;
     var ECHEC = 'L’inscription n’a pas abouti. Réessaie, ou écris à contact@toonboxd.app.';
     var MERCI_IPHONE = 'On te prévient dès que Toonboxd sort sur l’App Store.';
-    var MERCI_ANDROID = 'On te prévient du lancement. Et ta réponse compte pour une version Android.';
+    var MERCI_ANDROID = 'On te prévient le jour où Toonboxd arrive sur Android.';
 
     /* L'erreur dit sur quoi elle porte : l'adresse, ou le choix du téléphone. */
     var dire = function (message, cible) {
