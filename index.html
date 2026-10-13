@@ -801,8 +801,8 @@
         { "@type": "Question", "name": "Peut-on lire des chapitres dans l’app ?", "acceptedAnswer": { "@type": "Answer", "text": "Non. Toonboxd n’héberge aucun chapitre. Le bouton « Lire sur… » de chaque fiche ouvre la plateforme officielle où lire la série." } },
         { "@type": "Question", "name": "Faut-il créer un compte ?", "acceptedAnswer": { "@type": "Answer", "text": "Non. L’app crée un compte anonyme, sans email ni mot de passe. Tu peux le lier à ton identifiant Apple pour retrouver ta bibliothèque sur un autre iPhone, et le supprimer entièrement depuis les réglages." } },
         { "@type": "Question", "name": "Les mangas japonais sont-ils au catalogue ?", "acceptedAnswer": { "@type": "Answer", "text": "Non, et c’est voulu : Toonboxd suit les manhwas, les manhuas et les webtoons. Si une série de ce genre manque, tu peux la suggérer depuis la recherche, gratuitement." } },
-        { "@type": "Question", "name": "Toonboxd existe-t-il sur Android ?", "acceptedAnswer": { "@type": "Answer", "text": "Android ensuite : Toonboxd sort d’abord sur iPhone, en France, et la version Android suit. Choisis Android en t’inscrivant au lancement sur toonboxd.app : on t’écrit le jour où elle arrive." } },
-        { "@type": "Question", "name": "Quand sort Toonboxd ?", "acceptedAnswer": { "@type": "Answer", "text": "Toonboxd arrive bientôt sur l’App Store, et sur Android ensuite. Pour être prévenu, laisse ton email sur toonboxd.app et choisis ton téléphone : on t’écrit une seule fois, le jour où Toonboxd arrive dessus." } }
+        { "@type": "Question", "name": "Toonboxd existe-t-il sur Android ?", "acceptedAnswer": { "@type": "Answer", "text": "Android ensuite : Toonboxd sort d’abord sur iPhone, en France, et la version Android suit. Choisis Android en t’inscrivant au lancement sur toonboxd.app : on t’écrit pour la bêta, puis le jour où elle arrive sur ton téléphone." } },
+        { "@type": "Question", "name": "Quand sort Toonboxd ?", "acceptedAnswer": { "@type": "Answer", "text": "Toonboxd arrive bientôt sur l’App Store, et sur Android ensuite. Pour être prévenu, laisse ton email sur toonboxd.app et choisis ton téléphone : on t’écrit pour la bêta, puis le jour où Toonboxd arrive sur ton téléphone. Rien d’autre." } }
       ]
     }
   ]
@@ -1364,11 +1364,11 @@
         </details>
         <details class="qa">
           <summary>Toonboxd existe-t-il sur Android&nbsp;?<svg class="icon" aria-hidden="true"><use href="#i-caret"/></svg></summary>
-          <p>Android ensuite&nbsp;: Toonboxd sort d’abord sur iPhone, en France, et la version Android suit. Choisis Android en <a href="mailto:contact@toonboxd.app?subject=Pr%C3%A9viens-moi%20du%20lancement%20de%20Toonboxd" data-prevenir>t’inscrivant au lancement</a>&nbsp;: on t’écrit le jour où elle arrive.</p>
+          <p>Android ensuite&nbsp;: Toonboxd sort d’abord sur iPhone, en France, et la version Android suit. Choisis Android en <a href="mailto:contact@toonboxd.app?subject=Pr%C3%A9viens-moi%20du%20lancement%20de%20Toonboxd" data-prevenir>t’inscrivant au lancement</a>&nbsp;: on t’écrit pour la bêta, puis le jour où elle arrive sur ton téléphone.</p>
         </details>
         <details class="qa">
           <summary>Quand sort Toonboxd&nbsp;?<svg class="icon" aria-hidden="true"><use href="#i-caret"/></svg></summary>
-          <p>Toonboxd arrive bientôt sur l’App Store, et sur Android ensuite. Pour être prévenu, <a href="mailto:contact@toonboxd.app?subject=Pr%C3%A9viens-moi%20du%20lancement%20de%20Toonboxd" data-prevenir>laisse ton email</a> et choisis ton téléphone&nbsp;: on t’écrit une seule fois, le jour où Toonboxd arrive dessus.</p>
+          <p>Toonboxd arrive bientôt sur l’App Store, et sur Android ensuite. Pour être prévenu, <a href="mailto:contact@toonboxd.app?subject=Pr%C3%A9viens-moi%20du%20lancement%20de%20Toonboxd" data-prevenir>laisse ton email</a> et choisis ton téléphone&nbsp;: on t’écrit pour la bêta, puis le jour où Toonboxd arrive sur ton téléphone. Rien d’autre.</p>
         </details>
       </div>
     </div>
@@ -1419,7 +1419,7 @@
     <div data-etat="saisie">
       <img class="modal-icone" src="/assets/img/icone-96.png" alt="" width="48" height="48">
       <h2 class="modal-titre" id="prevenir-titre">Sois prévenu du lancement</h2>
-      <p class="modal-texte">Laisse ton email&nbsp;: on t’écrit une seule fois, le jour où Toonboxd arrive sur ton téléphone.</p>
+      <p class="modal-texte">Laisse ton email&nbsp;: on t’écrit pour la bêta, puis le jour où Toonboxd arrive sur ton téléphone. Rien d’autre.</p>
       <label class="modal-label" for="prevenir-email">Ton email</label>
       <input class="modal-champ" id="prevenir-email" name="email" type="email" inputmode="email" autocomplete="email" autocapitalize="off" spellcheck="false" maxlength="254" required placeholder="toi@exemple.fr" aria-describedby="prevenir-erreur prevenir-aide">
       <fieldset class="modal-tel" id="prevenir-tel" aria-invalid="false" aria-describedby="prevenir-erreur">
@@ -1428,19 +1428,19 @@
           <label class="onglet"><input type="radio" name="plateforme" value="ios"><span>iPhone</span></label>
           <label class="onglet"><input type="radio" name="plateforme" value="android"><span>Android</span></label>
         </div>
-        <p class="modal-note" id="prevenir-note" aria-live="polite" hidden>Toonboxd sort d’abord sur iPhone, Android ensuite. On t’écrit le jour où il arrive sur Android.</p>
+        <p class="modal-note" id="prevenir-note" aria-live="polite" hidden>Toonboxd sort d’abord sur iPhone, Android ensuite&nbsp;: pour toi, le lancement, c’est le jour où il arrive sur Android.</p>
       </fieldset>
       <p class="modal-erreur" id="prevenir-erreur" role="alert" hidden></p>
       <!-- Un champ piège : invisible pour une personne, rempli par les robots les plus simples. -->
       <div class="piege" aria-hidden="true"><label for="prevenir-site">Laisse ce champ vide</label><input id="prevenir-site" name="site" type="text" tabindex="-1" autocomplete="off"></div>
       <button class="btn btn-primary modal-envoyer" type="submit">Me prévenir</button>
-      <p class="modal-aide" id="prevenir-aide">Ton email et ton téléphone sont stockés à Paris et ne servent qu’à t’annoncer l’arrivée de Toonboxd sur ton téléphone. Ils sont effacés une fois ce message parti, au plus tard 12 mois après ton inscription. Pour les retirer avant, écris à <a href="mailto:contact@toonboxd.app">contact@toonboxd.app</a>. <a href="https://tomikz.github.io/toonboxd-legal/">Confidentialité</a></p>
+      <p class="modal-aide" id="prevenir-aide">Ton email et ton téléphone sont stockés à Paris et ne servent qu’à ces deux messages&nbsp;: la bêta, puis l’arrivée de Toonboxd sur ton téléphone. Ils sont effacés une fois le second parti, au plus tard 12 mois après ton inscription. Pour les retirer avant, écris à <a href="mailto:contact@toonboxd.app">contact@toonboxd.app</a>. <a href="https://tomikz.github.io/toonboxd-legal/">Confidentialité</a></p>
     </div>
 
     <div data-etat="fait" hidden>
       <span class="modal-ok"><svg class="icon" aria-hidden="true"><use href="#i-check"/></svg></span>
       <h2 class="modal-titre">C’est noté.</h2>
-      <p class="modal-texte" id="prevenir-merci">On te prévient dès que Toonboxd sort sur l’App Store.</p>
+      <p class="modal-texte" id="prevenir-merci">On t’écrit pour la bêta, puis le jour où Toonboxd arrive sur l’App Store.</p>
       <button class="btn btn-ghost modal-fin" type="button" data-fermer>Fermer</button>
     </div>
   </form>
@@ -1648,8 +1648,8 @@
     var merci = document.getElementById('prevenir-merci');
     var FORME = /^[^@\s]+@[^@\s]+\.[^@\s]+$/;
     var ECHEC = 'L’inscription n’a pas abouti. Réessaie, ou écris à contact@toonboxd.app.';
-    var MERCI_IPHONE = 'On te prévient dès que Toonboxd sort sur l’App Store.';
-    var MERCI_ANDROID = 'On te prévient le jour où Toonboxd arrive sur Android.';
+    var MERCI_IPHONE = 'On t’écrit pour la bêta, puis le jour où Toonboxd arrive sur l’App Store.';
+    var MERCI_ANDROID = 'On t’écrit pour la bêta, puis le jour où Toonboxd arrive sur Android.';
 
     /* L'erreur dit sur quoi elle porte : l'adresse, ou le choix du téléphone. */
     var dire = function (message, cible) {
