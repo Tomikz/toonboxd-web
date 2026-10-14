@@ -106,6 +106,8 @@
     overflow: hidden;
   }
   .message { font-size: 15px; color: var(--text-muted); margin: 48px 0; text-align: center; }
+  .signaler { margin: 32px 0 0; font-size: 13px; color: var(--text-muted); }
+  .signaler a { color: var(--text-muted); text-decoration: underline; }
   .pied {
     margin-top: 48px; padding-top: 20px; border-top: 1px solid var(--border);
     font-size: 13px; line-height: 1.6; color: var(--text-muted);
@@ -221,7 +223,7 @@ function message(phrase) {
   contenu.appendChild(element('p', 'message', phrase));
 }
 
-function rendre(liste) {
+function rendre(liste, code) {
   const series = Array.isArray(liste.series) ? liste.series : [];
   vider(contenu);
 
@@ -305,6 +307,37 @@ function rendre(liste) {
     contenu.appendChild(grille);
   }
 
+  /*
+    SIGNALER CETTE LISTE (dette 42, 14 octobre 2026 ; guideline 1.2 d'Apple, un
+    contenu écrit par un lecteur et lisible par d'autres doit pouvoir se
+    signaler). Un lien mailto et rien d'autre : pas de formulaire, pas de
+    requête, donc cette page ne collecte toujours rien, et le refus de toute
+    mesure ci-dessus tient. C'est la messagerie de la personne qui écrit, si
+    elle choisit d'envoyer.
+
+    LE CODE VA DANS LE COURRIEL, ET CE N'EST PAS UNE FUITE DU FRAGMENT : il est
+    la clé que l'exploitant cherche (toonboxd-scripts, requetes/moderation.sql,
+    section 1), il est déjà dans l'adresse que la personne a sous les yeux, et
+    il ne part que vers nous, par son geste. Il a passé FORMAT dans charger(),
+    donc il ne porte que des minuscules et des chiffres.
+
+    SEULEMENT SUR UNE LISTE RENDUE : un refus ne montre rien de ce qu'un lecteur
+    a écrit, donc il n'y a rien à signaler. Les sauts de ligne sont en CRLF,
+    la forme de la RFC 6068 pour le corps d'un mailto.
+  */
+  const signaler = element('p', 'signaler');
+  const lien = element('a', null, 'Signaler cette liste');
+  lien.setAttribute(
+    'href',
+    'mailto:contact@toonboxd.app'
+      + '?subject=' + encodeURIComponent('Signalement de la liste ' + code)
+      + '&body=' + encodeURIComponent(
+        'Lien de la liste : https://toonboxd.app/l/#' + code + '\r\n\r\nCe qui pose problème :\r\n'
+      )
+  );
+  signaler.appendChild(lien);
+  contenu.appendChild(signaler);
+
   document.title = liste.titre + ' - Toonboxd';
 }
 
@@ -351,7 +384,7 @@ async function charger() {
       return;
     }
 
-    rendre(lignes[0]);
+    rendre(lignes[0], code);
   } catch (erreur) {
     message("Cette page n'a pas pu se charger. Réessaie.");
   }
