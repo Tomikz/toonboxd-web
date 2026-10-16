@@ -6,6 +6,9 @@
 <title>Toonboxd : manhwa tracker et webtoon tracker en français</title>
 <meta name="description" content="Toonboxd, le manhwa tracker et webtoon tracker sur iPhone : suis tes séries au chapitre près et reçois une alerte quand un manhwa en pause reprend. Gratuit, sans pub.">
 <link rel="canonical" href="https://toonboxd.app/">
+<link rel="alternate" hreflang="fr" href="https://toonboxd.app/">
+<link rel="alternate" hreflang="en" href="https://toonboxd.app/en/">
+<link rel="alternate" hreflang="x-default" href="https://toonboxd.app/en/">
 <meta name="robots" content="index, follow">
 <!-- La preuve de propriété du domaine pour Google Search Console (8 octobre 2026). Elle ne charge rien et ne mesure rien ; la retirer fait perdre la vérification. -->
 <meta name="google-site-verification" content="EIDmjmWZDZBtjkp7Spos4tkNtaNP3XLJbcdw7QHOWoU" />
@@ -15,6 +18,7 @@
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="Toonboxd">
 <meta property="og:locale" content="fr_FR">
+<meta property="og:locale:alternate" content="en_US">
 <meta property="og:url" content="https://toonboxd.app/">
 <meta property="og:title" content="Toonboxd : manhwa tracker et webtoon tracker en français">
 <meta property="og:description" content="Suis tes manhwas et webtoons au chapitre près, et sache quand une série en pause reprend.">
@@ -66,6 +70,16 @@
   de supabase/functions/envoyer-notifications/chaines.ts, le reste de
   locales/fr.json. Une illustration qui ressemble à un objet de l'app rend son
   texte, sinon elle promet autre chose.
+
+  SA JUMELLE ANGLAISE, en/index.html (16 octobre 2026), SE GÉNÈRE DEPUIS CE
+  FICHIER et ne s'édite jamais à la main : _outils/accueil-en.py y remplace
+  chaque texte par son anglais (le lexique de DECISIONS.md §5 et
+  locales/en.json du dépôt de l'app), donc les balises, les classes, le style
+  et le script restent ceux d'ici par construction. Un texte changé ici fait
+  échouer le script tant que sa traduction n'a pas suivi. Les deux pages se
+  désignent par hreflang, x-default vers l'anglaise, et chacune propose
+  l'autre langue sans jamais y renvoyer d'office (docs/PLAN-ANGLAIS.md du dépôt
+  de l'app, §2 point 10).
 -->
 
 <style>
@@ -150,6 +164,10 @@
     font-weight: 600; text-decoration: none;
   }
   .skip:focus { top: 12px; }
+  /* L'invitation à lire l'autre langue : montrée par le script, jamais une redirection. */
+  .autre-langue { margin: 0; padding: 10px var(--gutter); background: var(--surface); border-bottom: 1px solid var(--border); text-align: center; font-size: 15px; }
+  .autre-langue a { display: inline-flex; align-items: center; gap: 8px; font-weight: 600; text-decoration: none; }
+  .autre-langue .icon { font-size: 16px; }
   :focus-visible { outline: 2px solid var(--text); outline-offset: 3px; border-radius: 6px; }
 
   /*
@@ -208,7 +226,9 @@
   .nav { display: none; gap: 26px; margin-left: 12px; }
   .nav a { text-decoration: none; color: var(--muted); font-size: 15px; font-weight: 600; transition: color 0.2s; }
   .nav a:hover { color: var(--text); }
-  .top .btn-ghost { margin-left: auto; }
+  .langue { margin-left: auto; color: var(--muted); font-size: 15px; font-weight: 600; text-decoration: none; transition: color 0.2s; }
+  .langue:hover { color: var(--text); }
+  .top .btn-ghost { margin-left: 0; }
   @media (min-width: 920px) { .nav { display: flex; } }
   @media (max-width: 559px) { .top .btn-ghost { display: none; } }
 
@@ -772,7 +792,7 @@
       "@id": "https://toonboxd.app/#site",
       "url": "https://toonboxd.app/",
       "name": "Toonboxd",
-      "inLanguage": "fr-FR",
+      "inLanguage": ["fr", "en"],
       "publisher": { "@id": "https://toonboxd.app/#organisation" }
     },
     {
@@ -782,7 +802,7 @@
       "alternateName": ["Toonboxd, manhwa tracker", "Toonboxd, webtoon tracker"],
       "operatingSystem": "iOS",
       "applicationCategory": "BookApplication",
-      "inLanguage": "fr",
+      "inLanguage": ["fr", "en"],
       "url": "https://toonboxd.app/",
       "description": "Manhwa tracker et webtoon tracker sur iPhone, en français : progression chapitre par chapitre, note de reprise, et une notification quand une série en pause reprend.",
       "offers": { "@type": "Offer", "price": "0", "priceCurrency": "EUR" },
@@ -857,9 +877,11 @@
       <a href="#tarifs">Tarifs</a>
       <a href="#faq">FAQ</a>
     </nav>
+    <a class="langue" href="/en/" hreflang="en" lang="en">English</a>
     <a class="btn btn-ghost" href="mailto:contact@toonboxd.app?subject=Pr%C3%A9viens-moi%20du%20lancement%20de%20Toonboxd" data-prevenir>Me prévenir du lancement</a>
   </div>
 </header>
+<p class="autre-langue" data-autre-langue="en" hidden><a href="/en/" hreflang="en" lang="en">Read in English<svg class="icon" aria-hidden="true"><use href="#i-arrow"/></svg></a></p>
 
 <main id="contenu">
 
@@ -1459,6 +1481,25 @@
   racine.classList.add('js');
 
   var calme = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  /*
+    L'AUTRE LANGUE, PROPOSÉE ET JAMAIS IMPOSÉE. La langue du navigateur se lit
+    par la règle de l'app (appLocale) : la première de ses langues préférées que
+    le site sait servir, et l'anglais si aucune ne l'est. Quand ce n'est pas la
+    langue de la page, l'invitation s'affiche ; aucune redirection, que Google
+    déconseille selon la langue, et qui retirerait au lecteur la page qu'il a
+    demandée.
+  */
+  var invite = document.querySelector('[data-autre-langue]');
+  if (invite) {
+    var preferees = navigator.languages && navigator.languages.length ? navigator.languages : [navigator.language || ''];
+    var servie = 'en';
+    for (var n = 0; n < preferees.length; n++) {
+      var code = String(preferees[n]).toLowerCase().slice(0, 2);
+      if (code === 'fr' || code === 'en') { servie = code; break; }
+    }
+    if (servie === invite.getAttribute('data-autre-langue')) invite.hidden = false;
+  }
   var cibles = document.querySelectorAll('[data-reveal]');
 
   if (calme || !('IntersectionObserver' in window)) {

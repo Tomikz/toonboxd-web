@@ -1,8 +1,8 @@
 # Publier le site de `toonboxd.app`
 
-Ce dossier est la **source** des pages web du produit. Il se copie tel quel dans un dépôt public séparé, servi par GitHub Pages sur le domaine apex `toonboxd.app`. Ouvert le 4 septembre 2026 avec l'étape 7.6, le partage des listes.
+**Ce dépôt, `Tomikz/toonboxd-web`, est la source du site depuis le 16 octobre 2026** (décision de l'utilisateur ; `DECISIONS.md` §8 bis du dépôt de l'app, « Le site hors du dépôt »). Il est servi tel quel par GitHub Pages sur le domaine apex `toonboxd.app`. Jusque-là, il était la copie de `web/` du dépôt de l'app, ouvert le 4 septembre 2026 avec l'étape 7.6, le partage des listes ; `web/` reste figé à `963bcd4` et plus rien ne s'y écrit. **Ce qui vient encore du dépôt de l'app** : les deux politiques, dont la source reste `legal/`, et ce que l'app décide (le lexique, les libellés, les seuils, les couleurs), qu'elle relaie (`docs/PLAN-ANGLAIS.md`, commit 7). Ce fichier garde son histoire : là où il dit `web/`, il parle de ce qui est désormais ici.
 
-Il porte deux pages. `l/index.html`, la consultation publique d'une liste, depuis le 4 septembre 2026 ; et depuis le 30 septembre 2026 `index.html`, la page d'accueil du domaine, avec ce qu'elle charge (`assets/fonts/`, `assets/img/` : l'icône, la bannière Nuit étoilée, l'avatar du Profil d'exemple et le logo de la signature de la carte, et depuis le 9 octobre 2026 `assets/img/profil/`, le cadre Roses et les pétales de son animation ; `favicon.png`, `apple-touch-icon.png`, `og.png`) et ce qui la fait trouver (`sitemap.xml`, et `robots.txt`, qui n'interdit plus que `/l/`). **La politique de confidentialité l'a rejoint le 16 octobre 2026**, à `/confidentialite/` en français et `/privacy/` en anglais (section suivante), deux mots que `constants/Handle.ts` réserve comme pseudos ; un domaine se sert d'un seul dépôt.
+Il porte deux pages. `l/index.html`, la consultation publique d'une liste, depuis le 4 septembre 2026 ; et depuis le 30 septembre 2026 `index.html`, la page d'accueil du domaine, avec ce qu'elle charge (`assets/fonts/`, `assets/img/` : l'icône, la bannière Nuit étoilée, l'avatar du Profil d'exemple et le logo de la signature de la carte, et depuis le 9 octobre 2026 `assets/img/profil/`, le cadre Roses et les pétales de son animation ; `favicon.png`, `apple-touch-icon.png`, `og.png`) et ce qui la fait trouver (`sitemap.xml`, et `robots.txt`, qui n'interdit plus que `/l/`). **La politique de confidentialité l'a rejoint le 16 octobre 2026**, à `/confidentialite/` en français et `/privacy/` en anglais (section suivante), deux mots que `constants/Handle.ts` réserve comme pseudos ; un domaine se sert d'un seul dépôt. **Et depuis le même jour, l'anglais** : `en/index.html`, la page d'accueil anglaise, générée depuis la française, son image de partage `og-en.png`, et `_outils/`, ce qui la génère et la contrôle, que Jekyll ne publie pas (section « La page anglaise »).
 
 **Le sens est source vers copie, et il n'y en a qu'un.** Une correction faite directement dans le dépôt public se transcrit ici **avant** tout autre changement, sinon la source ment et la recopie suivante écrase la correction. C'est la règle de `legal/README.md`, née d'une divergence réelle le 3 septembre 2026, et elle vaut d'autant plus ici que la page porte des valeurs substituées.
 
@@ -10,9 +10,25 @@ Il porte deux pages. `l/index.html`, la consultation publique d'une liste, depui
 
 **La parade est une comparaison et non une discipline, et c'est ce qui la rend meilleure que la règle qu'elle complète.** Une discipline demande de la vigilance et **échoue en silence quand elle manque** ; le contrôle de fraîcheur ci-dessous ne raisonne pas sur qui a écrit en dernier, donc **il ne peut pas se tromper de sens** et il est indifférent à celui du défaut. La discipline est reconduite, la comparaison est ce qui la garde honnête.
 
+**Depuis le 16 octobre 2026, le dépôt public EST la source** : il n'y a plus de copie à transcrire, et le contrôle de fraîcheur mesure ce que Pages sert contre ce que ce dépôt porte. La règle du sens unique vaut encore pour les deux politiques, dont la source est `legal/` du dépôt de l'app : une correction ne se fait jamais ici, elle se fait là-bas et se recopie.
+
 ## Les deux politiques de confidentialité, seul contenu que Jekyll rend
 
 **Leur source n'est pas ce dossier, c'est `legal/`** (`legal/README.md`, Publication) : `legal/index.md` se recopie tel quel en `confidentialite/index.md` et `legal/en/index.md` en `privacy/index.md`, **directement dans le dépôt public**, jamais ici, pour qu'une politique n'ait qu'une source dans le dépôt de l'app. Ce dossier porte ce qui les met en page : `_config.yml`, qui donne aux deux dossiers le gabarit et la langue, et `_layouts/politique.html`, le gabarit, aux couleurs et à la police de la page d'accueil, avec le lien vers l'autre langue et les `hreflang` des deux. **Le gabarit ne charge rien d'ailleurs et n'a aucun script** : la politique dit que le site ne dépose aucun cookie et ne mesure rien, et ces deux pages en font partie. Tout le reste de ce dossier n'a pas de front matter et sort de Jekyll octet pour octet, comme avant.
+
+## La page anglaise, sa jumelle générée, et la page de liste dans la langue du lecteur
+
+**Depuis le 16 octobre 2026**, avec les règles du §2 point 10 de `docs/PLAN-ANGLAIS.md` (dépôt de l'app) : la 1.0 sort en France et dans six pays anglophones.
+
+**`en/index.html` ne s'édite jamais à la main : `_outils/accueil-en.py` la génère depuis `index.html`.** Le script remplace chaque texte français par son anglais, une table de quelque deux cents remplacements dont chacun dit combien de fois il doit s'appliquer ; un texte changé dans la page française sans que sa traduction suive arrête le script. Les balises, les classes, le style et le script de la page restent donc ceux de la française par construction, et trois contrôles le vérifient sur la page produite : **les jumeaux** (la suite des balises et de leurs classes est la même des deux côtés), **le reste de français** (aucun texte visible, attribut lu, valeur des données structurées ni phrase du script, hors des deux libellés qui mènent au français) et **les deux caractères bannis**. `--temoins` forge un défaut par contrôle et vérifie que chacun tombe. **Les mots sont ceux de l'app** : le lexique et la forme de `DECISIONS.md` §5 (« L'anglais : le lexique et la forme »), et toute chaîne qui recopie un écran vient de `locales/en.json` (Currently Reading, Search what you’re reading, Plan to Read, On Hold, la notification « Nano Machine is back », les six titres…). Les noms des séries affichées sont leur `titre` du catalogue, identiques dans les deux langues pour celles de la page.
+
+**Ce que la page anglaise ne fait pas** : afficher un montant (six devises ; la section des tarifs dit « The App Store shows the price in your currency. », et le JSON-LD garde seulement le prix nul du téléchargement) ; rediriger qui que ce soit. **Les deux pages se désignent** par `hreflang` (`fr`, `en`, et `x-default` vers l'anglaise), portent dans l'en-tête un lien vers l'autre langue (« English », « Français »), et une invitation (« Read in English », « Lire en français ») que le script ne montre que si la langue du navigateur n'est pas celle de la page, par la règle de l'app : la première des langues préférées que le site sait servir, l'anglais si aucune ne l'est. **L'inscription reste la même** : la même fonction, les mêmes champs, sans colonne de langue, le courriel de lancement devant être bilingue.
+
+**`og-en.png`** se rend depuis `_outils/og-en.html` par `_outils/og.py` (Playwright, avec Edge déjà installé), sur le modèle de `og.png` : l'accroche anglaise et la notification de `en.json`.
+
+**La page de liste suit la langue du navigateur**, par la même règle, un texte par langue posé par `textContent` : le compte, les messages de refus, le lien « Report This List » et son courriel, le pied, et les six titres (`TITRE_LIBELLE_EN`, recopiés de `en.json`, sous le contrôle croisé). Le titre d'une série suit `utils/serieAffichee.ts` : l'alias français en français, le `titre` du catalogue en anglais. Le titre et la description d'une liste, écrits par son auteur, ne se traduisent pas. **Une conséquence à porter côté app** : la politique anglaise cite le lien de signalement en français (« Signaler cette liste »), et un navigateur anglais lit désormais « Report This List ».
+
+**Relevé du 16 octobre 2026, en local** (Edge piloté par Playwright, quatre langues de navigateur : `fr-FR`, `en-US`, `es-ES`, et `es-ES` puis `fr`) : l'invitation de chaque page d'accueil paraît exactement quand la langue servie n'est pas la sienne, et la page de liste, sur une réponse simulée de `liste_publique` (aucune requête vers la base), rend sa langue, son titre d'auteur (« Finisseur » ou « Completionist »), son compte, l'alias français ou le titre selon la langue, son lien et son sujet de courriel ; seize contrôles conformes. **Témoin** : le même script contre le site servi d'avant rend quatorze échecs. Aucun débordement horizontal à 1280 et à 375 px.
 
 ## Ce que la page contient, et pourquoi ce n'est pas une variable d'environnement
 
@@ -44,7 +60,7 @@ Il porte deux pages. `l/index.html`, la consultation publique d'une liste, depui
 
 ## Publication
 
-1. Un dépôt public, le **contenu** de ce dossier à sa racine (`index.html`, `assets/`, `l/`, `favicon.png`, `apple-touch-icon.png`, `og.png`, `robots.txt`, `sitemap.xml`, `CNAME`, `_config.yml`, `_layouts/`, et ce `README.md`), **plus les deux politiques venues de `legal/`** : `confidentialite/index.md` et `privacy/index.md`.
+1. Ce dépôt public, servi tel quel depuis sa racine (`index.html`, `en/`, `assets/`, `l/`, `favicon.png`, `apple-touch-icon.png`, `og.png`, `og-en.png`, `robots.txt`, `sitemap.xml`, `CNAME`, `_config.yml`, `_layouts/`, et ce `README.md`), **plus les deux politiques venues de `legal/` du dépôt de l'app** : `confidentialite/index.md` et `privacy/index.md`. `_outils/` n'est pas publié, Jekyll écartant les dossiers dont le nom commence par `_`. **Avant chaque commit qui touche `index.html`**, `py -3 _outils/accueil-en.py` régénère la jumelle, dans le même commit.
 2. Settings, Pages, source « Deploy from a branch », branche `main`, dossier `/ (root)`.
 3. Chez OVH, les quatre `A` de l'apex vers `185.199.108.153`, `185.199.109.153`, `185.199.110.153`, `185.199.111.153`, et un `AAAA` si l'IPv6 est voulue. Le `CNAME` du dépôt porte déjà `toonboxd.app`.
 4. Attendre le certificat (Settings, Pages, « Enforce HTTPS » devient cochable). Compter quelques minutes, parfois une heure.
@@ -59,8 +75,9 @@ Il porte deux pages. `l/index.html`, la consultation publique d'une liste, depui
 - La bannière `TOONBOXD : les inscriptions au lancement` est **jouée**. Sans elle, `inscrire_lancement` n'existe pas, PostgREST rend `404`, et la fenêtre répond « L'inscription n'a pas abouti » à chaque envoi : rien ne se perd, mais rien ne s'inscrit.
 - La bannière `TOONBOXD : la durée des inscriptions au lancement` est **jouée avant le 30 septembre 2027**, un an après la première inscription. Rien sur la page n'en dépend et son ordre avec la publication est libre ; mais la politique du 9 octobre 2026 promet l'effacement à douze mois, et c'est la tâche de cette bannière qui tient la promesse, pas une mémoire.
 - `legal/` est **republiée avec sa section « Sur le site toonboxd.app »**, AVANT cette page : la fenêtre renvoie à la politique au moment où elle demande l'adresse, et une politique qui ne dit rien du site ferait de ce renvoi une promesse vide.
-- Aucun `__SUPABASE` ne reste dans `l/index.html` ni dans `index.html` : `grep -c '__SUPABASE' web/l/index.html web/index.html` rend `0` pour les deux.
-- **Les deux pages portent la même adresse et la même clé** : `diff <(sed -n "s/^const CLE_ANON = '\(.*\)';/\1/p" web/l/index.html) <(sed -n "s/^ *var CLE_ANON = '\(.*\)';/\1/p" web/index.html)` est vide, et la même forme sur `URL_BASE`. Relevé du 30 septembre 2026 : identiques.
+- `py -3 _outils/accueil-en.py --temoins` rend ses trois témoins tombés puis « aucun reste de français », et `git status` ne montre pas `en/index.html` modifié après lui : la jumelle publiée est celle de la page française publiée.
+- Aucun `__SUPABASE` ne reste dans les pages : `grep -c '__SUPABASE' l/index.html index.html en/index.html` rend `0` pour les trois.
+- **Les pages portent la même adresse et la même clé** : `diff <(sed -n "s/^const CLE_ANON = '\(.*\)';/\1/p" l/index.html) <(sed -n "s/^ *var CLE_ANON = '\(.*\)';/\1/p" index.html)` est vide, et la même forme sur `URL_BASE` ; la page anglaise les porte par construction. Relevé du 30 septembre 2026 : identiques.
 - La clé substituée est bien l'**anon** et pas la `service_role`, dans les deux pages : son corps décodé porte `"role":"anon"`. La `service_role` contourne la RLS, donc la publier annulerait tout ce que cette étape a fermé. C'est le seul contrôle de ce fichier qui puisse causer un dommage irréversible s'il est sauté.
 - La bannière `TOONBOXD : le titre de l'auteur sur la page publique` est **jouée** (titres 4, 4 septembre 2026). Sans elle, `liste_publique` ne rend pas `auteur_titre` et la page rend la liste **sans le titre**, silencieusement : c'est le cas dégradé que la prédiction de la bannière annonce, et il ne se voit que sur un auteur qui en porte un.
 - Le **contrôle croisé des titres** ci-dessous rend zéro écart.
@@ -72,16 +89,17 @@ C'est le seul contrôle de ce fichier qui se joue **après** la publication, par
 **Il parcourt les fichiers, il ne les nomme pas**, et c'est la même leçon que ci-dessus d'un cran plus bas : une énumération oublie, un parcours non. La première version de ce contrôle ne regardait que `l/index.html`, et c'est précisément le fichier qui allait bien.
 
 ```bash
-cd web
-for f in $(find . -type f | sed 's|^\./||'); do
+# À la racine de ce dépôt, depuis le 16 octobre 2026
+for f in $(git ls-files); do
+  case "$f" in CNAME|_config.yml|_layouts/*|_outils/*|confidentialite/index.md|privacy/index.md) echo "$f : exempté"; continue;; esac
   code=$(curl -s -o /tmp/s.tmp -w '%{http_code}' "https://toonboxd.app/$f")
   if   [ "$code" != "200" ];        then echo "$f : HTTP $code"
-  elif git show "HEAD:web/$f" | cmp -s - /tmp/s.tmp; then echo "$f : ok"
-  else echo "$f : ECART $(diff "$f" /tmp/s.tmp | grep -c '^[<>]') lignes"; fi
+  elif git show "HEAD:$f" | cmp -s - /tmp/s.tmp; then echo "$f : ok"
+  else echo "$f : ECART"; fi
 done
 ```
 
-**Les exemptions sont nommées plutôt que silencieuses** : `CNAME` rend `404`, et c'est correct, GitHub Pages le **consomme** comme configuration du domaine au lieu de le servir ; depuis le 16 octobre 2026, `_config.yml` et `_layouts/politique.html` rendent `404` pour la même raison, Jekyll les consommant. Toute autre ligne qui n'est pas `ok` est un défaut. **Les deux politiques ne sont pas dans cette boucle**, leurs sources étant dans `legal/` et leur page servie du HTML rendu : elles se contrôlent par les phrases de `legal/README.md` sous leur témoin, et par l'absence de tout script et de toute ressource d'un autre domaine sur la page servie (`grep -c '<script'` à 0, sous le témoin de la page d'accueil, qui en a).
+**Les exemptions sont nommées plutôt que silencieuses** : `CNAME` rend `404`, et c'est correct, GitHub Pages le **consomme** comme configuration du domaine au lieu de le servir ; depuis le 16 octobre 2026, `_config.yml` et `_layouts/politique.html` rendent `404` pour la même raison, Jekyll les consommant, et `_outils/` n'est pas publié ; la boucle les nomme comme exemptés au lieu de les taire. `en/index.html` et `og-en.png` sont dans la boucle comme les autres. Toute autre ligne qui n'est pas `ok` est un défaut. **Les deux politiques ne sont pas dans cette boucle**, leurs sources étant dans `legal/` et leur page servie du HTML rendu : elles se contrôlent par les phrases de `legal/README.md` sous leur témoin, et par l'absence de tout script et de toute ressource d'un autre domaine sur la page servie (`grep -c '<script'` à 0, sous le témoin de la page d'accueil, qui en a).
 
 **La source est le contenu enregistré, `git show HEAD:web/$f`, et non le fichier du dossier** (depuis le 9 octobre 2026). Sous Windows, `core.autocrlf` met des fins de ligne CRLF dans la copie de travail, et `git archive` en met autant : la boucle d'avant, qui comparait le fichier du dossier, rendait un écart sur chaque fichier texte d'une page servie juste, un octet par ligne. C'est la leçon du 1er octobre 2026 sur le clone public, portée ici sur la source ; `HEAD` doit être le commit copié.
 
@@ -108,7 +126,7 @@ diff /tmp/avant.html /tmp/servie.html                    # DOIT etre non vide
 
 **Relevé du 5 septembre 2026** : 10 495 octets contre 15 766, **101 lignes différentes**. Le contrôle aurait dit non au premier coup. Un témoin pris sur une vraie révision plutôt que sur un fichier forgé, parce qu'il en existait une.
 
-**Quand le rejouer** : après chaque copie, et après tout commit qui touche `web/`. Le second cas est celui qui a mordu, deux fois.
+**Quand le rejouer** : après chaque copie, et après tout commit qui touche `web/`. Le second cas est celui qui a mordu, deux fois. Depuis le 16 octobre 2026 : après chaque `push` de ce dépôt.
 
 ## Le contrôle croisé des titres
 
@@ -141,6 +159,18 @@ sed -n 's/.*data-titre="\([a-z_]*\)"><b class="titre-[a-z_]*">\([^<]*\)<\/b>.*/\
 L'attribut `data-titre` n'est porté que par les six entrées de la galerie : le même nom de titre apparaît ailleurs dans la page (sous le pseudo des deux exemples), et une extraction sur la seule classe rendrait sept lignes. **Joué le 30 septembre 2026** : six lignes par extraction, quatre `diff` vides ; témoins, une teinte passée de `#FF7C9B` à `#FF7C9C` et « Critique » passé à « Critiques » font tomber chacun la comparaison qui le vise.
 
 Les quatre `diff` doivent être **vides**, et les cinq extractions doivent rendre **six lignes chacune** : une extraction qui rend zéro ou une ligne est un `diff` qui parle d'autre chose que d'une divergence. Le cas s'est produit à l'écriture, la dernière entrée d'un bloc JSON n'ayant pas de virgule finale, et le contrôle a rendu un écart pour un fichier juste. **Compter les lignes avant de lire les `diff`.**
+
+**L'anglais, depuis le 16 octobre 2026.** La page de liste porte les six libellés anglais dans `TITRE_LIBELLE_EN`, et la page anglaise sa galerie : les mêmes quatre `diff`, contre `locales/en.json`. Les commandes se lancent **depuis la racine du dépôt de l'app**, ce dépôt-ci à côté (`S`), puisque les fichiers de l'app y sont :
+
+```bash
+S=../toonboxd-web
+sed -n '/^    "title": {$/,/^    },$/s/^      "[a-zA-Z]*": "\(.*\)",\?$/\1/p' locales/en.json                    > /tmp/loc-libelles
+sed -n "/^const TITRE_LIBELLE_EN = {/,/^};/s/^  \([a-z_]*\): '\(.*\)',$/\1 \2/p" "$S/l/index.html"            > /tmp/page-libelles
+# puis, pour la page anglaise :
+sed -n 's/.*data-titre="\([a-z_]*\)"><b class="titre-[a-z_]*">\([^<]*\)<\/b>.*/\1 \2/p' "$S/en/index.html"     > /tmp/page-libelles
+```
+
+**Joué le 16 octobre 2026** sur les quatre pages (la liste en français et en anglais, les deux accueils) : six lignes par extraction, seize `diff` vides ; témoin, les libellés anglais de la page comparés à `fr.json` rendent dix lignes d'écart.
 
 **Les témoins, joués le 4 septembre 2026 avant de croire le zéro**, sur une copie du dépôt et sur trois forges d'une seule variation chacune : une teinte de la page passée de `#FF7C9B` à `#FF7C9C` fait tomber le premier `diff` ; un libellé passé de « Critique » à « Critiques » fait tomber le quatrième ; un code passé de `finisseur` à `finisseurs` fait tomber le premier et le deuxième. Chacun tombe sur la comparaison qui le vise, et la copie intacte rend zéro. **Sans ces trois, un zéro ne dit rien de plus qu'un `sed` qui ne trouve rien.**
 

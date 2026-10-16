@@ -117,7 +117,7 @@
 </head>
 <body>
 <div class="page">
-  <div id="contenu"><p class="message">Chargement.</p></div>
+  <div id="contenu"><p class="message" data-texte="chargement">Chargement.</p></div>
 
   <!--
     PAS DE BOUTON DE TÉLÉCHARGEMENT, ET C'EST MESURÉ, PAS SUPPOSÉ : au
@@ -127,8 +127,8 @@
     qui le pose est celui qui a l'adresse (dette datée, DECISIONS.md §8 bis).
   -->
   <footer class="pied">
-    <p><strong>Toonboxd</strong>, le suivi de lecture des manhwas, manhuas et webtoons.</p>
-    <p>Métadonnées et couvertures : AniList. Les couvertures restent la propriété de leurs auteurs, studios et éditeurs.</p>
+    <p><strong>Toonboxd</strong><span data-texte="pied">, le suivi de lecture des manhwas, manhuas et webtoons.</span></p>
+    <p data-texte="credits">Métadonnées et couvertures : AniList. Les couvertures restent la propriété de leurs auteurs, studios et éditeurs.</p>
   </footer>
 </div>
 
@@ -205,6 +205,84 @@ const TITRE_LIBELLE = {
   beta_testeur: 'Bêta-testeur',
 };
 
+/*
+  LES MÊMES SIX, RECOPIÉS DE locales/en.json (profile.title.*), depuis le
+  16 octobre 2026, et le même contrôle croisé les compare (README.md).
+*/
+const TITRE_LIBELLE_EN = {
+  lecteur: 'Reader',
+  devoreur: 'Devourer',
+  insatiable: 'Insatiable',
+  finisseur: 'Completionist',
+  critique: 'Critic',
+  beta_testeur: 'Beta Tester',
+};
+
+/*
+  LA LANGUE DE LA PAGE EST CELLE DU NAVIGATEUR, PAR LA RÈGLE DE L'APP
+  (appLocale, docs/PLAN-ANGLAIS.md §2 du dépôt de l'app) : la première de ses
+  langues préférées que la page sait servir, le français si c'est lui,
+  l'anglais si c'est lui ou si aucune ne l'est. Un lien partagé s'ouvre donc
+  dans la langue de qui le lit, pas de qui l'a publié. Un texte par langue,
+  posé par textContent comme le reste ; le titre d'une série suit la même
+  règle que l'app (utils/serieAffichee.ts) : l'alias français en français, le
+  titre du catalogue en anglais. Le titre et la description de la liste,
+  écrits par son auteur, ne se traduisent pas.
+*/
+function langueServie() {
+  const preferees = navigator.languages && navigator.languages.length ? navigator.languages : [navigator.language || ''];
+  for (const l of preferees) {
+    const code = String(l).toLowerCase().slice(0, 2);
+    if (code === 'fr' || code === 'en') return code;
+  }
+  return 'en';
+}
+const LANGUE = langueServie();
+
+const TEXTES = {
+  fr: {
+    titrePage: 'Une liste sur Toonboxd',
+    chargement: 'Chargement.',
+    pied: ', le suivi de lecture des manhwas, manhuas et webtoons.',
+    credits: 'Métadonnées et couvertures : AniList. Les couvertures restent la propriété de leurs auteurs, studios et éditeurs.',
+    compte: function (nb) { return nb === 1 ? '1 série' : nb + ' séries'; },
+    premieres: function (nb) { return ', les ' + nb + ' premières ci-dessous'; },
+    vide: 'Cette liste ne contient aucune série.',
+    signaler: 'Signaler cette liste',
+    sujet: function (code) { return 'Signalement de la liste ' + code; },
+    corps: function (code) { return 'Lien de la liste : https://toonboxd.app/l/#' + code + '\r\n\r\nCe qui pose problème :\r\n'; },
+    aucunLien: 'Ce lien ne désigne aucune liste.',
+    pasPublique: "Cette liste n'est pas publique, ou elle n'existe plus.",
+    echec: "Cette page n'a pas pu se charger. Réessaie.",
+    titres: TITRE_LIBELLE,
+    serie: function (serie) { return serie.alias_fr || serie.titre; },
+  },
+  en: {
+    titrePage: 'A list on Toonboxd',
+    chargement: 'Loading.',
+    pied: ', the reading tracker for manhwa, manhua and webtoons.',
+    credits: 'Metadata and covers: AniList. Covers remain the property of their authors, studios and publishers.',
+    compte: function (nb) { return nb + ' series'; },
+    premieres: function (nb) { return ', the first ' + nb + ' below'; },
+    vide: 'This list has no series.',
+    signaler: 'Report This List',
+    sujet: function (code) { return 'Report of list ' + code; },
+    corps: function (code) { return 'List link: https://toonboxd.app/l/#' + code + '\r\n\r\nWhat’s wrong:\r\n'; },
+    aucunLien: 'This link doesn’t point to a list.',
+    pasPublique: 'This list isn’t public, or it no longer exists.',
+    echec: 'This page couldn’t load. Try again.',
+    titres: TITRE_LIBELLE_EN,
+    serie: function (serie) { return serie.titre; },
+  },
+};
+const T = TEXTES[LANGUE];
+
+document.documentElement.lang = LANGUE;
+document.title = T.titrePage;
+document.querySelectorAll('[data-texte]').forEach(function (noeud) {
+  noeud.textContent = T[noeud.getAttribute('data-texte')];
+});
+
 const contenu = document.getElementById('contenu');
 
 function vider(noeud) {
@@ -258,7 +336,7 @@ function rendre(liste, code) {
       Conséquence utile : seules les six clés propres rendent une chaîne, donc la
       classe posée est forcément l'une des six.
     */
-    const libelle = TITRE_LIBELLE[liste.auteur_titre];
+    const libelle = T.titres[liste.auteur_titre];
     if (typeof libelle === 'string') {
       identite.appendChild(element('div', 'titre-auteur ' + liste.auteur_titre, libelle));
     }
@@ -279,14 +357,14 @@ function rendre(liste, code) {
     n'est pas recopié ici, il se lit dans l'écart des deux valeurs.
   */
   const nb = typeof liste.nb === 'number' ? liste.nb : series.length;
-  let compte = nb === 1 ? '1 série' : nb + ' séries';
+  let compte = T.compte(nb);
   if (nb > series.length) {
-    compte += ', les ' + series.length + ' premières ci-dessous';
+    compte += T.premieres(series.length);
   }
   contenu.appendChild(element('p', 'compte', compte));
 
   if (series.length === 0) {
-    contenu.appendChild(element('p', 'message', 'Cette liste ne contient aucune série.'));
+    contenu.appendChild(element('p', 'message', T.vide));
   } else {
     const grille = element('ul', 'grille');
     series.forEach(function (serie) {
@@ -301,7 +379,7 @@ function rendre(liste, code) {
       } else {
         cellule.appendChild(element('div', 'couverture'));
       }
-      cellule.appendChild(element('div', 'titre-serie', serie.alias_fr || serie.titre));
+      cellule.appendChild(element('div', 'titre-serie', T.serie(serie)));
       grille.appendChild(cellule);
     });
     contenu.appendChild(grille);
@@ -326,14 +404,12 @@ function rendre(liste, code) {
     la forme de la RFC 6068 pour le corps d'un mailto.
   */
   const signaler = element('p', 'signaler');
-  const lien = element('a', null, 'Signaler cette liste');
+  const lien = element('a', null, T.signaler);
   lien.setAttribute(
     'href',
     'mailto:contact@toonboxd.app'
-      + '?subject=' + encodeURIComponent('Signalement de la liste ' + code)
-      + '&body=' + encodeURIComponent(
-        'Lien de la liste : https://toonboxd.app/l/#' + code + '\r\n\r\nCe qui pose problème :\r\n'
-      )
+      + '?subject=' + encodeURIComponent(T.sujet(code))
+      + '&body=' + encodeURIComponent(T.corps(code))
   );
   signaler.appendChild(lien);
   contenu.appendChild(signaler);
@@ -345,7 +421,7 @@ async function charger() {
   const code = window.location.hash.replace('#', '').trim();
 
   if (!code) {
-    message('Ce lien ne désigne aucune liste.');
+    message(T.aucunLien);
     return;
   }
   if (!FORMAT.test(code)) {
@@ -354,7 +430,7 @@ async function charger() {
       n'a pas le bon format » de « cette liste n'est pas publique » donnerait un
       oracle sur les codes, ce que la fonction refuse déjà en base.
     */
-    message("Cette liste n'est pas publique, ou elle n'existe plus.");
+    message(T.pasPublique);
     return;
   }
 
@@ -370,7 +446,7 @@ async function charger() {
     });
 
     if (!reponse.ok) {
-      message("Cette page n'a pas pu se charger. Réessaie.");
+      message(T.echec);
       return;
     }
 
@@ -380,13 +456,13 @@ async function charger() {
       liste privée, liste dépubliée. La page ne les sépare pas non plus.
     */
     if (!Array.isArray(lignes) || lignes.length === 0) {
-      message("Cette liste n'est pas publique, ou elle n'existe plus.");
+      message(T.pasPublique);
       return;
     }
 
     rendre(lignes[0], code);
   } catch (erreur) {
-    message("Cette page n'a pas pu se charger. Réessaie.");
+    message(T.echec);
   }
 }
 
