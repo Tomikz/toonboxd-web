@@ -1,0 +1,163 @@
+<!doctype html>
+<html lang="{{ page.lang }}">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>{{ page.title }}</title>
+{% if page.lang == "en" %}<meta name="description" content="What Toonboxd knows about you, where it goes, and what you can do about it.">{% else %}<meta name="description" content="Ce que Toonboxd sait de toi, où ça va, et ce que tu peux en faire.">{% endif %}
+<link rel="canonical" href="https://toonboxd.app{{ page.url }}">
+<link rel="alternate" hreflang="fr" href="https://toonboxd.app/confidentialite/">
+<link rel="alternate" hreflang="en" href="https://toonboxd.app/privacy/">
+<link rel="alternate" hreflang="x-default" href="https://toonboxd.app/confidentialite/">
+<meta name="theme-color" content="#0E0F13">
+<meta name="color-scheme" content="dark">
+<link rel="icon" type="image/png" href="/favicon.png">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<!--
+  LES DEUX POLITIQUES DE CONFIDENTIALITÉ, sur le domaine du site depuis le
+  16 octobre 2026. Ce gabarit est la seule chose que le site y ajoute : le
+  texte vient de legal/index.md (français, à /confidentialite/) et de
+  legal/en/index.md (anglais, à /privacy/) du dépôt de l'app, recopiés tels
+  quels et rendus par Jekyll (_config.yml). La version française fait foi.
+
+  CE QUE LA PAGE CHARGE : la police et l'icône du site, servies par le
+  site. Aucun script, aucun cookie, aucune mesure d'audience : la politique
+  l'affirme du site entier, et cette page en fait partie.
+
+  LA CHARTE EST CELLE DE index.html (constants/Colors.tsx, Pretendard), en
+  plus court. L'italique de Markdown n'a pas d'instance italique dans la
+  police : il s'affiche droit et en gris, comme la règle de l'app le veut
+  (aucune instance synthétique).
+-->
+<style>
+  @font-face {
+    font-family: "Pretendard";
+    src: url("/assets/fonts/pretendard-regular.woff2") format("woff2");
+    font-weight: 400; font-style: normal; font-display: swap;
+  }
+  @font-face {
+    font-family: "Pretendard";
+    src: url("/assets/fonts/pretendard-semibold.woff2") format("woff2");
+    font-weight: 600; font-style: normal; font-display: swap;
+  }
+  @font-face {
+    font-family: "Pretendard";
+    src: url("/assets/fonts/pretendard-extrabold.woff2") format("woff2");
+    font-weight: 800; font-style: normal; font-display: swap;
+  }
+
+  :root {
+    --bg: #0E0F13;
+    --surface: #171922;
+    --border: rgba(255, 255, 255, 0.08);
+    --border-strong: rgba(255, 255, 255, 0.14);
+    --text: #F4F5F7;
+    --muted: #9AA0AE;
+    --violet: #7C5CFF;
+    --gutter: 20px;
+  }
+  @media (min-width: 768px) { :root { --gutter: 32px; } }
+
+  *, *::before, *::after { box-sizing: border-box; }
+  html { -webkit-text-size-adjust: 100%; scroll-padding-top: 88px; }
+  body {
+    margin: 0;
+    background: var(--bg);
+    color: var(--text);
+    font-family: "Pretendard", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    font-size: 17px;
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    font-synthesis: none;
+    text-rendering: optimizeLegibility;
+    overflow-wrap: break-word;
+  }
+  a { color: inherit; }
+  :focus-visible { outline: 2px solid var(--text); outline-offset: 3px; border-radius: 6px; }
+  .skip {
+    position: absolute; left: 16px; top: -60px; z-index: 30;
+    background: var(--text); color: var(--bg); padding: 10px 16px; border-radius: 999px;
+    font-weight: 600; text-decoration: none;
+  }
+  .skip:focus { top: 12px; }
+
+  .wrap { max-width: 760px; margin: 0 auto; padding: 0 var(--gutter); }
+
+  .top {
+    position: sticky; top: 0; z-index: 20;
+    background: rgba(14, 15, 19, 0.8);
+    -webkit-backdrop-filter: blur(18px) saturate(140%);
+    backdrop-filter: blur(18px) saturate(140%);
+    border-bottom: 1px solid var(--border);
+  }
+  .top-in { display: flex; align-items: center; gap: 20px; height: 68px; }
+  .brand { display: inline-flex; align-items: center; gap: 10px; text-decoration: none; font-weight: 800; font-size: 19px; letter-spacing: -0.02em; }
+  .brand img { width: 34px; height: 34px; border-radius: 9px; box-shadow: 0 0 0 1px var(--border-strong); }
+  .langue {
+    margin-left: auto; display: inline-flex; align-items: center; height: 36px; padding: 0 16px;
+    border-radius: 999px; box-shadow: inset 0 0 0 1px var(--border-strong);
+    font-size: 15px; font-weight: 600; text-decoration: none;
+  }
+  .langue:hover { background: rgba(255, 255, 255, 0.06); }
+
+  /* ---------- Le texte de la politique, tel que kramdown le rend ---------- */
+  .politique { padding-top: 48px; padding-bottom: 72px; }
+  @media (min-width: 768px) { .politique { padding-top: 72px; padding-bottom: 96px; } }
+  .politique h1 {
+    margin: 0 0 20px; font-weight: 800; letter-spacing: -0.03em; line-height: 1.1;
+    font-size: clamp(32px, 6vw, 46px); text-wrap: balance;
+  }
+  .politique h2 {
+    margin: 56px 0 16px; padding-top: 32px; border-top: 1px solid var(--border);
+    font-weight: 800; letter-spacing: -0.02em; line-height: 1.2; font-size: clamp(23px, 3.4vw, 28px);
+  }
+  .politique h3 { margin: 32px 0 10px; font-weight: 600; font-size: 19px; line-height: 1.35; }
+  .politique p { margin: 0 0 16px; }
+  .politique ul, .politique ol { margin: 0 0 16px; padding-left: 22px; }
+  .politique li { margin: 0 0 8px; padding-left: 4px; }
+  .politique li::marker { color: var(--muted); }
+  .politique strong, .politique b { font-weight: 600; }
+  .politique em { font-style: normal; color: var(--muted); }
+  .politique a { text-decoration-color: var(--violet); text-decoration-thickness: 1px; text-underline-offset: 3px; }
+  .politique a:hover { text-decoration-thickness: 2px; }
+  .politique code { font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; font-size: 0.9em; }
+  .politique h1 + p { color: var(--muted); }
+
+  .foot { border-top: 1px solid var(--border); padding: 40px 0 48px; color: var(--muted); font-size: 15px; }
+  .foot-in { display: flex; flex-wrap: wrap; align-items: center; gap: 16px 28px; }
+  .foot .brand { color: var(--text); font-size: 17px; }
+  .foot .brand img { width: 28px; height: 28px; border-radius: 8px; }
+  .foot-links { display: flex; flex-wrap: wrap; gap: 12px 24px; }
+  .foot-links a { text-decoration: none; color: var(--text); font-weight: 600; }
+  .foot-links a:hover { text-decoration: underline; text-underline-offset: 4px; }
+</style>
+</head>
+<body>
+{% if page.lang == "en" %}<a class="skip" href="#texte">Skip to content</a>{% else %}<a class="skip" href="#texte">Aller au texte</a>{% endif %}
+
+<header class="top">
+  <div class="wrap top-in">
+    <a class="brand" href="/" aria-label="{% if page.lang == "en" %}Toonboxd, home{% else %}Toonboxd, accueil{% endif %}">
+      <img src="/assets/img/icone-96.png" alt="" width="34" height="34">
+      <span>Toonboxd</span>
+    </a>
+    {% if page.lang == "en" %}<a class="langue" href="/confidentialite/" hreflang="fr" lang="fr">Français</a>{% else %}<a class="langue" href="/privacy/" hreflang="en" lang="en">English</a>{% endif %}
+  </div>
+</header>
+
+<main id="texte" class="wrap politique">
+{{ content }}
+</main>
+
+<footer class="foot">
+  <div class="wrap foot-in">
+    <a class="brand" href="/"><img src="/assets/img/icone-96.png" alt="" width="28" height="28"><span>Toonboxd</span></a>
+    <nav class="foot-links" aria-label="{% if page.lang == "en" %}Links{% else %}Liens{% endif %}">
+      {% if page.lang == "en" %}<a href="/">Home</a>{% else %}<a href="/">Accueil</a>{% endif %}
+      <a href="mailto:contact@toonboxd.app">Contact</a>
+    </nav>
+  </div>
+</footer>
+</body>
+</html>

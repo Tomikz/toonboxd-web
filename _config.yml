@@ -1,0 +1,18 @@
+# Jekyll ne rend ici que les deux politiques de confidentialité, depuis le
+# 16 octobre 2026. Leurs sources sont legal/index.md et legal/en/index.md du
+# dépôt de l'app, recopiées TELLES QUELLES en confidentialite/index.md et
+# privacy/index.md au moment de publier (web/README.md, Publication) : ce
+# fichier leur donne la mise en page du site et leur langue, sans toucher à
+# leur texte. Tout le reste de ce dossier n'a pas de front matter, et GitHub
+# Pages le sert tel quel, octet pour octet.
+defaults:
+  - scope:
+      path: "confidentialite"
+    values:
+      layout: politique
+      lang: fr
+  - scope:
+      path: "privacy"
+    values:
+      layout: politique
+      lang: en

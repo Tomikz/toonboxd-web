@@ -2,13 +2,17 @@
 
 Ce dossier est la **source** des pages web du produit. Il se copie tel quel dans un dépôt public séparé, servi par GitHub Pages sur le domaine apex `toonboxd.app`. Ouvert le 4 septembre 2026 avec l'étape 7.6, le partage des listes.
 
-Il porte deux pages. `l/index.html`, la consultation publique d'une liste, depuis le 4 septembre 2026 ; et depuis le 30 septembre 2026 `index.html`, la page d'accueil du domaine, avec ce qu'elle charge (`assets/fonts/`, `assets/img/` : l'icône, la bannière Nuit étoilée, l'avatar du Profil d'exemple et le logo de la signature de la carte, et depuis le 9 octobre 2026 `assets/img/profil/`, le cadre Roses et les pétales de son animation ; `favicon.png`, `apple-touch-icon.png`, `og.png`) et ce qui la fait trouver (`sitemap.xml`, et `robots.txt`, qui n'interdit plus que `/l/`). La migration de `legal/` le rejoindra ici : `constants/Handle.ts` réserve déjà `confidentialite` et `cgu`, et un domaine se sert d'un seul dépôt.
+Il porte deux pages. `l/index.html`, la consultation publique d'une liste, depuis le 4 septembre 2026 ; et depuis le 30 septembre 2026 `index.html`, la page d'accueil du domaine, avec ce qu'elle charge (`assets/fonts/`, `assets/img/` : l'icône, la bannière Nuit étoilée, l'avatar du Profil d'exemple et le logo de la signature de la carte, et depuis le 9 octobre 2026 `assets/img/profil/`, le cadre Roses et les pétales de son animation ; `favicon.png`, `apple-touch-icon.png`, `og.png`) et ce qui la fait trouver (`sitemap.xml`, et `robots.txt`, qui n'interdit plus que `/l/`). **La politique de confidentialité l'a rejoint le 16 octobre 2026**, à `/confidentialite/` en français et `/privacy/` en anglais (section suivante), deux mots que `constants/Handle.ts` réserve comme pseudos ; un domaine se sert d'un seul dépôt.
 
 **Le sens est source vers copie, et il n'y en a qu'un.** Une correction faite directement dans le dépôt public se transcrit ici **avant** tout autre changement, sinon la source ment et la recopie suivante écrase la correction. C'est la règle de `legal/README.md`, née d'une divergence réelle le 3 septembre 2026, et elle vaut d'autant plus ici que la page porte des valeurs substituées.
 
 **Cette règle ne couvre qu'un sens, et le second est arrivé le 5 septembre 2026.** La copie servie était **en retard d'un commit** sur la source : publiée le 4 septembre à 16h17, elle a été modifiée après par le commit de titres 4, et la page rendait donc une liste sans le titre de son auteur. La règle du 3 septembre vise la copie **plus récente** que la source ; celle-ci était **plus ancienne**. **La condition qui rend ce sens probable est nommée** : tout commit qui touche `web/` après une copie la périme, et rien dans le dépôt ne le signale, un commit ne sachant pas ce qui a été publié.
 
 **La parade est une comparaison et non une discipline, et c'est ce qui la rend meilleure que la règle qu'elle complète.** Une discipline demande de la vigilance et **échoue en silence quand elle manque** ; le contrôle de fraîcheur ci-dessous ne raisonne pas sur qui a écrit en dernier, donc **il ne peut pas se tromper de sens** et il est indifférent à celui du défaut. La discipline est reconduite, la comparaison est ce qui la garde honnête.
+
+## Les deux politiques de confidentialité, seul contenu que Jekyll rend
+
+**Leur source n'est pas ce dossier, c'est `legal/`** (`legal/README.md`, Publication) : `legal/index.md` se recopie tel quel en `confidentialite/index.md` et `legal/en/index.md` en `privacy/index.md`, **directement dans le dépôt public**, jamais ici, pour qu'une politique n'ait qu'une source dans le dépôt de l'app. Ce dossier porte ce qui les met en page : `_config.yml`, qui donne aux deux dossiers le gabarit et la langue, et `_layouts/politique.html`, le gabarit, aux couleurs et à la police de la page d'accueil, avec le lien vers l'autre langue et les `hreflang` des deux. **Le gabarit ne charge rien d'ailleurs et n'a aucun script** : la politique dit que le site ne dépose aucun cookie et ne mesure rien, et ces deux pages en font partie. Tout le reste de ce dossier n'a pas de front matter et sort de Jekyll octet pour octet, comme avant.
 
 ## Ce que la page contient, et pourquoi ce n'est pas une variable d'environnement
 
@@ -34,11 +38,13 @@ Il porte deux pages. `l/index.html`, la consultation publique d'une liste, depui
 
 **Les textes qui ressemblent à l'app sont ceux de l'app** : la notification vient de `supabase/functions/envoyer-notifications/chaines.ts`, apostrophe droite comprise ; la boîte « Cette série a repris ? », la note de reprise, les deux recherches (« Cherche dans tes lectures » sur Reprendre, « Cherche un titre » dans le catalogue) et les titres viennent de `locales/fr.json`. **Depuis le 9 octobre 2026, la notification de l'accroche arrive, repart comme une bannière d'iOS et revient**, sur onze secondes : posée pour de bon, elle cachait l'en-tête et le champ de recherche de Reprendre. Sous « Réduire les animations », elle reste. Les seuils des titres (1 000, 5 000, 20 000 chapitres, 25 séries terminées, 20 notées) ont été relus dans `titres_profil` le 30 septembre 2026 ; **un seuil qui bouge est une migration, et cette page bouge avec elle**.
 
+**Le prix par mois de la section des tarifs est celui de l'app, à l'identique** (13 octobre 2026, décision de l'utilisateur, dette 43 de `DECISIONS.md`) : « Soit 1,50 € par mois » doit être la ligne « soit … /mois » que la carte annuelle de l'app rend en euros. Le SDK de RevenueCat arrondissait vers le bas (17,99 / 12 = 1,4992, donc « 1,49 € » prédit, non mesuré) ; **le build 4 a tranché le 13 octobre 2026** : l'app calcule la ligne elle-même, au centime le plus proche, donc « 1,50 € », et cette page ne change pas. Elle suivrait, republiée sous le contrôle de fraîcheur, le jour où l'app dirait autre chose. Le 2,99 € mensuel et le 17,99 € annuel suivent le §3 de la même façon.
+
 **Le bouton principal envoie un email à `contact@toonboxd.app`** (« Me prévenir du lancement »), et le badge « Bientôt sur l'App Store » n'est pas un lien : la fiche n'existe pas, et le §5 interdit de nommer une destination avant qu'elle existe. **Le commit qui a l'adresse de la fiche** remplace les trois boutons et le badge par le badge officiel d'Apple et son lien, et ajoute `downloadUrl` au JSON-LD de la page.
 
 ## Publication
 
-1. Un dépôt public, le **contenu** de ce dossier à sa racine (`index.html`, `assets/`, `l/`, `favicon.png`, `apple-touch-icon.png`, `og.png`, `robots.txt`, `sitemap.xml`, `CNAME`, et ce `README.md`).
+1. Un dépôt public, le **contenu** de ce dossier à sa racine (`index.html`, `assets/`, `l/`, `favicon.png`, `apple-touch-icon.png`, `og.png`, `robots.txt`, `sitemap.xml`, `CNAME`, `_config.yml`, `_layouts/`, et ce `README.md`), **plus les deux politiques venues de `legal/`** : `confidentialite/index.md` et `privacy/index.md`.
 2. Settings, Pages, source « Deploy from a branch », branche `main`, dossier `/ (root)`.
 3. Chez OVH, les quatre `A` de l'apex vers `185.199.108.153`, `185.199.109.153`, `185.199.110.153`, `185.199.111.153`, et un `AAAA` si l'IPv6 est voulue. Le `CNAME` du dépôt porte déjà `toonboxd.app`.
 4. Attendre le certificat (Settings, Pages, « Enforce HTTPS » devient cochable). Compter quelques minutes, parfois une heure.
@@ -75,7 +81,7 @@ for f in $(find . -type f | sed 's|^\./||'); do
 done
 ```
 
-**Une seule exemption, et elle est nommée plutôt que silencieuse** : `CNAME` rend `404`, et c'est correct. GitHub Pages le **consomme** comme configuration du domaine au lieu de le servir. Toute autre ligne qui n'est pas `ok` est un défaut.
+**Les exemptions sont nommées plutôt que silencieuses** : `CNAME` rend `404`, et c'est correct, GitHub Pages le **consomme** comme configuration du domaine au lieu de le servir ; depuis le 16 octobre 2026, `_config.yml` et `_layouts/politique.html` rendent `404` pour la même raison, Jekyll les consommant. Toute autre ligne qui n'est pas `ok` est un défaut. **Les deux politiques ne sont pas dans cette boucle**, leurs sources étant dans `legal/` et leur page servie du HTML rendu : elles se contrôlent par les phrases de `legal/README.md` sous leur témoin, et par l'absence de tout script et de toute ressource d'un autre domaine sur la page servie (`grep -c '<script'` à 0, sous le témoin de la page d'accueil, qui en a).
 
 **La source est le contenu enregistré, `git show HEAD:web/$f`, et non le fichier du dossier** (depuis le 9 octobre 2026). Sous Windows, `core.autocrlf` met des fins de ligne CRLF dans la copie de travail, et `git archive` en met autant : la boucle d'avant, qui comparait le fichier du dossier, rendait un écart sur chaque fichier texte d'une page servie juste, un octet par ligne. C'est la leçon du 1er octobre 2026 sur le clone public, portée ici sur la source ; `HEAD` doit être le commit copié.
 
@@ -155,7 +161,7 @@ Le fichier de motifs `/tmp/bannis.txt` se construit par la forme des *Critical R
 ```
 od -An -tx1 /tmp/bannis.txt                                          # attendu : e2 80 94 0a c2 b7 0a
 grep -c -F -f /tmp/bannis.txt node_modules/react-native/README.md   # témoin tiers, AVANT : 5
-grep -rnI -F -f /tmp/bannis.txt web/                                # attendu : rien
+git ls-files -z --cached --others --exclude-standard web/ | xargs -0 grep -n -I -F -f /tmp/bannis.txt   # attendu : rien
 ```
 
 **Le `-I` est né le 30 septembre 2026 avec la page d'accueil, et il n'est pas une tolérance.** Sa première version portait six illustrations, et le balayage sans lui rendait « Binary file ... matches » sur quatre fichiers (trois `.webp` et `og.png`) : des octets compressés qui forment la séquence par hasard, deux octets sur des dizaines de milliers, et aucun texte. Ces illustrations sont parties le jour même et plus aucun binaire ne matche, **mais le suivant le pourra** : `-I` écarte les binaires et garde tout le texte. **Son témoin, joué ce jour-là** : un fichier texte forgé dans `web/` avec un cadratin est trouvé par `grep -rnI`, puis retiré.
