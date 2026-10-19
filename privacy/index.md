@@ -26,7 +26,7 @@ Toonboxd shows no ads, does no ad tracking, and neither sells nor rents anything
 
 **If you link your account to Apple.** You can link this account to your Apple Account to get your library back on another iPhone. Apple then gives us an email address: yours, or a relay address if you chose to hide it. We never ask for your name. This address is used to identify you and is shown nowhere in the app.
 
-**Your library.** The series you follow, their status (Reading, On Hold, Plan to Read, Completed, Dropped), the last chapter you read, the dates you added and last changed them, the series you pin, and the rating you give a series. **And, since October 9, 2026, a day-by-day history of your reading**: how many chapters you moved forward each day, kept apart from the ones you enter when you say how far you've read and the ones you take back, and the series you completed that day. It comes from what you already do in the app, and we keep it so we can one day show you statistics about your reading; no screen shows it today. It is private: no one but you can read it, and it does not leave our database.
+**Your library.** The series you follow, their status (Reading, On Hold, Plan to Read, Completed, Dropped), the last chapter you read, the dates you added and last changed them, the series you pin, and the rating you give a series. **And, since October 9, 2026, a day-by-day history of your reading**: how many chapters you moved forward each day, kept apart from the ones you enter when you say how far you've read and the ones you take back, and the series you completed that day. It comes from what you already do in the app, and we keep it so we can one day show you statistics about your reading; no screen shows it today. It is private: no one but you can read it, and it does not leave our database. **Each day of this history is counted in your own time**: the app sends us your iPhone's time zone (for example "America/New_York"), which we keep with your profile and the app updates when it changes; days counted before the app sent it, or without it, use Paris time.
 
 **Your pause notes.** The text you write when you put a series on hold. It is private: no one but you sees it, and it does not leave our database, not even in a notification.
 
@@ -66,7 +66,7 @@ Toonboxd shows no ads, does no ad tracking, and neither sells nor rents anything
 
 **Where to find your user ID.** In the app: Settings, Account section, "Your User ID". That is what we will ask you for in any request about your data.
 
-**What Toonboxd does not store.** Your location, your contacts, your photos, your name, your payment details. The app doesn't ask for any of these permissions on your iPhone. If you choose "Save Image" when sharing your card, it is iOS that asks you to let Toonboxd add this image to your photos: add-only access, which cannot read your photo library.
+**What Toonboxd does not store.** Your location (the time zone kept for your reading history only names a region, often a whole country), your contacts, your photos, your name, your payment details. The app doesn't ask for any of these permissions on your iPhone. If you choose "Save Image" when sharing your card, it is iOS that asks you to let Toonboxd add this image to your photos: add-only access, which cannot read your photo library.
 
 ## What stays on your phone
 
@@ -138,7 +138,7 @@ If we ever advertise Toonboxd and want to measure where installs come from, the 
 
 **Where.** In the app: Settings, Account section, "Delete Account". A screen says what goes and what stays, then the app asks "Delete Your Account?".
 
-**What goes, right away and for good.** Everything Toonboxd stores about you: your account, your library, your reading history, your ratings, your pause notes, your username, your card label, your reports, the notification token of your devices, your beta tester date if you had one, and the Apple address if you had linked your account.
+**What goes, right away and for good.** Everything Toonboxd stores about you: your account, your library, your reading history, your ratings, your pause notes, your username, your time zone, your card label, your reports, the notification token of your devices, your beta tester date if you had one, and the Apple address if you had linked your account.
 
 **What stays.**
 
@@ -193,6 +193,7 @@ Toonboxd is meant for readers in France and in English-speaking countries: the U
 
 The date at the top changes, and the list below says what changed. The full history of this page is public, and every version stays readable there: since October 16, 2026 in the website's repository, which hosts it, [toonboxd-web](https://github.com/Tomikz/toonboxd-web), and before that date in the former repository, [toonboxd-legal](https://github.com/Tomikz/toonboxd-legal). The changes made before this English version existed are listed on the French version of this page.
 
+- October 19, 2026: each day of your reading history is now counted in your own time, in your iPhone's time zone, which the app sends us and we keep with your profile; before, it was Paris time.
 - October 19, 2026: notifications arrive in the language of the app on your iPhone, English or French, and we keep that language with your notification token. This page also says where to read its versions from before October 16, 2026: in the former repository, toonboxd-legal.
 - October 16, 2026: first English version of this page. It translates the French version of October 16, 2026, which now includes the same section on local laws outside France.
 

@@ -26,7 +26,7 @@ Toonboxd n'affiche pas de publicité, ne pratique aucun suivi publicitaire, et n
 
 **Si tu lies ton compte à Apple.** Tu peux lier ce compte à ton identifiant Apple pour retrouver ta bibliothèque sur un autre iPhone. Apple nous transmet alors une adresse email : la tienne, ou une adresse relais si tu as choisi de la masquer. Nous ne demandons jamais ton nom. Cette adresse sert à te reconnaître et n'est affichée nulle part dans l'app.
 
-**Ta bibliothèque.** Les séries que tu suis, leur statut (en cours, en pause, prévue, terminée, abandonnée), le dernier chapitre lu, les dates d'ajout et de dernière modification, les séries que tu épingles, et la note que tu donnes à une série. **Et, depuis le 9 octobre 2026, un historique de ta lecture, jour par jour** : de combien de chapitres tu as avancé chaque jour, en mettant à part ceux que tu indiques quand tu dis où tu en es et ceux que tu retires, et les séries que tu as terminées ce jour-là. Il se déduit de ce que tu fais déjà dans l'app, et nous le gardons pour pouvoir te montrer un jour des statistiques de ta lecture ; aucun écran ne l'affiche aujourd'hui. Il est privé : personne d'autre que toi ne peut le lire, et il ne quitte pas notre base.
+**Ta bibliothèque.** Les séries que tu suis, leur statut (en cours, en pause, prévue, terminée, abandonnée), le dernier chapitre lu, les dates d'ajout et de dernière modification, les séries que tu épingles, et la note que tu donnes à une série. **Et, depuis le 9 octobre 2026, un historique de ta lecture, jour par jour** : de combien de chapitres tu as avancé chaque jour, en mettant à part ceux que tu indiques quand tu dis où tu en es et ceux que tu retires, et les séries que tu as terminées ce jour-là. Il se déduit de ce que tu fais déjà dans l'app, et nous le gardons pour pouvoir te montrer un jour des statistiques de ta lecture ; aucun écran ne l'affiche aujourd'hui. Il est privé : personne d'autre que toi ne peut le lire, et il ne quitte pas notre base. **Chaque jour de cet historique se compte à ton heure** : l'app nous envoie le fuseau horaire de ton iPhone (par exemple « Europe/Paris »), que nous gardons avec ton profil et qu'elle met à jour quand il change ; les jours comptés avant qu'elle l'envoie, ou sans lui, le sont à l'heure de Paris.
 
 **Tes mémos de reprise.** Le texte que tu écris quand tu mets une série en pause. Il est privé : personne d'autre que toi ne le voit, et il ne quitte pas notre base, pas même dans une notification.
 
@@ -66,7 +66,7 @@ Toonboxd n'affiche pas de publicité, ne pratique aucun suivi publicitaire, et n
 
 **Où trouver ton identifiant.** Dans l'app : Réglages, section Compte, « Ton identifiant ». C'est ce que nous te demanderons pour toute demande sur tes données.
 
-**Ce que Toonboxd ne stocke pas.** Ta position, tes contacts, tes photos, ton nom, tes moyens de paiement. L'app ne demande aucune de ces autorisations à ton iPhone. Si tu choisis « Enregistrer l'image » en partageant ta carte, c'est iOS qui te demande de laisser Toonboxd ajouter cette image à tes photos : un accès en ajout seul, qui ne permet pas de lire ta photothèque.
+**Ce que Toonboxd ne stocke pas.** Ta position (le fuseau horaire gardé pour ton historique ne dit qu'une région, souvent un pays entier), tes contacts, tes photos, ton nom, tes moyens de paiement. L'app ne demande aucune de ces autorisations à ton iPhone. Si tu choisis « Enregistrer l'image » en partageant ta carte, c'est iOS qui te demande de laisser Toonboxd ajouter cette image à tes photos : un accès en ajout seul, qui ne permet pas de lire ta photothèque.
 
 ## Ce qui reste sur ton téléphone
 
@@ -138,7 +138,7 @@ Si un jour nous faisons de la publicité pour Toonboxd et voulons mesurer d'où 
 
 **Où.** Dans l'app : Réglages, section Compte, « Supprimer mon compte ». Un écran dit ce qui part et ce qui reste, puis l'app demande « Supprimer ton compte ? ».
 
-**Ce qui part, tout de suite et pour de bon.** Tout ce que Toonboxd stocke sur toi : ton compte, ta bibliothèque, ton historique de lecture, tes notes, tes mémos, ton pseudo, le libellé de ta carte, tes signalements, le jeton de notification de tes appareils, ta date de bêta-testeur si tu en avais une, et l'adresse Apple si tu avais lié ton compte.
+**Ce qui part, tout de suite et pour de bon.** Tout ce que Toonboxd stocke sur toi : ton compte, ta bibliothèque, ton historique de lecture, tes notes, tes mémos, ton pseudo, ton fuseau horaire, le libellé de ta carte, tes signalements, le jeton de notification de tes appareils, ta date de bêta-testeur si tu en avais une, et l'adresse Apple si tu avais lié ton compte.
 
 **Ce qui reste.**
 
@@ -193,6 +193,7 @@ Toonboxd s'adresse à des lecteurs en France et dans des pays anglophones : les 
 
 La date en tête change, et la liste ci-dessous dit ce qui a changé. L'historique complet de cette page est public, et chaque version y reste lisible : depuis le 16 octobre 2026 dans le dépôt du site, qui l'héberge, [toonboxd-web](https://github.com/Tomikz/toonboxd-web), et avant cette date dans l'ancien dépôt, [toonboxd-legal](https://github.com/Tomikz/toonboxd-legal).
 
+- 19 octobre 2026 : chaque jour de ton historique de lecture se compte désormais à ton heure, dans le fuseau horaire de ton iPhone, que l'app nous envoie et que nous gardons avec ton profil ; avant, c'était l'heure de Paris.
 - 19 octobre 2026 : les notifications arrivent dans la langue de l'app sur ton iPhone, français ou anglais, et nous gardons cette langue avec ton jeton de notification. Cette page dit aussi où lire ses versions d'avant le 16 octobre 2026 : dans l'ancien dépôt, toonboxd-legal.
 - 16 octobre 2026 : cette page existe en anglais (English version), et une section dit ce que la loi de ton pays peut ajouter, au Royaume-Uni, au Canada, en Australie, en Nouvelle-Zélande et aux États-Unis, et pour les enfants. En cas d'écart entre les deux versions, la française fait foi.
 - 14 octobre 2026 : le chemin pour retirer Toonboxd de ton identifiant Apple est corrigé (Réglages, ton nom, Se connecter avec Apple), et l'app te le rappelle une fois ton compte supprimé.
