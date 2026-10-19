@@ -4,7 +4,7 @@ title: Politique de confidentialité de Toonboxd
 
 # Politique de confidentialité de Toonboxd
 
-Dernière mise à jour : 16 octobre 2026.
+Dernière mise à jour : 19 octobre 2026.
 
 *English version: [Toonboxd Privacy Policy](https://toonboxd.app/privacy/). Cette page existe aussi en anglais ; en cas d'écart entre les deux, la version française fait foi.*
 
@@ -58,7 +58,7 @@ Toonboxd n'affiche pas de publicité, ne pratique aucun suivi publicitaire, et n
 
 **Tes signalements.** Quand tu signales qu'une série en pause a repris : la série et la date, rien d'autre.
 
-**Le jeton de notification de ton iPhone, si tu acceptes les notifications.** L'app ne te les propose qu'au moment où tu mets une série en pause pour la première fois, avec un écran qui explique pourquoi avant la question d'iOS. Si tu acceptes, nous gardons un jeton qui permet de t'écrire sur cet iPhone, fourni par Expo (plus bas), et le type d'appareil. Il sert à deux choses : te prévenir quand une série que tu as mise en pause reprend, et quand une série que tu as suggérée est ajoutée. Si tu refuses, rien n'est gardé. Tu coupes les notifications quand tu veux dans les réglages iOS.
+**Le jeton de notification de ton iPhone, si tu acceptes les notifications.** L'app ne te les propose qu'au moment où tu mets une série en pause pour la première fois, avec un écran qui explique pourquoi avant la question d'iOS. Si tu acceptes, nous gardons un jeton qui permet de t'écrire sur cet iPhone, fourni par Expo (plus bas), le type d'appareil, et la langue de l'app sur cet iPhone, français ou anglais, pour t'écrire dans cette langue ; si tu changes de langue, la nouvelle est gardée la prochaine fois que tu ouvres l'app. Le jeton sert à deux choses : te prévenir quand une série que tu as mise en pause reprend, et quand une série que tu as suggérée est ajoutée. Si tu refuses, rien n'est gardé. Tu coupes les notifications quand tu veux dans les réglages iOS.
 
 **Ce que ta note devient.** Ta note sur une série entre dans une moyenne communautaire anonyme. Si tu retires ta note ou si tu supprimes ton compte, elle en est retirée.
 
@@ -114,8 +114,8 @@ Six services reçoivent des données depuis ton téléphone, et un septième, Ex
 
 - Rôle : acheminer les notifications de Toonboxd jusqu'à ton iPhone, par le service de notification d'Apple.
 - Reçoit, depuis ton téléphone, si tu acceptes les notifications : le jeton de notification qu'Apple donne à ton iPhone, un identifiant d'installation que le composant d'Expo crée sur ton appareil et garde même après une réinstallation, et l'identifiant de l'app. En échange, Expo nous rend le jeton que nous gardons. Le composant renvoie ensuite ce jeton à Expo de lui-même, quand il change et tous les sept jours.
-- Reçoit, depuis nos serveurs, quand une série que tu as mise en pause reprend : ton jeton et le message, « {nom de la série} est de retour » puis « Tu l'avais mise en pause. Elle a repris. », avec l'identifiant de la série. **C'est une donnée de ta lecture qui sort de chez nous** : ce message dit qu'une série est dans tes pauses. Expo le transmet à Apple, qui l'affiche sur ton iPhone. Jamais ton mémo de reprise, ton pseudo ni ton identifiant de compte.
-- Reçoit, depuis nos serveurs, quand une série que tu as suggérée est ajoutée : ton jeton et le message, « {nom de la série} vient d'arriver » puis « Tu l'avais suggérée. Elle est arrivée et t'attend dans ta bibliothèque. », avec l'identifiant de la série. **Ce message dit que tu as suggéré cette série**, et il sort de chez nous comme le précédent. Jamais le texte de ta suggestion : le nom est celui de notre catalogue.
+- Reçoit, depuis nos serveurs, quand une série que tu as mise en pause reprend : ton jeton et le message, dans la langue de l'app sur ton iPhone : « {nom de la série} est de retour » puis « Tu l'avais mise en pause. Elle a repris. », ou en anglais « {nom de la série} is back » puis « You put it on hold. It’s updating again. », avec l'identifiant de la série. **C'est une donnée de ta lecture qui sort de chez nous** : ce message dit qu'une série est dans tes pauses. Expo le transmet à Apple, qui l'affiche sur ton iPhone. Jamais ton mémo de reprise, ton pseudo ni ton identifiant de compte.
+- Reçoit, depuis nos serveurs, quand une série que tu as suggérée est ajoutée : ton jeton et le message, dans la langue de l'app sur ton iPhone : « {nom de la série} vient d'arriver » puis « Tu l'avais suggérée. Elle est arrivée et t'attend dans ta bibliothèque. », ou en anglais « {nom de la série} just arrived » puis « You suggested it. Now it’s waiting in your library. », avec l'identifiant de la série. **Ce message dit que tu as suggéré cette série**, et il sort de chez nous comme le précédent. Jamais le texte de ta suggestion : le nom est celui de notre catalogue.
 - Ce qu'Expo et Apple gardent de ces messages : non vérifié à ce jour.
 - Hébergement : non vérifié à ce jour.
 
@@ -191,8 +191,9 @@ Toonboxd s'adresse à des lecteurs en France et dans des pays anglophones : les 
 
 ## Si cette page change
 
-La date en tête change, et la liste ci-dessous dit ce qui a changé. L'historique complet de cette page est public dans le dépôt qui l'héberge : chaque version reste lisible.
+La date en tête change, et la liste ci-dessous dit ce qui a changé. L'historique complet de cette page est public, et chaque version y reste lisible : depuis le 16 octobre 2026 dans le dépôt du site, qui l'héberge, [toonboxd-web](https://github.com/Tomikz/toonboxd-web), et avant cette date dans l'ancien dépôt, [toonboxd-legal](https://github.com/Tomikz/toonboxd-legal).
 
+- 19 octobre 2026 : les notifications arrivent dans la langue de l'app sur ton iPhone, français ou anglais, et nous gardons cette langue avec ton jeton de notification. Cette page dit aussi où lire ses versions d'avant le 16 octobre 2026 : dans l'ancien dépôt, toonboxd-legal.
 - 16 octobre 2026 : cette page existe en anglais (English version), et une section dit ce que la loi de ton pays peut ajouter, au Royaume-Uni, au Canada, en Australie, en Nouvelle-Zélande et aux États-Unis, et pour les enfants. En cas d'écart entre les deux versions, la française fait foi.
 - 14 octobre 2026 : le chemin pour retirer Toonboxd de ton identifiant Apple est corrigé (Réglages, ton nom, Se connecter avec Apple), et l'app te le rappelle une fois ton compte supprimé.
 - 14 octobre 2026 : tu peux couper l'analyse d'usage dans les Réglages (« Statistiques d'usage »). Décochée, plus rien ne part vers PostHog ni Firebase Analytics, et ton téléphone se souvient de ce choix. Cette page disait jusqu'ici qu'aucun réglage n'existait.

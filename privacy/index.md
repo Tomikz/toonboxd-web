@@ -4,7 +4,7 @@ title: Toonboxd Privacy Policy
 
 # Toonboxd Privacy Policy
 
-Last updated: October 16, 2026.
+Last updated: October 19, 2026.
 
 *Version française : [Politique de confidentialité de Toonboxd](https://toonboxd.app/confidentialite/). This English page translates the French one, which is the reference: if the two ever differ, the French version prevails.*
 
@@ -58,7 +58,7 @@ Toonboxd shows no ads, does no ad tracking, and neither sells nor rents anything
 
 **Your reports.** When you report that a series came back from hiatus: the series and the date, nothing else.
 
-**Your iPhone's notification token, if you accept notifications.** The app only offers them the first time you put a series on hold, with a screen that explains why before iOS asks. If you accept, we keep a token that lets us send you notifications on this iPhone, provided by Expo (see below), and the type of device. It is used for two things: letting you know when a series you put on hold is back, and when a series you suggested is added. If you decline, nothing is kept. You can turn notifications off whenever you want in iOS Settings.
+**Your iPhone's notification token, if you accept notifications.** The app only offers them the first time you put a series on hold, with a screen that explains why before iOS asks. If you accept, we keep a token that lets us send you notifications on this iPhone, provided by Expo (see below), the type of device, and the language of the app on this iPhone, English or French, so we can write to you in that language; if you change languages, the new one is kept the next time you open the app. The token is used for two things: letting you know when a series you put on hold is back, and when a series you suggested is added. If you decline, nothing is kept. You can turn notifications off whenever you want in iOS Settings.
 
 **What your rating becomes.** Your rating of a series goes into an anonymous community average. If you remove your rating or delete your account, it is taken out of that average.
 
@@ -114,8 +114,8 @@ Six services receive data from your phone, and a seventh, Expo, receives data fr
 
 - Role: delivers Toonboxd notifications to your iPhone, through Apple's notification service.
 - Receives, from your phone, if you accept notifications: the notification token Apple gives your iPhone, an installation ID that the Expo component creates on your device and keeps even after a reinstall, and the app's ID. In return, Expo gives us the token we keep. The component then sends this token back to Expo on its own, when it changes and every seven days.
-- Receives, from our servers, when a series you put on hold is back: your token and the message, which is written in French for now, "{series name} est de retour" then "Tu l'avais mise en pause. Elle a repris." (it says that the series is back, and that you had put it on hold), with the series ID. **This is data about your reading that leaves our hands**: the message says that a series is among the ones you put on hold. Expo passes it on to Apple, which shows it on your iPhone. Never your pause note, your username or your account ID.
-- Receives, from our servers, when a series you suggested is added: your token and the message, written in French for now, "{series name} vient d'arriver" then "Tu l'avais suggérée. Elle est arrivée et t'attend dans ta bibliothèque." (it says that the series has arrived, that you had suggested it, and that it is waiting in your library), with the series ID. **This message says that you suggested this series**, and it leaves our hands like the previous one. Never the text of your suggestion: the name is the one in our list of series.
+- Receives, from our servers, when a series you put on hold is back: your token and the message, in the language of the app on your iPhone: "{series name} is back" then "You put it on hold. It’s updating again.", or in French "{series name} est de retour" then "Tu l'avais mise en pause. Elle a repris.", with the series ID. **This is data about your reading that leaves our hands**: the message says that a series is among the ones you put on hold. Expo passes it on to Apple, which shows it on your iPhone. Never your pause note, your username or your account ID.
+- Receives, from our servers, when a series you suggested is added: your token and the message, in the language of the app on your iPhone: "{series name} just arrived" then "You suggested it. Now it’s waiting in your library.", or in French "{series name} vient d'arriver" then "Tu l'avais suggérée. Elle est arrivée et t'attend dans ta bibliothèque.", with the series ID. **This message says that you suggested this series**, and it leaves our hands like the previous one. Never the text of your suggestion: the name is the one in our list of series.
 - What Expo and Apple keep of these messages: not checked yet.
 - Hosting: not checked yet.
 
@@ -191,8 +191,9 @@ Toonboxd is meant for readers in France and in English-speaking countries: the U
 
 ## If this page changes
 
-The date at the top changes, and the list below says what changed. The full history of this page is public in the repository that hosts it: every version stays readable. The changes made before this English version existed are listed on the French version of this page.
+The date at the top changes, and the list below says what changed. The full history of this page is public, and every version stays readable there: since October 16, 2026 in the website's repository, which hosts it, [toonboxd-web](https://github.com/Tomikz/toonboxd-web), and before that date in the former repository, [toonboxd-legal](https://github.com/Tomikz/toonboxd-legal). The changes made before this English version existed are listed on the French version of this page.
 
+- October 19, 2026: notifications arrive in the language of the app on your iPhone, English or French, and we keep that language with your notification token. This page also says where to read its versions from before October 16, 2026: in the former repository, toonboxd-legal.
 - October 16, 2026: first English version of this page. It translates the French version of October 16, 2026, which now includes the same section on local laws outside France.
 
 ## What this page does not cover
