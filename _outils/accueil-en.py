@@ -316,8 +316,10 @@ TABLE = [
     ('<p class="foot-tag">Le manhwa tracker et webtoon tracker en français, sur iPhone.</p>', '<p class="foot-tag">The manhwa tracker and webtoon tracker for iPhone.</p>', 1),
     ('<nav class="foot-links" aria-label="Liens utiles">\n        <a href="/confidentialite/">Confidentialité</a>\n        <a href="https://www.apple.com/legal/internet-services/itunes/dev/stdeula/">Conditions d’utilisation</a>',
      '<nav class="foot-links" aria-label="Useful links">\n        <a href="/privacy/">Privacy</a>\n        <a href="https://www.apple.com/legal/internet-services/itunes/dev/stdeula/">Terms of Use</a>', 1),
-    ('<p class="foot-small">Métadonnées et couvertures&nbsp;: AniList. Les couvertures restent la propriété de leurs auteurs, studios et éditeurs. Toonboxd n’héberge aucun chapitre et renvoie toujours vers les sources officielles.</p>',
-     '<p class="foot-small">Metadata and covers: AniList. Covers remain the property of their authors, studios and publishers. Toonboxd hosts no chapters and always points to official sources.</p>', 1),
+    # Le pied d'après la bascule du plan B (29 octobre 2026) : l'anglais du message
+    # de docs/PLAN-B-CATALOGUE.md, dépôt de l'app.
+    ('<p class="foot-small">Données des séries&nbsp;: MangaUpdates. Couvertures&nbsp;: la plateforme officielle de chaque série ou MangaUpdates&nbsp;; elles restent la propriété de leurs auteurs, studios et éditeurs. Toonboxd n’héberge aucun chapitre et renvoie toujours vers les sources officielles.</p>',
+     '<p class="foot-small">Series data: MangaUpdates. Covers: each series’ official platform or MangaUpdates; they remain the property of their authors, studios and publishers. Toonboxd hosts no chapters and always points to official sources.</p>', 1),
 
     # ---------- La fenêtre d'inscription : les mêmes champs, la même fonction ----------
     ('data-fermer aria-label="Fermer">', 'data-fermer aria-label="Close">', 1),

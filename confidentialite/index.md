@@ -4,7 +4,7 @@ title: Politique de confidentialité de Toonboxd
 
 # Politique de confidentialité de Toonboxd
 
-Dernière mise à jour : 19 octobre 2026.
+Dernière mise à jour : 29 octobre 2026.
 
 *English version: [Toonboxd Privacy Policy](https://toonboxd.app/privacy/). Cette page existe aussi en anglais ; en cas d'écart entre les deux, la version française fait foi.*
 
@@ -26,7 +26,7 @@ Toonboxd n'affiche pas de publicité, ne pratique aucun suivi publicitaire, et n
 
 **Si tu lies ton compte à Apple.** Tu peux lier ce compte à ton identifiant Apple pour retrouver ta bibliothèque sur un autre iPhone. Apple nous transmet alors une adresse email : la tienne, ou une adresse relais si tu as choisi de la masquer. Nous ne demandons jamais ton nom. Cette adresse sert à te reconnaître et n'est affichée nulle part dans l'app.
 
-**Ta bibliothèque.** Les séries que tu suis, leur statut (en cours, en pause, prévue, terminée, abandonnée), le dernier chapitre lu, les dates d'ajout et de dernière modification, les séries que tu épingles, et la note que tu donnes à une série. **Et, depuis le 9 octobre 2026, un historique de ta lecture, jour par jour** : de combien de chapitres tu as avancé chaque jour, en mettant à part ceux que tu indiques quand tu dis où tu en es et ceux que tu retires, et les séries que tu as terminées ce jour-là. Il se déduit de ce que tu fais déjà dans l'app, et nous le gardons pour pouvoir te montrer un jour des statistiques de ta lecture ; aucun écran ne l'affiche aujourd'hui. Il est privé : personne d'autre que toi ne peut le lire, et il ne quitte pas notre base. **Chaque jour de cet historique se compte à ton heure** : l'app nous envoie le fuseau horaire de ton iPhone (par exemple « Europe/Paris »), que nous gardons avec ton profil et qu'elle met à jour quand il change ; les jours comptés avant qu'elle l'envoie, ou sans lui, le sont à l'heure de Paris.
+**Ta bibliothèque.** Les séries que tu suis, leur statut (en cours, en pause, prévue, terminée, abandonnée), le dernier chapitre lu, les dates d'ajout et de dernière modification, les séries que tu épingles, et la note que tu donnes à une série. **Et, depuis le 9 octobre 2026, un historique de ta lecture, jour par jour** : de combien de chapitres tu as avancé chaque jour, en mettant à part ceux que tu indiques quand tu dis où tu en es et ceux que tu retires, et les séries que tu as terminées ce jour-là. Il se déduit de ce que tu fais déjà dans l'app, et nous le gardons pour pouvoir te montrer un jour des statistiques de ta lecture ; aucun écran ne l'affiche aujourd'hui. Il est privé : personne d'autre que toi ne peut le lire, et il ne quitte pas notre base. **Chaque jour de cet historique se compte à ton heure** : l'app nous envoie le fuseau horaire de ton iPhone (par exemple « Europe/Paris »), que nous gardons avec ton profil et qu'elle met à jour quand il change ; les jours comptés avant qu'elle l'envoie, ou sans lui, le sont à l'heure de Paris. Ce fuseau est une localisation approximative : il dit la région de ton iPhone, souvent un pays entier, jamais l'endroit où tu es.
 
 **Tes mémos de reprise.** Le texte que tu écris quand tu mets une série en pause. Il est privé : personne d'autre que toi ne le voit, et il ne quitte pas notre base, pas même dans une notification.
 
@@ -66,11 +66,11 @@ Toonboxd n'affiche pas de publicité, ne pratique aucun suivi publicitaire, et n
 
 **Où trouver ton identifiant.** Dans l'app : Réglages, section Compte, « Ton identifiant ». C'est ce que nous te demanderons pour toute demande sur tes données.
 
-**Ce que Toonboxd ne stocke pas.** Ta position (le fuseau horaire gardé pour ton historique ne dit qu'une région, souvent un pays entier), tes contacts, tes photos, ton nom, tes moyens de paiement. L'app ne demande aucune de ces autorisations à ton iPhone. Si tu choisis « Enregistrer l'image » en partageant ta carte, c'est iOS qui te demande de laisser Toonboxd ajouter cette image à tes photos : un accès en ajout seul, qui ne permet pas de lire ta photothèque.
+**Ce que Toonboxd ne stocke pas.** Ta position précise (le fuseau horaire de ton historique, plus haut, est la seule localisation que nous gardions, et elle est approximative), tes contacts, tes photos, ton nom, tes moyens de paiement. L'app ne demande aucune de ces autorisations à ton iPhone. Si tu choisis « Enregistrer l'image » en partageant ta carte, c'est iOS qui te demande de laisser Toonboxd ajouter cette image à tes photos : un accès en ajout seul, qui ne permet pas de lire ta photothèque.
 
 ## Ce qui reste sur ton téléphone
 
-Sur l'appareil, l'app garde ta session, tes réponses aux premiers écrans (nombre de séries, sélection, chapitres), ta préférence de tri, ton choix d'afficher ou non ton total sur ta carte, ton choix sur les statistiques d'usage, un cache des couvertures, une file d'attente des événements d'usage avant leur envoi, et l'image de ta carte le temps de la partager. Tout part avec la désinstallation.
+Sur l'appareil, l'app garde ta session, tes réponses aux premiers écrans (nombre de séries, sélection, chapitres), tes préférences d'affichage, comme ta préférence de tri ou ton choix d'afficher ton total sur ta carte, ton choix sur les statistiques d'usage, un cache des couvertures, une file d'attente des événements d'usage avant leur envoi, et l'image de ta carte le temps de la partager. Tout part avec la désinstallation.
 
 ## Les services que Toonboxd utilise
 
@@ -89,13 +89,14 @@ Six services reçoivent des données depuis ton téléphone, et un septième, Ex
 - Rôle : nous dire comment l'app est utilisée (quels écrans, quelles actions), pour l'améliorer.
 - Reçoit : tes actions dans l'app (ajout ou retrait d'une série, changement de statut ou de chapitre, écran ouvert, achat, partage de ta carte avec le nombre de séries qu'elle montre, si ton total y figurait, et le type d'app choisie), avec l'identifiant de la série concernée ; **le texte de ta recherche quand elle ne donne aucun résultat** ; la version de l'app, la langue et le fuseau horaire de ton téléphone, la taille de l'écran, le type d'appareil ; le fait que tu es abonné ou non. Le tout est rangé sous ton identifiant de compte. Il ne reçoit jamais tes mémos, ton pseudo, tes suggestions ni l'image de ta carte.
 - Hébergement : Union européenne.
-- Adresse IP : comme tout serveur, PostHog reçoit l'adresse IP de ton téléphone à chaque envoi. Ce qu'il en garde dépend d'un réglage que nous n'avons pas encore vérifié.
+- Adresse IP : comme tout serveur, PostHog reçoit l'adresse IP de ton téléphone à chaque envoi, et ne la garde pas : son réglage « Discard client IP data » est activé.
 
 ### Firebase Analytics (Google) : la même analyse, seconde destination
 
 - Rôle : le même usage que PostHog, chez Google.
-- Reçoit : les mêmes actions, rangées sous ton identifiant de compte et sous un identifiant d'installation généré par Google. Tes achats y arrivent aussi par RevenueCat (voir plus bas). Ce que le composant Google collecte de lui-même sur ton appareil (modèle, système, pays déduit) n'a pas pu être vérifié de notre côté.
-- Hébergement : non vérifié à ce jour, possiblement hors Union européenne.
+- Reçoit : les mêmes actions, rangées sous ton identifiant de compte et sous un identifiant d'installation généré par Google. Tes achats y arrivent aussi par RevenueCat (voir plus bas). Le composant Google collecte aussi de lui-même des informations sur ton appareil (modèle, système, pays déduit), et nous en avons désactivé la collecte des données précises d'appareil et de position.
+- Nos réglages chez Google : le pays d'activité est la France ; les conditions de traitement des données de Google (RGPD) sont acceptées ; le partage de nos données avec Google est réduit à l'assistance technique ; Google Signals est désactivé, et la personnalisation des annonces l'est dans toutes les régions ; les données sont conservées deux mois.
+- Hébergement : possiblement aux États-Unis, sous les conditions de traitement des données de Google (des clauses contractuelles types) et le Data Privacy Framework.
 
 ### Sentry : les rapports de plantage
 
@@ -108,7 +109,7 @@ Six services reçoivent des données depuis ton téléphone, et un septième, Ex
 - Rôle : gère l'abonnement Pro, l'essai gratuit et la restauration des achats.
 - Reçoit : le reçu d'achat transmis par Apple, la formule choisie, l'identifiant de ton compte Toonboxd (le même que pour l'analyse, pour que ton abonnement te suive quand tu retrouves ta bibliothèque sur un autre iPhone), et l'identifiant d'installation Firebase.
 - Nous renvoie : quand ton abonnement change, RevenueCat le dit à nos serveurs, et notre base garde la date de fin de ton Pro et d'où il vient, un achat et sa formule, ou un accès offert. Le reste de ce message, comme le prix ou le pays, n'est pas gardé.
-- Hébergement : non vérifié à ce jour.
+- Hébergement : chez AWS, aux États-Unis, sous des clauses contractuelles types, son contrat de traitement des données (DPA) faisant partie de ses conditions.
 
 ### Expo : les notifications
 
@@ -117,15 +118,16 @@ Six services reçoivent des données depuis ton téléphone, et un septième, Ex
 - Reçoit, depuis nos serveurs, quand une série que tu as mise en pause reprend : ton jeton et le message, dans la langue de l'app sur ton iPhone : « {nom de la série} est de retour » puis « Tu l'avais mise en pause. Elle a repris. », ou en anglais « {nom de la série} is back » puis « You put it on hold. It’s updating again. », avec l'identifiant de la série. **C'est une donnée de ta lecture qui sort de chez nous** : ce message dit qu'une série est dans tes pauses. Expo le transmet à Apple, qui l'affiche sur ton iPhone. Jamais ton mémo de reprise, ton pseudo ni ton identifiant de compte.
 - Reçoit, depuis nos serveurs, quand une série que tu as suggérée est ajoutée : ton jeton et le message, dans la langue de l'app sur ton iPhone : « {nom de la série} vient d'arriver » puis « Tu l'avais suggérée. Elle est arrivée et t'attend dans ta bibliothèque. », ou en anglais « {nom de la série} just arrived » puis « You suggested it. Now it’s waiting in your library. », avec l'identifiant de la série. **Ce message dit que tu as suggéré cette série**, et il sort de chez nous comme le précédent. Jamais le texte de ta suggestion : le nom est celui de notre catalogue.
 - Ce qu'Expo et Apple gardent de ces messages : non vérifié à ce jour.
-- Hébergement : non vérifié à ce jour.
+- Hébergement : hors de l'Union européenne ; Expo est certifié au Data Privacy Framework UE-États-Unis.
 
 ### Apple : la connexion et le paiement
 
 Connexion avec Apple et l'achat passent par Apple. Ce qu'Apple fait de ces opérations relève de sa propre politique. Ce qui nous revient : un jeton d'identité quand tu lies ton compte, et un reçu quand tu achètes. C'est aussi le service de notification d'Apple qui délivre les notifications à ton iPhone : il reçoit, par Expo, les messages décrits ci-dessus.
 
-### Deux choses sans service
+### Trois choses sans service
 
-- Les couvertures des séries sont chargées depuis AniList (s4.anilist.co). Comme pour toute image sur le web, ce serveur reçoit l'adresse IP de ton téléphone et l'adresse de l'image.
+- Les données des séries (titres, statut, nombre de chapitres, genres, auteurs, notes et votes) viennent de MangaUpdates, que chaque fiche concernée crédite. Quelques fiches sont écrites par Toonboxd, et quelques séries que MangaUpdates ne connaît pas ne montrent que leur titre. Ces données sont dans notre base, chez Supabase : ton téléphone ne contacte jamais MangaUpdates pour elles. Les résumés des séries sont écrits par Toonboxd, en français et en anglais, avec l'aide d'une intelligence artificielle, à partir des faits de chaque série.
+- Les couvertures des séries sont chargées depuis le site qui les héberge : la plateforme officielle de la série quand elle en publie une (les serveurs d'images de Webtoon, swebtoon-phinf.pstatic.net), sinon, ou pour quelques séries dont nous préférons sa couverture, MangaUpdates (cdn.mangaupdates.com). Comme pour toute image sur le web, ce serveur reçoit l'adresse IP de ton téléphone et l'adresse de l'image. Une série sans couverture en montre une composée par l'app, qui ne charge rien. Si une couverture t'appartient, écris à contact@toonboxd.app : elle est retirée sous 48 heures.
 - « Lire sur … » ouvre un navigateur dans l'app, vers la plateforme officielle ; « Chercher le chapitre N » ouvre Safari, sur une recherche Google. Ce qui se passe sur ces pages relève de ces sites, pas de Toonboxd.
 
 ## Le suivi publicitaire
@@ -159,7 +161,7 @@ Sentry n'a rien qui te désigne, donc rien à effacer par personne. RevenueCat r
 
 **Si tu laisses ton email pour être prévenu du lancement.** Le site propose de laisser ton adresse email pour recevoir deux messages, et rien d'autre : un message pour la bêta, puis un message le jour où Toonboxd arrive sur ton téléphone, sur iPhone d'abord, sur Android ensuite. Nous gardons cette adresse, le téléphone que tu indiques (iPhone ou Android) et la date à laquelle tu les as laissés, et rien d'autre : pas de nom, pas de compte, aucun lien avec l'app. Ton téléphone dit quel message de lancement t'envoyer : celui du lancement sur iPhone, ou celui de la sortie Android. L'adresse est stockée chez Supabase, à Paris, dans une table que ni le site ni l'app ne peuvent relire. Elle ne sert qu'à ces deux messages, et elle est effacée avec ton téléphone une fois le message de lancement parti, et au plus tard douze mois après ton inscription, même si ce message n'est pas encore parti. Si tu t'es inscrit avant que le site le dise, le 13 octobre 2026, il te promettait un seul message, celui du lancement : tu reçois aussi celui de la bêta, une seule fois, et il le dit. Il suffit d'y répondre « STOP » pour que ton adresse soit effacée ; tu ne reçois alors plus rien, pas même le message de lancement. Tu peux les faire retirer avant, sans raison à donner, en écrivant à contact@toonboxd.app depuis cette adresse. C'est ton accord, donné en envoyant le formulaire, qui nous y autorise, et tu le retires de la même façon.
 
-**Ce que le site charge.** Les couvertures des séries viennent de notre catalogue, chez Supabase, et s'affichent depuis AniList, qui les héberge : ton navigateur contacte donc ces deux services, comme sur une liste partagée. Le site ne dépose aucun cookie et ne mesure rien de ses visiteurs.
+**Ce que le site charge.** Les couvertures des séries viennent de notre catalogue, chez Supabase, et s'affichent depuis le site qui les héberge, la plateforme officielle de la série ou MangaUpdates : ton navigateur contacte donc ces services, comme sur une liste partagée. Le site ne dépose aucun cookie et ne mesure rien de ses visiteurs.
 
 ## Tes droits
 
@@ -176,23 +178,24 @@ Pour exercer un droit : un mail à contact@toonboxd.app avec ton identifiant (R�
 
 **Sur quelle base.** Le compte, la bibliothèque et l'abonnement sont nécessaires au service que tu utilises. L'analyse d'usage et les rapports de plantage relèvent de notre intérêt légitime à comprendre et à réparer l'app ; tu peux t'opposer à l'analyse d'usage à tout moment, par la case des Réglages. Les notifications reposent sur ton accord, donné à iOS et retiré dans les réglages iOS. Un signalement de liste se traite parce que la loi nous oblige à agir sur un contenu illicite qu'on nous signale.
 
-**Hors de l'Union européenne.** Google, RevenueCat et Expo peuvent héberger leurs données hors de l'UE ; nous n'avons pas encore vérifié où. Cette page sera précisée quand ce sera fait.
+**Hors de l'Union européenne.** Trois services hébergent des données hors de l'Union : Google (Firebase Analytics), possiblement aux États-Unis, sous ses conditions de traitement des données (des clauses contractuelles types) et le Data Privacy Framework ; RevenueCat, chez AWS aux États-Unis, sous des clauses contractuelles types, que son contrat de traitement des données porte ; Expo, hors de l'Union, certifié au Data Privacy Framework UE-États-Unis. Ce qu'Expo et Apple gardent des messages de notification n'est pas encore vérifié.
 
 ## Si tu vis hors de France
 
-Toonboxd s'adresse à des lecteurs en France et dans des pays anglophones : les États-Unis, le Royaume-Uni, le Canada, l'Australie, l'Irlande et la Nouvelle-Zélande. Tout ce qui précède vaut où que tu vives, et si tu vis hors de France, tes données sont conservées et traitées hors de ton pays : en France et dans l'Union européenne, et peut-être ailleurs pour Google, RevenueCat et Expo (« Hors de l'Union européenne », plus haut). Voici ce que la loi de ton pays peut y ajouter.
+Toonboxd s'adresse à des lecteurs en France et dans des pays anglophones : les États-Unis, le Royaume-Uni, le Canada, l'Australie, l'Irlande et la Nouvelle-Zélande. Tout ce qui précède vaut où que tu vives, et si tu vis hors de France, tes données sont conservées et traitées hors de ton pays : en France et dans l'Union européenne, et aux États-Unis ou ailleurs hors de l'Union pour Google, RevenueCat et Expo (« Hors de l'Union européenne », plus haut). Voici ce que la loi de ton pays peut y ajouter.
 
 - **L'Irlande et le reste de l'Union européenne.** Le RGPD s'applique comme décrit plus haut. Tu peux aussi saisir l'autorité de ton pays, en Irlande la Data Protection Commission (dataprotection.ie).
 - **Le Royaume-Uni.** Le UK GDPR et le Data Protection Act 2018 te donnent les mêmes droits, qui s'exercent de la même façon. Tu peux saisir l'Information Commissioner's Office (ico.org.uk). Notre base est hébergée à Paris, et PostHog et Sentry dans l'Union européenne, que le droit britannique considère comme offrant une protection adéquate ; pour Google, RevenueCat et Expo, voir « Hors de l'Union européenne », plus haut.
 - **Le Canada.** Tu peux consulter tes données et les faire corriger comme décrit plus haut. La personne responsable de la protection de tes renseignements personnels, y compris au sens de la loi québécoise, est Paul Maxime Nadin (contact@toonboxd.app). Tu peux saisir le Commissariat à la protection de la vie privée du Canada (priv.gc.ca) et, au Québec, la Commission d'accès à l'information (cai.gouv.qc.ca).
 - **L'Australie et la Nouvelle-Zélande.** Tu peux consulter tes données et les faire corriger comme décrit plus haut. Si notre réponse ne te satisfait pas, tu peux t'adresser à l'Office of the Australian Information Commissioner (oaic.gov.au) ou, en Nouvelle-Zélande, à l'Office of the Privacy Commissioner (privacy.org.nz).
-- **Les États-Unis, Californie comprise.** Nous ne vendons pas tes données personnelles et ne les partageons pas pour de la publicité fondée sur ton activité dans les apps et les sites d'autres entreprises, au sens où le droit californien définit la vente et le partage, et nous ne les communiquons à aucun tiers pour sa propre prospection. Une limite, la même que plus haut : nous n'avons pas vérifié tous les réglages de Firebase Analytics, le service de Google qui reçoit nos statistiques d'usage. Les catégories de données que nous collectons, leur origine, leur usage et ceux qui les reçoivent sont décrits plus haut, comme les moyens de les consulter, de les corriger et de les supprimer. **« Do Not Track ».** Toonboxd ne te suit pas sur les apps ou les sites d'autres entreprises, et n'a activé aucune fonction qui permettrait à un tiers de le faire : nous ne réagissons donc pas différemment au signal « Do Not Track » d'un navigateur, et le site ne mesure rien de toute façon.
+- **Les États-Unis, Californie comprise.** Nous ne vendons pas tes données personnelles et ne les partageons pas pour de la publicité fondée sur ton activité dans les apps et les sites d'autres entreprises, au sens où le droit californien définit la vente et le partage, et nous ne les communiquons à aucun tiers pour sa propre prospection. Chez Firebase Analytics, le service de Google qui reçoit nos statistiques d'usage, Google Signals et la personnalisation des annonces sont désactivés, et le partage de nos données avec Google est réduit à l'assistance technique. Les catégories de données que nous collectons, leur origine, leur usage et ceux qui les reçoivent sont décrits plus haut, comme les moyens de les consulter, de les corriger et de les supprimer. **« Do Not Track ».** Toonboxd ne te suit pas sur les apps ou les sites d'autres entreprises, et n'a activé aucune fonction qui permettrait à un tiers de le faire : nous ne réagissons donc pas différemment au signal « Do Not Track » d'un navigateur, et le site ne mesure rien de toute façon.
 - **Les enfants.** Toonboxd ne s'adresse pas aux enfants de moins de 13 ans, et nous ne collectons pas sciemment de données sur eux. Si tu penses qu'un enfant de moins de 13 ans a utilisé l'app, écris-nous avec l'identifiant du compte, affiché dans les Réglages de l'app : nous supprimerons le compte, et demanderons à PostHog et à Firebase d'effacer ses données d'usage.
 
 ## Si cette page change
 
 La date en tête change, et la liste ci-dessous dit ce qui a changé. L'historique complet de cette page est public, et chaque version y reste lisible : depuis le 16 octobre 2026 dans le dépôt du site, qui l'héberge, [toonboxd-web](https://github.com/Tomikz/toonboxd-web), et avant cette date dans l'ancien dépôt, [toonboxd-legal](https://github.com/Tomikz/toonboxd-legal).
 
+- 29 octobre 2026 : les données des séries viennent de MangaUpdates, à la place d'AniList : les couvertures se chargent depuis la plateforme officielle de la série ou depuis MangaUpdates, et les résumés sont écrits par Toonboxd avec l'aide d'une intelligence artificielle. Le fuseau horaire de ton historique est dit pour ce qu'il est, une localisation approximative. Ce que la page disait non vérifié l'est : PostHog ne garde pas l'adresse IP, les réglages de Firebase Analytics sont décrits, et l'hébergement de Google, RevenueCat et Expo est dit. Reste à vérifier ce qu'Expo et Apple gardent des messages de notification. Ce que ton téléphone garde de tes préférences d'affichage est dit sans les énumérer toutes.
 - 19 octobre 2026 : chaque jour de ton historique de lecture se compte désormais à ton heure, dans le fuseau horaire de ton iPhone, que l'app nous envoie et que nous gardons avec ton profil ; avant, c'était l'heure de Paris.
 - 19 octobre 2026 : les notifications arrivent dans la langue de l'app sur ton iPhone, français ou anglais, et nous gardons cette langue avec ton jeton de notification. Cette page dit aussi où lire ses versions d'avant le 16 octobre 2026 : dans l'ancien dépôt, toonboxd-legal.
 - 16 octobre 2026 : cette page existe en anglais (English version), et une section dit ce que la loi de ton pays peut ajouter, au Royaume-Uni, au Canada, en Australie, en Nouvelle-Zélande et aux États-Unis, et pour les enfants. En cas d'écart entre les deux versions, la française fait foi.

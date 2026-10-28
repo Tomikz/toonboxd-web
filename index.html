@@ -36,7 +36,8 @@
 <link rel="preload" href="/assets/fonts/pretendard-extrabold.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="/assets/fonts/pretendard-regular.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preconnect" href="https://ifxfemscdxbnnnvcdfgc.supabase.co" crossorigin>
-<link rel="preconnect" href="https://s4.anilist.co">
+<link rel="preconnect" href="https://swebtoon-phinf.pstatic.net">
+<link rel="preconnect" href="https://cdn.mangaupdates.com">
 
 <!--
   LA PAGE D'ACCUEIL DE TOONBOXD.APP.
@@ -47,7 +48,8 @@
   recopiées en symboles ci-dessous. LES COUVERTURES VIENNENT DU CATALOGUE, PAR LE
   MÊME CHEMIN QUE L'APP : la table `series` lue avec la clé anon (celle de
   l/index.html, les mêmes colonnes que LIST_COLUMNS de services/seriesService.ts),
-  et l'image chez l'hébergeur que porte `cover_url`, AniList. Jamais embarquées
+  et l'image chez l'hébergeur que porte `cover_url` (la plateforme officielle ou
+  MangaUpdates depuis la bascule du plan B). Jamais embarquées
   ici : le catalogue vivant, comme l'écran d'accueil de l'onboarding. Aucun
   cookie, aucune mesure d'audience : la règle de l/, pour la même raison.
 
@@ -182,6 +184,35 @@
   }
   .cov img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; opacity: 0; transition: opacity 0.15s linear; }
   .cov img.ok { opacity: 1; }
+
+  /*
+    LA COUVERTURE COMPOSÉE (bascule du plan B, 29 octobre 2026), la forme web
+    de components/CouvertureGeneree.tsx : une série sans image, ou dont l'image
+    échoue, montre son titre, posé par le script. Les proportions sont celles
+    de l'app, une composition de 120 x 180 mise à l'échelle de l'emplacement
+    (le titre en 14 sur 20, semi-gras, une marge de 10, six lignes au plus),
+    ici par des unités de conteneur puisque les emplacements vont de 30 à
+    140 px ; et comme dans l'app, sous 77 de large, où le titre se lirait sous
+    9 px, une ou deux initiales en extra-gras à sa place. Le fond reste celui de
+    l'emplacement, le titre en `text`, les initiales en `muted` : aucune teinte
+    neuve, aucun trait. Les numéros de rang restent au-dessus (z-index 1). Un
+    navigateur sans requêtes de conteneur garde le titre en 12 px.
+  */
+  .cov { container-type: inline-size; }
+  .cov .generee {
+    position: absolute; inset: 0; padding: 10px; padding: 8.33cqi;
+    color: var(--text); font-weight: 600; font-size: 12px; font-size: 11.67cqi; line-height: 1.43;
+    overflow: hidden; overflow-wrap: break-word;
+  }
+  .cov .generee-titre { display: -webkit-box; -webkit-line-clamp: 6; -webkit-box-orient: vertical; overflow: hidden; }
+  .cov .generee-init { display: none; }
+  @container (max-width: 76.9px) {
+    .cov .generee-titre { display: none; }
+    .cov .generee-init {
+      display: grid; place-items: center; height: 100%;
+      color: var(--muted); font-weight: 800; font-size: 26.67cqi; line-height: 1.25;
+    }
+  }
 
   /* ---------- Boutons ---------- */
   .btn {
@@ -1430,7 +1461,7 @@
         <a href="mailto:contact@toonboxd.app">Contact</a>
       </nav>
     </div>
-    <p class="foot-small">Métadonnées et couvertures&nbsp;: AniList. Les couvertures restent la propriété de leurs auteurs, studios et éditeurs. Toonboxd n’héberge aucun chapitre et renvoie toujours vers les sources officielles.</p>
+    <p class="foot-small">Données des séries&nbsp;: MangaUpdates. Couvertures&nbsp;: la plateforme officielle de chaque série ou MangaUpdates&nbsp;; elles restent la propriété de leurs auteurs, studios et éditeurs. Toonboxd n’héberge aucun chapitre et renvoie toujours vers les sources officielles.</p>
   </div>
 </footer>
 
@@ -1535,7 +1566,16 @@
     La variante « medium » d'AniList (230 px de large contre 460) suffit à toutes
     les tailles de cette page, écran Retina compris, pour un tiers du poids. Elle
     ne s'applique qu'aux adresses d'AniList ; toute autre adresse passe telle
-    quelle.
+    quelle. Depuis la bascule du plan B (29 octobre 2026), le catalogue n'en
+    porte plus : les adresses de Webtoon et de MangaUpdates passent telles
+    quelles, et la fonction ne sert plus qu'à un retour en arrière.
+
+    UNE SÉRIE SANS IMAGE, OU DONT L'IMAGE ÉCHOUE, MONTRE SON TITRE (la
+    couverture composée, plus haut dans le style) : l'écouteur `error` est posé
+    avant la source, et l'image en échec est retirée, jamais laissée cassée.
+    Une ligne absente de la réponse garde le fond nu, son titre n'étant pas
+    connu. Les images partent sans Referer, comme dans l'app ; les deux hôtes
+    les servent aussi avec (_outils/couvertures-referer.py, 28 octobre 2026).
   */
   var URL_BASE = 'https://ifxfemscdxbnnnvcdfgc.supabase.co';
   var CLE_ANON = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImlmeGZlbXNjZHhibm5udmNkZmdjIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODYzNzk4MjksImV4cCI6MjEwMTk1NTgyOX0.ez6EldqHkCxsSL_bmEruO-RkTas87sBkHX9Z_283RmI';
@@ -1554,14 +1594,47 @@
       : adresse;
   }
 
+  /* Une ou deux lettres : la première de chacun des deux premiers mots (initialesDe de l'app). */
+  function initialesDe(titre) {
+    return titre.split(/\s+/).map(function (mot) {
+      var lettre = mot.match(/[\p{L}\p{N}]/u);
+      return lettre ? lettre[0] : '';
+    }).filter(Boolean).slice(0, 2).join('').toLocaleUpperCase(racine.lang || undefined);
+  }
+
+  /* Le titre, posé en texte et jamais en HTML ; masqué aux lecteurs d'écran, qui ont le titre écrit à côté. */
+  function composer(emplacement, titre) {
+    var bloc = document.createElement('span');
+    bloc.className = 'generee';
+    bloc.setAttribute('aria-hidden', 'true');
+    var nom = document.createElement('span');
+    nom.className = 'generee-titre';
+    nom.textContent = titre;
+    var lettres = document.createElement('span');
+    lettres.className = 'generee-init';
+    lettres.textContent = initialesDe(titre);
+    bloc.appendChild(nom);
+    bloc.appendChild(lettres);
+    emplacement.appendChild(bloc);
+  }
+
   function poser(emplacement, serie) {
-    if (!serie || typeof serie.cover_url !== 'string' || !/^https:\/\//.test(serie.cover_url)) return;
+    if (!serie) return;
+    var titre = typeof serie.titre === 'string' ? serie.titre.trim() : '';
+    if (typeof serie.cover_url !== 'string' || !/^https:\/\//.test(serie.cover_url)) {
+      if (titre) composer(emplacement, titre);
+      return;
+    }
     var image = document.createElement('img');
     image.setAttribute('alt', '');
     image.setAttribute('decoding', 'async');
     image.setAttribute('loading', emplacement.hasAttribute('data-tot') ? 'eager' : 'lazy');
     image.setAttribute('referrerpolicy', 'no-referrer');
     image.addEventListener('load', function () { image.classList.add('ok'); });
+    image.addEventListener('error', function () {
+      if (image.parentNode) image.parentNode.removeChild(image);
+      if (titre) composer(emplacement, titre);
+    });
     image.setAttribute('src', reduite(serie.cover_url));
     emplacement.appendChild(image);
   }
