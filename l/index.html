@@ -127,6 +127,7 @@
     font-size: 13px; line-height: 1.6; color: var(--text-muted);
   }
   .pied strong { color: var(--text); font-weight: 700; }
+  .pied a { color: var(--text); font-weight: 600; text-underline-offset: 3px; }
 </style>
 </head>
 <body>
@@ -134,14 +135,14 @@
   <div id="contenu"><p class="message" data-texte="chargement">Chargement.</p></div>
 
   <!--
-    PAS DE BOUTON DE TÉLÉCHARGEMENT, ET C'EST MESURÉ, PAS SUPPOSÉ : au
-    4 septembre 2026, EXPO_PUBLIC_APP_STORE_ID porte encore son placeholder,
-    donc la fiche App Store N'EXISTE PAS, et le §5 interdit de nommer une
-    destination avant qu'elle existe. La place du bouton est ici, et le commit
-    qui le pose est celui qui a l'adresse (dette datée, DECISIONS.md §8 bis).
+    LE LIEN DE TÉLÉCHARGEMENT (18 novembre 2026). La fiche App Store existe
+    depuis ce jour, et sa place était réservée ici : un lien de texte dans le
+    pied, dans la langue du lecteur, sans image ni mesure. Rien pour Android,
+    qui n'a pas encore de fiche publique.
   -->
   <footer class="pied">
     <p><strong>Toonboxd</strong><span data-texte="pied">, le suivi de lecture des manhwas, manhuas et webtoons.</span></p>
+    <p><a data-texte="telecharger" href="https://apps.apple.com/app/id6799145669">Télécharger Toonboxd sur l'App Store</a></p>
     <p data-texte="credits">Données des séries : MangaUpdates. Couvertures : la plateforme officielle de chaque série ou MangaUpdates ; elles restent la propriété de leurs auteurs, studios et éditeurs.</p>
   </footer>
 </div>
@@ -257,6 +258,7 @@ const TEXTES = {
   fr: {
     titrePage: 'Une liste sur Toonboxd',
     chargement: 'Chargement.',
+    telecharger: "Télécharger Toonboxd sur l'App Store",
     pied: ', le suivi de lecture des manhwas, manhuas et webtoons.',
     credits: 'Données des séries : MangaUpdates. Couvertures : la plateforme officielle de chaque série ou MangaUpdates ; elles restent la propriété de leurs auteurs, studios et éditeurs.',
     compte: function (nb) { return nb === 1 ? '1 série' : nb + ' séries'; },
@@ -274,6 +276,7 @@ const TEXTES = {
   en: {
     titrePage: 'A list on Toonboxd',
     chargement: 'Loading.',
+    telecharger: 'Download Toonboxd on the App Store',
     pied: ', the reading tracker for manhwa, manhua and webtoons.',
     credits: 'Series data: MangaUpdates. Covers: each series’ official platform or MangaUpdates; they remain the property of their authors, studios and publishers.',
     compte: function (nb) { return nb + ' series'; },

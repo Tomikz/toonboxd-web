@@ -54,8 +54,9 @@
   cookie, aucune mesure d'audience : la règle de l/, pour la même raison.
 
   CE QU'ELLE ÉCRIT, ET RIEN D'AUTRE : l'email qu'un visiteur donne dans la
-  fenêtre « Me prévenir du lancement », et le téléphone qu'il choisit
-  (iPhone ou Android, depuis le 7 octobre 2026), par la fonction inscrire_lancement
+  fenêtre « Sois prévenu sur Android » (jusqu'au 18 novembre 2026, « Me
+  prévenir du lancement », avec le choix du téléphone ; depuis la sortie sur
+  l'App Store, Android seul), par la fonction inscrire_lancement
   (bannière « les inscriptions au lancement » de toonboxd-schema.sql), avec la
   même clé anon. La table est fermée en lecture au client : la page écrit, elle
   ne relit jamais. Sans JavaScript, les boutons gardent leur lien mailto.
@@ -237,11 +238,20 @@
     color: var(--text); background: transparent; border: 1px solid var(--border-strong);
   }
   .btn-ghost:hover { border-color: rgba(255, 255, 255, 0.28); }
-  .store-badge {
-    display: inline-flex; align-items: center; height: 56px; padding: 0 22px;
-    border-radius: 999px; border: 1px solid var(--border-strong);
-    color: var(--muted); font-size: 15px; font-weight: 600; white-space: nowrap;
-  }
+  /*
+    LE BADGE « TÉLÉCHARGER DANS L'APP STORE », l'image officielle d'Apple
+    (assets/img/app-store-fr.svg et app-store-en.svg, de son outil marketing),
+    jamais modifiée : ni recadrée, ni recolorée, ni animée. Ses règles : 40 px de
+    haut au moins, et un espace libre d'un quart de sa hauteur autour, que les
+    12 px d'écart des rangées et les marges tiennent.
+  */
+  .appstore { position: relative; z-index: 0; display: inline-flex; flex: none; border-radius: 9px; }
+  /* L'espace libre du badge d'Apple (un quart de sa hauteur, coins compris) : un fond uni un peu plus large, là où des couvertures ou la page qui défile passeraient derrière. */
+  .top .appstore::before, .final-card .appstore::before { content: ""; position: absolute; z-index: -1; inset: -18px; border-radius: 12px; background: var(--bg); pointer-events: none; }
+  .appstore img { display: block; height: 56px; width: auto; }
+  .android-lien { margin-top: 18px; color: var(--muted); font-size: 15px; }
+  .android-lien a { color: var(--text); font-weight: 600; text-underline-offset: 4px; }
+  .final-card .android-lien { text-align: center; }
 
   /* ---------- En-tête ---------- */
   .top {
@@ -259,9 +269,11 @@
   .nav a:hover { color: var(--text); }
   .langue { margin-left: auto; color: var(--muted); font-size: 15px; font-weight: 600; text-decoration: none; transition: color 0.2s; }
   .langue:hover { color: var(--text); }
-  .top .btn-ghost { margin-left: 0; }
+  .top .appstore { margin-left: 0; }
+  .top .appstore img { height: 40px; }
+  .top .appstore::before { inset: -12px; border-radius: 8px; }
   @media (min-width: 920px) { .nav { display: flex; } }
-  @media (max-width: 559px) { .top .btn-ghost { display: none; } }
+  @media (max-width: 559px) { .top .appstore { display: none; } }
 
   /* ---------- Sections ---------- */
   .section { padding: 76px 0; }
@@ -725,7 +737,7 @@
   .foot-links a:hover { text-decoration: underline; text-underline-offset: 4px; }
   .foot-small { margin-top: 32px; font-size: 13px; line-height: 1.6; }
 
-  /* ---------- La fenêtre « Me prévenir du lancement » ---------- */
+  /* ---------- La fenêtre d'inscription (Android) ---------- */
   .modal {
     width: min(440px, calc(100% - 32px)); max-height: calc(100dvh - 32px); padding: 0; border: 0;
     border-radius: 24px; background: var(--surface); color: var(--text);
@@ -766,19 +778,6 @@
     surface violette de la fenêtre reste « Me prévenir ». Aucun choix par
     défaut, pour que la réponse soit celle de la personne.
   */
-  .modal-tel { min-width: 0; margin: 18px 0 0; padding: 0; border: 0; }
-  .modal-tel legend { padding: 0; margin-bottom: 8px; font-size: 14px; font-weight: 600; }
-  .onglets { display: grid; grid-template-columns: 1fr 1fr; gap: 4px; padding: 4px; border-radius: 999px; background: var(--bg); box-shadow: inset 0 0 0 1px var(--border-strong); }
-  .modal-tel[aria-invalid="true"] .onglets { box-shadow: inset 0 0 0 1px #FF6B6B; }
-  .onglet { position: relative; display: block; }
-  .onglet input { position: absolute; inset: 0; width: 100%; height: 100%; margin: 0; opacity: 0; cursor: pointer; }
-  .onglet span {
-    display: grid; place-items: center; height: 40px; border-radius: 999px;
-    color: var(--muted); font-size: 15px; font-weight: 600; transition: background-color 0.2s, color 0.2s;
-  }
-  .onglet input:checked + span { background: var(--violet-tint); box-shadow: inset 0 0 0 1px rgba(124, 92, 255, 0.5); color: var(--text); }
-  .onglet input:focus-visible + span { outline: 2px solid var(--text); outline-offset: 2px; }
-  .modal-note { margin-top: 8px; color: var(--muted); font-size: 13px; line-height: 1.45; }
   .modal-envoyer { width: 100%; margin-top: 16px; }
   .modal-envoyer[disabled] { opacity: 0.6; cursor: progress; }
   .modal-aide { margin-top: 16px; color: var(--muted); font-size: 13px; line-height: 1.5; }
@@ -837,6 +836,7 @@
       "url": "https://toonboxd.app/",
       "description": "Manhwa tracker et webtoon tracker sur iPhone, en français : progression chapitre par chapitre, note de reprise, et une notification quand une série en pause reprend.",
       "offers": { "@type": "Offer", "price": "0", "priceCurrency": "EUR" },
+      "downloadUrl": "https://apps.apple.com/app/id6799145669",
       "publisher": { "@id": "https://toonboxd.app/#organisation" }
     },
     {
@@ -845,15 +845,15 @@
       "mainEntity": [
         { "@type": "Question", "name": "C’est quoi, Toonboxd ?", "acceptedAnswer": { "@type": "Answer", "text": "Toonboxd est un manhwa tracker et un webtoon tracker sur iPhone, entièrement en français. Tu ranges tes séries par statut, tu avances chapitre par chapitre, tu écris une note quand tu mets une série en pause, et l’app te prévient quand elle reprend. L’idée tient en une image : un Letterboxd des manhwas." } },
         { "@type": "Question", "name": "Qu’est-ce qu’un manhwa tracker ?", "acceptedAnswer": { "@type": "Answer", "text": "Un manhwa tracker est une app qui retient où tu en es dans chacune de tes séries : le dernier chapitre lu, son statut, ta note. Tu n’as plus à tenir une liste dans tes notes ni à relire des chapitres pour retrouver ta place. Toonboxd fait la même chose pour les manhuas et les webtoons." } },
-        { "@type": "Question", "name": "Existe-t-il un webtoon tracker en français ?", "acceptedAnswer": { "@type": "Answer", "text": "Oui : Toonboxd est un webtoon tracker entièrement en français, lancé d’abord en France. Son catalogue compte près de 9 700 manhwas, manhuas et webtoons verticaux." } },
+        { "@type": "Question", "name": "Existe-t-il un webtoon tracker en français ?", "acceptedAnswer": { "@type": "Answer", "text": "Oui : Toonboxd est un webtoon tracker entièrement en français, disponible sur l’App Store dans la plupart des pays. Son catalogue compte près de 9 700 manhwas, manhuas et webtoons verticaux." } },
         { "@type": "Question", "name": "Comment savoir quand un manhwa en pause reprend ?", "acceptedAnswer": { "@type": "Answer", "text": "Mets-le en pause dans Toonboxd. Quand un lecteur signale sa reprise et que le signalement est validé, tous ceux qui l’avaient en pause reçoivent une notification dans les cinq minutes, et un tap ouvre sa fiche." } },
         { "@type": "Question", "name": "Comment montrer son top 5 manhwa ?", "acceptedAnswer": { "@type": "Answer", "text": "Compose ton top 5 dans Toonboxd : l’œil de ton top 5, sur ton profil, ouvre ta carte. Ta série numéro 1 en grand avec ta note et ton chapitre, les quatre suivantes dessous, ton total de chapitres lus, au format story. Le libellé « Mon top 5 manhwa » se remplace par le tien, gratuitement." } },
         { "@type": "Question", "name": "Toonboxd est-il gratuit ?", "acceptedAnswer": { "@type": "Answer", "text": "Oui, et sans publicité. La version gratuite suit jusqu’à 30 séries en cours, sans limite pour les séries prévues, en pause, terminées ou abandonnées, avec trois listes modifiables. Toonboxd Pro coûte 17,99 € par an ou 2,99 € par mois, avec 7 jours d’essai sur les deux formules à un premier abonnement." } },
         { "@type": "Question", "name": "Peut-on lire des chapitres dans l’app ?", "acceptedAnswer": { "@type": "Answer", "text": "Non. Toonboxd n’héberge aucun chapitre. Le bouton « Lire sur… » de chaque fiche ouvre la plateforme officielle où lire la série." } },
         { "@type": "Question", "name": "Faut-il créer un compte ?", "acceptedAnswer": { "@type": "Answer", "text": "Non. L’app crée un compte anonyme, sans email ni mot de passe. Tu peux le lier à ton identifiant Apple pour retrouver ta bibliothèque sur un autre iPhone, et le supprimer entièrement depuis les réglages." } },
         { "@type": "Question", "name": "Les mangas japonais sont-ils au catalogue ?", "acceptedAnswer": { "@type": "Answer", "text": "Non, et c’est voulu : Toonboxd suit les manhwas, les manhuas et les webtoons. Si une série de ce genre manque, tu peux la suggérer depuis la recherche, gratuitement." } },
-        { "@type": "Question", "name": "Toonboxd existe-t-il sur Android ?", "acceptedAnswer": { "@type": "Answer", "text": "Android ensuite : Toonboxd sort d’abord sur iPhone, en France, et la version Android suit. Choisis Android en t’inscrivant au lancement sur toonboxd.app : on t’écrit pour la bêta, puis le jour où elle arrive sur ton téléphone." } },
-        { "@type": "Question", "name": "Quand sort Toonboxd ?", "acceptedAnswer": { "@type": "Answer", "text": "Toonboxd arrive bientôt sur l’App Store, et sur Android ensuite. Pour être prévenu, laisse ton email sur toonboxd.app et choisis ton téléphone : on t’écrit pour la bêta, puis le jour où Toonboxd arrive sur ton téléphone. Rien d’autre." } }
+        { "@type": "Question", "name": "Toonboxd existe-t-il sur Android ?", "acceptedAnswer": { "@type": "Answer", "text": "Pas encore pour tout le monde : sur Android, Toonboxd arrive en bêta fermée sur Google Play, pas encore publique. Laisse ton email sur toonboxd.app : on t’écrit pour la bêta, puis le jour où Toonboxd arrive sur Android." } },
+        { "@type": "Question", "name": "Où télécharger Toonboxd ?", "acceptedAnswer": { "@type": "Answer", "text": "Sur l’App Store, où Toonboxd est disponible depuis le 18 novembre 2026, dans la plupart des pays. Sur Android, il arrive en bêta fermée sur Google Play, pas encore publique : laisse ton email sur toonboxd.app, on t’écrit pour la bêta, puis le jour où Toonboxd arrive sur Android. Rien d’autre." } }
       ]
     }
   ]
@@ -909,7 +909,7 @@
       <a href="#faq">FAQ</a>
     </nav>
     <a class="langue" href="/en/" hreflang="en" lang="en">English</a>
-    <a class="btn btn-ghost" href="mailto:contact@toonboxd.app?subject=Pr%C3%A9viens-moi%20du%20lancement%20de%20Toonboxd" data-prevenir>Me prévenir du lancement</a>
+    <a class="appstore" href="https://apps.apple.com/app/id6799145669"><img src="/assets/img/app-store-fr.svg" alt="Télécharger dans l’App Store" width="127" height="40"></a>
   </div>
 </header>
 <p class="autre-langue" data-autre-langue="en" hidden><a href="/en/" hreflang="en" lang="en">Read in English<svg class="icon" aria-hidden="true"><use href="#i-arrow"/></svg></a></p>
@@ -926,15 +926,14 @@
         </h1>
         <p class="lead">Avance chaque série d’un chapitre en un tap. Et quand un manhwa en pause reprend, Toonboxd te prévient.</p>
         <div class="hero-actions">
-          <a class="btn btn-primary" href="mailto:contact@toonboxd.app?subject=Pr%C3%A9viens-moi%20du%20lancement%20de%20Toonboxd" data-prevenir>Me prévenir du lancement</a>
           <!--
-            PAS DE BADGE APP STORE CLIQUABLE, ET C'EST LA RÈGLE DE l/index.html :
-            la fiche n'existe pas encore, et le §5 interdit de nommer une
-            destination avant qu'elle existe. Le commit qui a l'adresse remplace
-            ce libellé par le badge officiel d'Apple et son lien.
+            LA 1.0 EST SUR L'APP STORE DEPUIS LE 18 NOVEMBRE 2026 : le badge
+            officiel d'Apple, vers la fiche. Android arrive en bêta fermée :
+            aucun lien de téléchargement, une inscription pour être prévenu.
           -->
-          <span class="store-badge">Bientôt sur l’App Store</span>
+          <a class="appstore" href="https://apps.apple.com/app/id6799145669"><img src="/assets/img/app-store-fr.svg" alt="Télécharger dans l’App Store" width="177" height="56"></a>
         </div>
+        <p class="android-lien"><a href="mailto:contact@toonboxd.app?subject=Pr%C3%A9viens-moi%20de%20la%20sortie%20de%20Toonboxd%20sur%20Android" data-prevenir>Sur Android&nbsp;? Sois prévenu de la sortie</a></p>
       </div>
 
       <div class="hero-visual">
@@ -1389,7 +1388,7 @@
         </details>
         <details class="qa">
           <summary>Existe-t-il un webtoon tracker en français&nbsp;?<svg class="icon" aria-hidden="true"><use href="#i-caret"/></svg></summary>
-          <p>Oui&nbsp;: Toonboxd est un webtoon tracker entièrement en français, lancé d’abord en France. Son catalogue compte près de 9&#8239;700 manhwas, manhuas et webtoons verticaux.</p>
+          <p>Oui&nbsp;: Toonboxd est un webtoon tracker entièrement en français, disponible sur l’App Store dans la plupart des pays. Son catalogue compte près de 9&#8239;700 manhwas, manhuas et webtoons verticaux.</p>
         </details>
         <details class="qa">
           <summary>Comment savoir quand un manhwa en pause reprend&nbsp;?<svg class="icon" aria-hidden="true"><use href="#i-caret"/></svg></summary>
@@ -1417,11 +1416,11 @@
         </details>
         <details class="qa">
           <summary>Toonboxd existe-t-il sur Android&nbsp;?<svg class="icon" aria-hidden="true"><use href="#i-caret"/></svg></summary>
-          <p>Android ensuite&nbsp;: Toonboxd sort d’abord sur iPhone, en France, et la version Android suit. Choisis Android en <a href="mailto:contact@toonboxd.app?subject=Pr%C3%A9viens-moi%20du%20lancement%20de%20Toonboxd" data-prevenir>t’inscrivant au lancement</a>&nbsp;: on t’écrit pour la bêta, puis le jour où elle arrive sur ton téléphone.</p>
+          <p>Pas encore pour tout le monde&nbsp;: sur Android, Toonboxd arrive en bêta fermée sur Google Play, pas encore publique. <a href="mailto:contact@toonboxd.app?subject=Pr%C3%A9viens-moi%20de%20la%20sortie%20de%20Toonboxd%20sur%20Android" data-prevenir>Laisse ton email</a>&nbsp;: on t’écrit pour la bêta, puis le jour où Toonboxd arrive sur Android.</p>
         </details>
         <details class="qa">
-          <summary>Quand sort Toonboxd&nbsp;?<svg class="icon" aria-hidden="true"><use href="#i-caret"/></svg></summary>
-          <p>Toonboxd arrive bientôt sur l’App Store, et sur Android ensuite. Pour être prévenu, <a href="mailto:contact@toonboxd.app?subject=Pr%C3%A9viens-moi%20du%20lancement%20de%20Toonboxd" data-prevenir>laisse ton email</a> et choisis ton téléphone&nbsp;: on t’écrit pour la bêta, puis le jour où Toonboxd arrive sur ton téléphone. Rien d’autre.</p>
+          <summary>Où télécharger Toonboxd&nbsp;?<svg class="icon" aria-hidden="true"><use href="#i-caret"/></svg></summary>
+          <p><a href="https://apps.apple.com/app/id6799145669">Sur l’App Store</a>, où Toonboxd est disponible depuis le 18 novembre 2026, dans la plupart des pays. Sur Android, il arrive en bêta fermée sur Google Play, pas encore publique&nbsp;: <a href="mailto:contact@toonboxd.app?subject=Pr%C3%A9viens-moi%20de%20la%20sortie%20de%20Toonboxd%20sur%20Android" data-prevenir>laisse ton email</a>, on t’écrit pour la bêta, puis le jour où Toonboxd arrive sur Android. Rien d’autre.</p>
         </details>
       </div>
     </div>
@@ -1438,9 +1437,9 @@
         <div class="wall-veil" aria-hidden="true"></div>
         <div class="final-in">
           <h2 class="h2" id="t-final"><span>Tous tes manhwas et webtoons.</span> <span>Un seul endroit.</span></h2>
-          <p class="lead">Toonboxd arrive bientôt sur l’App Store, en France. Android ensuite.</p>
+          <p class="lead">Toonboxd est disponible sur l’App Store, dans la plupart des pays. Sur Android, il arrive en bêta fermée sur Google Play.</p>
           <div class="hero-actions">
-            <a class="btn btn-primary" href="mailto:contact@toonboxd.app?subject=Pr%C3%A9viens-moi%20du%20lancement%20de%20Toonboxd" data-prevenir>Me prévenir du lancement</a>
+            <a class="appstore" href="https://apps.apple.com/app/id6799145669"><img src="/assets/img/app-store-fr.svg" alt="Télécharger dans l’App Store" width="177" height="56"></a>
           </div>
         </div>
       </div>
@@ -1471,29 +1470,21 @@
 
     <div data-etat="saisie">
       <img class="modal-icone" src="/assets/img/icone-96.png" alt="" width="48" height="48">
-      <h2 class="modal-titre" id="prevenir-titre">Sois prévenu du lancement</h2>
-      <p class="modal-texte">Laisse ton email&nbsp;: on t’écrit pour la bêta, puis le jour où Toonboxd arrive sur ton téléphone. Rien d’autre.</p>
+      <h2 class="modal-titre" id="prevenir-titre">Sois prévenu sur Android</h2>
+      <p class="modal-texte">Sur Android, Toonboxd arrive en bêta fermée sur Google Play. Laisse ton email&nbsp;: on t’écrit pour la bêta, puis le jour où Toonboxd arrive sur Android. Rien d’autre.</p>
       <label class="modal-label" for="prevenir-email">Ton email</label>
       <input class="modal-champ" id="prevenir-email" name="email" type="email" inputmode="email" autocomplete="email" autocapitalize="off" spellcheck="false" maxlength="254" required placeholder="toi@exemple.fr" aria-describedby="prevenir-erreur prevenir-aide">
-      <fieldset class="modal-tel" id="prevenir-tel" aria-invalid="false" aria-describedby="prevenir-erreur">
-        <legend>Ton téléphone</legend>
-        <div class="onglets">
-          <label class="onglet"><input type="radio" name="plateforme" value="ios"><span>iPhone</span></label>
-          <label class="onglet"><input type="radio" name="plateforme" value="android"><span>Android</span></label>
-        </div>
-        <p class="modal-note" id="prevenir-note" aria-live="polite" hidden>Toonboxd sort d’abord sur iPhone, Android ensuite&nbsp;: pour toi, le lancement, c’est le jour où il arrive sur Android.</p>
-      </fieldset>
       <p class="modal-erreur" id="prevenir-erreur" role="alert" hidden></p>
       <!-- Un champ piège : invisible pour une personne, rempli par les robots les plus simples. -->
       <div class="piege" aria-hidden="true"><label for="prevenir-site">Laisse ce champ vide</label><input id="prevenir-site" name="site" type="text" tabindex="-1" autocomplete="off"></div>
       <button class="btn btn-primary modal-envoyer" type="submit">Me prévenir</button>
-      <p class="modal-aide" id="prevenir-aide">Ton email et ton téléphone sont stockés à Paris et ne servent qu’à ces deux messages&nbsp;: la bêta, puis l’arrivée de Toonboxd sur ton téléphone. Ils sont effacés une fois le second parti, au plus tard 12 mois après ton inscription. Pour les retirer avant, écris à <a href="mailto:contact@toonboxd.app">contact@toonboxd.app</a>. <a href="/confidentialite/">Confidentialité</a></p>
+      <p class="modal-aide" id="prevenir-aide">Ton email et ton téléphone sont stockés à Paris et ne servent qu’à ces deux messages&nbsp;: la bêta, puis l’arrivée de Toonboxd sur Android. Ils sont effacés une fois le second parti, au plus tard 12 mois après ton inscription. Pour les retirer avant, écris à <a href="mailto:contact@toonboxd.app">contact@toonboxd.app</a>. <a href="/confidentialite/">Confidentialité</a></p>
     </div>
 
     <div data-etat="fait" hidden>
       <span class="modal-ok"><svg class="icon" aria-hidden="true"><use href="#i-check"/></svg></span>
       <h2 class="modal-titre">C’est noté.</h2>
-      <p class="modal-texte" id="prevenir-merci">On t’écrit pour la bêta, puis le jour où Toonboxd arrive sur l’App Store.</p>
+      <p class="modal-texte" id="prevenir-merci">On t’écrit pour la bêta, puis le jour où Toonboxd arrive sur Android.</p>
       <button class="btn btn-ghost modal-fin" type="button" data-fermer>Fermer</button>
     </div>
   </form>
@@ -1736,7 +1727,11 @@
   });
 
   /*
-    LA FENÊTRE « ME PRÉVENIR DU LANCEMENT ».
+    LA FENÊTRE « SOIS PRÉVENU SUR ANDROID » (« Me prévenir du lancement »
+    jusqu'au 18 novembre 2026). Depuis la sortie sur l'App Store, elle ne sert
+    plus qu'Android : chaque inscription part avec le téléphone `android`, la
+    même fonction, la même table, les deux mêmes messages (la bêta, puis la
+    sortie), ce que la politique publiée décrit déjà.
 
     Elle écrit par inscrire_lancement, jamais dans la table : le client n'y a
     aucun privilège, lecture comprise. L'adresse est normalisée ici comme en
@@ -1757,41 +1752,20 @@
     var envoyer = formulaire.querySelector('.modal-envoyer');
     var saisie = formulaire.querySelector('[data-etat="saisie"]');
     var fait = formulaire.querySelector('[data-etat="fait"]');
-    var telephone = document.getElementById('prevenir-tel');
-    var noteAndroid = document.getElementById('prevenir-note');
-    var merci = document.getElementById('prevenir-merci');
     var FORME = /^[^@\s]+@[^@\s]+\.[^@\s]+$/;
     var ECHEC = 'L’inscription n’a pas abouti. Réessaie, ou écris à contact@toonboxd.app.';
-    var MERCI_IPHONE = 'On t’écrit pour la bêta, puis le jour où Toonboxd arrive sur l’App Store.';
-    var MERCI_ANDROID = 'On t’écrit pour la bêta, puis le jour où Toonboxd arrive sur Android.';
 
-    /* L'erreur dit sur quoi elle porte : l'adresse, ou le choix du téléphone. */
-    var dire = function (message, cible) {
+    var dire = function (message) {
       erreur.textContent = message;
       erreur.hidden = !message;
-      champ.setAttribute('aria-invalid', message && cible !== 'telephone' ? 'true' : 'false');
-      telephone.setAttribute('aria-invalid', message && cible === 'telephone' ? 'true' : 'false');
+      champ.setAttribute('aria-invalid', message ? 'true' : 'false');
     };
-    /* Le téléphone choisi, `ios` ou `android` (les valeurs de push_tokens), ou '' tant que rien n'est choisi. */
-    var choisi = function () {
-      var coche = formulaire.querySelector('input[name="plateforme"]:checked');
-      return coche ? coche.value : '';
-    };
-    var confirmer = function (plateforme) {
-      merci.textContent = plateforme === 'android' ? MERCI_ANDROID : MERCI_IPHONE;
+    var confirmer = function () {
       formulaire.reset();
-      noteAndroid.hidden = true;
       saisie.hidden = true;
       fait.hidden = false;
       fait.querySelector('[data-fermer]').focus();
     };
-
-    formulaire.querySelectorAll('input[name="plateforme"]').forEach(function (onglet) {
-      onglet.addEventListener('change', function () {
-        noteAndroid.hidden = choisi() !== 'android';
-        if (telephone.getAttribute('aria-invalid') === 'true') dire('');
-      });
-    });
 
     document.querySelectorAll('[data-prevenir]').forEach(function (lien) {
       lien.addEventListener('click', function (e) {
@@ -1799,7 +1773,6 @@
         saisie.hidden = false;
         fait.hidden = true;
         envoyer.disabled = false;
-        noteAndroid.hidden = choisi() !== 'android';
         dire('');
         fenetre.showModal();
         champ.focus();
@@ -1815,28 +1788,22 @@
       e.preventDefault();
       var adresse = champ.value.trim().toLowerCase();
       if (adresse.length < 6 || adresse.length > 254 || !FORME.test(adresse)) {
-        dire('Cette adresse n’a pas l’air valide.', 'adresse');
+        dire('Cette adresse n’a pas l’air valide.');
         champ.focus();
         return;
       }
-      var plateforme = choisi();
-      if (plateforme !== 'ios' && plateforme !== 'android') {
-        dire('Choisis ton téléphone : iPhone ou Android.', 'telephone');
-        formulaire.querySelector('input[name="plateforme"]').focus();
-        return;
-      }
-      if (formulaire.elements.site.value) { confirmer(plateforme); return; }
+      if (formulaire.elements.site.value) { confirmer(); return; }
 
       envoyer.disabled = true;
       dire('');
       fetch(URL_BASE + '/rest/v1/rpc/inscrire_lancement', {
         method: 'POST',
         headers: { 'apikey': CLE_ANON, 'Authorization': 'Bearer ' + CLE_ANON, 'Content-Type': 'application/json' },
-        body: JSON.stringify({ adresse: adresse, plateforme: plateforme }),
+        body: JSON.stringify({ adresse: adresse, plateforme: 'android' }),
       }).then(function (r) {
-        if (r.ok) { confirmer(plateforme); return; }
+        if (r.ok) { confirmer(); return; }
         envoyer.disabled = false;
-        dire(r.status === 400 ? 'Cette adresse n’a pas l’air valide.' : ECHEC, 'adresse');
+        dire(r.status === 400 ? 'Cette adresse n’a pas l’air valide.' : ECHEC);
       }).catch(function () {
         envoyer.disabled = false;
         dire(ECHEC);

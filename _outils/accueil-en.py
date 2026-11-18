@@ -36,8 +36,8 @@ RACINE = Path(__file__).resolve().parent.parent
 SOURCE = RACINE / "index.html"
 CIBLE = RACINE / "en" / "index.html"
 
-SUJET_FR = "Pr%C3%A9viens-moi%20du%20lancement%20de%20Toonboxd"
-SUJET_EN = "Let%20me%20know%20when%20Toonboxd%20launches"
+SUJET_FR = "Pr%C3%A9viens-moi%20de%20la%20sortie%20de%20Toonboxd%20sur%20Android"
+SUJET_EN = "Let%20me%20know%20when%20Toonboxd%20is%20out%20on%20Android"
 
 # (français tel qu'il est dans index.html, anglais, nombre d'occurrences)
 TABLE = [
@@ -72,8 +72,8 @@ TABLE = [
      '{ "@type": "Question", "name": "What is Toonboxd?", "acceptedAnswer": { "@type": "Answer", "text": "Toonboxd is a manhwa tracker and webtoon tracker for iPhone, in English and French. You sort your series by status, move forward chapter by chapter, write a note when you put a series on hold, and the app lets you know when it’s back. The idea fits in a few words: Letterboxd for manhwa." } },', 1),
     ('{ "@type": "Question", "name": "Qu’est-ce qu’un manhwa tracker ?", "acceptedAnswer": { "@type": "Answer", "text": "Un manhwa tracker est une app qui retient où tu en es dans chacune de tes séries : le dernier chapitre lu, son statut, ta note. Tu n’as plus à tenir une liste dans tes notes ni à relire des chapitres pour retrouver ta place. Toonboxd fait la même chose pour les manhuas et les webtoons." } },',
      '{ "@type": "Question", "name": "What is a manhwa tracker?", "acceptedAnswer": { "@type": "Answer", "text": "A manhwa tracker is an app that remembers where you are in each of your manhwa (Korean comics): the last chapter you read, its status, your rating. No more keeping a list in your notes or rereading chapters to find your place. Toonboxd does the same for manhua and webtoons." } },', 1),
-    ('{ "@type": "Question", "name": "Existe-t-il un webtoon tracker en français ?", "acceptedAnswer": { "@type": "Answer", "text": "Oui : Toonboxd est un webtoon tracker entièrement en français, lancé d’abord en France. Son catalogue compte près de 9 700 manhwas, manhuas et webtoons verticaux." } },',
-     '{ "@type": "Question", "name": "Is there a webtoon tracker in English?", "acceptedAnswer": { "@type": "Answer", "text": "Yes: Toonboxd is a webtoon tracker in English and French, coming to iPhone in the United States, the United Kingdom, Canada, Australia, Ireland, New Zealand and France. It lists nearly 9,700 vertical manhwa, manhua and webtoons." } },', 1),
+    ('{ "@type": "Question", "name": "Existe-t-il un webtoon tracker en français ?", "acceptedAnswer": { "@type": "Answer", "text": "Oui : Toonboxd est un webtoon tracker entièrement en français, disponible sur l’App Store dans la plupart des pays. Son catalogue compte près de 9 700 manhwas, manhuas et webtoons verticaux." } },',
+     '{ "@type": "Question", "name": "Is there a webtoon tracker in English?", "acceptedAnswer": { "@type": "Answer", "text": "Yes: Toonboxd is a webtoon tracker in English and French, available on the App Store in most countries. It lists nearly 9,700 vertical manhwa, manhua and webtoons." } },', 1),
     ('{ "@type": "Question", "name": "Comment savoir quand un manhwa en pause reprend ?", "acceptedAnswer": { "@type": "Answer", "text": "Mets-le en pause dans Toonboxd. Quand un lecteur signale sa reprise et que le signalement est validé, tous ceux qui l’avaient en pause reçoivent une notification dans les cinq minutes, et un tap ouvre sa fiche." } },',
      '{ "@type": "Question", "name": "How do I know when a manhwa on hiatus is back?", "acceptedAnswer": { "@type": "Answer", "text": "Put it on hold in Toonboxd. When a reader reports that it’s back and the report is confirmed, everyone who had it on hold gets a notification within five minutes, and one tap opens its page." } },', 1),
     ('{ "@type": "Question", "name": "Comment montrer son top 5 manhwa ?", "acceptedAnswer": { "@type": "Answer", "text": "Compose ton top 5 dans Toonboxd : l’œil de ton top 5, sur ton profil, ouvre ta carte. Ta série numéro 1 en grand avec ta note et ton chapitre, les quatre suivantes dessous, ton total de chapitres lus, au format story. Le libellé « Mon top 5 manhwa » se remplace par le tien, gratuitement." } },',
@@ -86,10 +86,10 @@ TABLE = [
      '{ "@type": "Question", "name": "Do I need to create an account?", "acceptedAnswer": { "@type": "Answer", "text": "No. The app creates an anonymous account, with no email or password. You can link it to your Apple Account to get your library back on another iPhone, and delete it entirely from Settings." } },', 1),
     ('{ "@type": "Question", "name": "Les mangas japonais sont-ils au catalogue ?", "acceptedAnswer": { "@type": "Answer", "text": "Non, et c’est voulu : Toonboxd suit les manhwas, les manhuas et les webtoons. Si une série de ce genre manque, tu peux la suggérer depuis la recherche, gratuitement." } },',
      '{ "@type": "Question", "name": "Does Toonboxd have Japanese manga?", "acceptedAnswer": { "@type": "Answer", "text": "No, and that’s on purpose: Toonboxd tracks manhwa, manhua and webtoons. No Japanese manga. If a series like these is missing, you can suggest it from Search, for free." } },', 1),
-    ('{ "@type": "Question", "name": "Toonboxd existe-t-il sur Android ?", "acceptedAnswer": { "@type": "Answer", "text": "Android ensuite : Toonboxd sort d’abord sur iPhone, en France, et la version Android suit. Choisis Android en t’inscrivant au lancement sur toonboxd.app : on t’écrit pour la bêta, puis le jour où elle arrive sur ton téléphone." } },',
-     '{ "@type": "Question", "name": "Is Toonboxd on Android?", "acceptedAnswer": { "@type": "Answer", "text": "Android is next: Toonboxd comes to iPhone first, and the Android version follows. Choose Android when you sign up for the launch on toonboxd.app: we’ll write to you for the beta, then on the day it arrives on your phone." } },', 1),
-    ('{ "@type": "Question", "name": "Quand sort Toonboxd ?", "acceptedAnswer": { "@type": "Answer", "text": "Toonboxd arrive bientôt sur l’App Store, et sur Android ensuite. Pour être prévenu, laisse ton email sur toonboxd.app et choisis ton téléphone : on t’écrit pour la bêta, puis le jour où Toonboxd arrive sur ton téléphone. Rien d’autre." } }',
-     '{ "@type": "Question", "name": "When does Toonboxd come out?", "acceptedAnswer": { "@type": "Answer", "text": "Toonboxd is coming soon to the App Store, and to Android after that. To hear about it, leave your email on toonboxd.app and choose your phone: we’ll write to you for the beta, then on the day Toonboxd arrives on your phone. Nothing else." } }', 1),
+    ('{ "@type": "Question", "name": "Toonboxd existe-t-il sur Android ?", "acceptedAnswer": { "@type": "Answer", "text": "Pas encore pour tout le monde : sur Android, Toonboxd arrive en bêta fermée sur Google Play, pas encore publique. Laisse ton email sur toonboxd.app : on t’écrit pour la bêta, puis le jour où Toonboxd arrive sur Android." } },',
+     '{ "@type": "Question", "name": "Is Toonboxd on Android?", "acceptedAnswer": { "@type": "Answer", "text": "Not for everyone yet: on Android, Toonboxd is coming to closed beta on Google Play, not public yet. Leave your email on toonboxd.app: we’ll write to you for the beta, then on the day Toonboxd arrives on Android." } },', 1),
+    ('{ "@type": "Question", "name": "Où télécharger Toonboxd ?", "acceptedAnswer": { "@type": "Answer", "text": "Sur l’App Store, où Toonboxd est disponible depuis le 18 novembre 2026, dans la plupart des pays. Sur Android, il arrive en bêta fermée sur Google Play, pas encore publique : laisse ton email sur toonboxd.app, on t’écrit pour la bêta, puis le jour où Toonboxd arrive sur Android. Rien d’autre." } }',
+     '{ "@type": "Question", "name": "Where can I download Toonboxd?", "acceptedAnswer": { "@type": "Answer", "text": "On the App Store, where Toonboxd has been available since November 18, 2026, in most countries. On Android, it’s coming to closed beta on Google Play, not public yet: leave your email on toonboxd.app, and we’ll write to you for the beta, then on the day Toonboxd arrives on Android. Nothing else." } }', 1),
 
     # ---------- L'en-tête et l'autre langue ----------
     ('<a class="skip" href="#contenu">Aller au contenu</a>', '<a class="skip" href="#contenu">Skip to content</a>', 1),
@@ -99,15 +99,18 @@ TABLE = [
     ('<a class="langue" href="/en/" hreflang="en" lang="en">English</a>', '<a class="langue" href="/" hreflang="fr" lang="fr">Français</a>', 1),
     ('<p class="autre-langue" data-autre-langue="en" hidden><a href="/en/" hreflang="en" lang="en">Read in English<svg',
      '<p class="autre-langue" data-autre-langue="fr" hidden><a href="/" hreflang="fr" lang="fr">Lire en français<svg', 1),
-    (SUJET_FR, SUJET_EN, 5),
-    ('data-prevenir>Me prévenir du lancement</a>', 'data-prevenir>Notify Me at Launch</a>', 3),
+    (SUJET_FR, SUJET_EN, 3),
+    # Depuis la sortie sur l'App Store (18 novembre 2026) : le badge officiel d'Apple dans la langue de la page,
+    # jamais modifié, et le lien d'inscription pour Android.
+    ('<img src="/assets/img/app-store-fr.svg" alt="Télécharger dans l’App Store" width="127" height="40">', '<img src="/assets/img/app-store-en.svg" alt="Download on the App Store" width="120" height="40">', 1),
+    ('<img src="/assets/img/app-store-fr.svg" alt="Télécharger dans l’App Store" width="177" height="56">', '<img src="/assets/img/app-store-en.svg" alt="Download on the App Store" width="168" height="56">', 2),
+    ('data-prevenir>Sur Android&nbsp;? Sois prévenu de la sortie</a>', 'data-prevenir>On Android? Hear about the release</a>', 1),
 
     # ---------- L'accroche ----------
     ('</svg>Manhwa tracker et webtoon tracker</span>', '</svg>Manhwa tracker and webtoon tracker</span>', 1),
     ('<span class="h1-main">Ne perds plus jamais le fil.</span>', '<span class="h1-main">Never lose your place again.</span>', 1),
     ('<p class="lead">Avance chaque série d’un chapitre en un tap. Et quand un manhwa en pause reprend, Toonboxd te prévient.</p>',
      '<p class="lead">Move any series forward a chapter with one tap. And when a manhwa on hold is back, Toonboxd lets you know.</p>', 1),
-    ('<span class="store-badge">Bientôt sur l’App Store</span>', '<span class="store-badge">Coming soon to the App Store</span>', 1),
     ('aria-label="Démonstration de l’écran Reprendre de Toonboxd"', 'aria-label="Demo of the Toonboxd Continue screen"', 1),
     ('<p class="app-title">Tes lectures</p>', '<p class="app-title">Currently Reading</p>', 1),
     ('<p class="app-sub">4 séries en cours</p>', '<p class="app-sub">4 series you’re reading</p>', 1),
@@ -281,8 +284,8 @@ TABLE = [
     ('<p>Un manhwa tracker est une app qui retient où tu en es dans chacune de tes séries&nbsp;: le dernier chapitre lu, son statut, ta note. Tu n’as plus à tenir une liste dans tes notes ni à relire des chapitres pour retrouver ta place. Toonboxd fait la même chose pour les manhuas et les webtoons.</p>',
      '<p>A manhwa tracker is an app that remembers where you are in each of your manhwa (Korean comics): the last chapter you read, its status, your rating. No more keeping a list in your notes or rereading chapters to find your place. Toonboxd does the same for manhua and webtoons.</p>', 1),
     ('<summary>Existe-t-il un webtoon tracker en français&nbsp;?<svg', '<summary>Is there a webtoon tracker in English?<svg', 1),
-    ('<p>Oui&nbsp;: Toonboxd est un webtoon tracker entièrement en français, lancé d’abord en France. Son catalogue compte près de 9&#8239;700 manhwas, manhuas et webtoons verticaux.</p>',
-     '<p>Yes: Toonboxd is a webtoon tracker in English and French, coming to iPhone in the United States, the United Kingdom, Canada, Australia, Ireland, New Zealand and France. It lists nearly 9,700 vertical manhwa, manhua and webtoons.</p>', 1),
+    ('<p>Oui&nbsp;: Toonboxd est un webtoon tracker entièrement en français, disponible sur l’App Store dans la plupart des pays. Son catalogue compte près de 9&#8239;700 manhwas, manhuas et webtoons verticaux.</p>',
+     '<p>Yes: Toonboxd is a webtoon tracker in English and French, available on the App Store in most countries. It lists nearly 9,700 vertical manhwa, manhua and webtoons.</p>', 1),
     ('<summary>Comment savoir quand un manhwa en pause reprend&nbsp;?<svg', '<summary>How do I know when a manhwa on hiatus is back?<svg', 1),
     ('<p>Mets-le en pause dans Toonboxd. Quand un lecteur signale sa reprise et que le signalement est validé, tous ceux qui l’avaient en pause reçoivent une notification dans les cinq minutes, et un tap ouvre sa fiche.</p>',
      '<p>Put it on hold in Toonboxd. When a reader reports that it’s back and the report is confirmed, everyone who had it on hold gets a notification within five minutes, and one tap opens its page.</p>', 1),
@@ -302,16 +305,17 @@ TABLE = [
     ('<p>Non, et c’est voulu&nbsp;: Toonboxd suit les manhwas, les manhuas et les webtoons. Si une série de ce genre manque, tu peux la suggérer depuis la recherche, gratuitement.</p>',
      '<p>No, and that’s on purpose: Toonboxd tracks manhwa, manhua and webtoons. No Japanese manga. If a series like these is missing, you can suggest it from Search, for free.</p>', 1),
     ('<summary>Toonboxd existe-t-il sur Android&nbsp;?<svg', '<summary>Is Toonboxd on Android?<svg', 1),
-    ('<p>Android ensuite&nbsp;: Toonboxd sort d’abord sur iPhone, en France, et la version Android suit. Choisis Android en <a href="mailto:contact@toonboxd.app?subject=' + SUJET_EN + '" data-prevenir>t’inscrivant au lancement</a>&nbsp;: on t’écrit pour la bêta, puis le jour où elle arrive sur ton téléphone.</p>',
-     '<p>Android is next: Toonboxd comes to iPhone first, and the Android version follows. Choose Android when you <a href="mailto:contact@toonboxd.app?subject=' + SUJET_EN + '" data-prevenir>sign up for the launch</a>: we’ll write to you for the beta, then on the day it arrives on your phone.</p>', 1),
-    ('<summary>Quand sort Toonboxd&nbsp;?<svg', '<summary>When does Toonboxd come out?<svg', 1),
-    ('<p>Toonboxd arrive bientôt sur l’App Store, et sur Android ensuite. Pour être prévenu, <a href="mailto:contact@toonboxd.app?subject=' + SUJET_EN + '" data-prevenir>laisse ton email</a> et choisis ton téléphone&nbsp;: on t’écrit pour la bêta, puis le jour où Toonboxd arrive sur ton téléphone. Rien d’autre.</p>',
-     '<p>Toonboxd is coming soon to the App Store, and to Android after that. To hear about it, <a href="mailto:contact@toonboxd.app?subject=' + SUJET_EN + '" data-prevenir>leave your email</a> and choose your phone: we’ll write to you for the beta, then on the day Toonboxd arrives on your phone. Nothing else.</p>', 1),
+    ('<p>Pas encore pour tout le monde&nbsp;: sur Android, Toonboxd arrive en bêta fermée sur Google Play, pas encore publique. <a href="mailto:contact@toonboxd.app?subject=' + SUJET_EN + '" data-prevenir>Laisse ton email</a>&nbsp;: on t’écrit pour la bêta, puis le jour où Toonboxd arrive sur Android.</p>',
+     '<p>Not for everyone yet: on Android, Toonboxd is coming to closed beta on Google Play, not public yet. <a href="mailto:contact@toonboxd.app?subject=' + SUJET_EN + '" data-prevenir>Leave your email</a>: we’ll write to you for the beta, then on the day Toonboxd arrives on Android.</p>', 1),
+    ('<summary>Où télécharger Toonboxd&nbsp;?<svg', '<summary>Where can I download Toonboxd?<svg', 1),
+    ('<p><a href="https://apps.apple.com/app/id6799145669">Sur l’App Store</a>, où Toonboxd est disponible depuis le 18 novembre 2026, dans la plupart des pays. Sur Android, il arrive en bêta fermée sur Google Play, pas encore publique&nbsp;: <a href="mailto:contact@toonboxd.app?subject=' + SUJET_EN + '" data-prevenir>laisse ton email</a>, on t’écrit pour la bêta, puis le jour où Toonboxd arrive sur Android. Rien d’autre.</p>',
+     '<p><a href="https://apps.apple.com/app/id6799145669">On the App Store</a>, where Toonboxd has been available since November 18, 2026, in most countries. On Android, it’s coming to closed beta on Google Play, not public yet: <a href="mailto:contact@toonboxd.app?subject=' + SUJET_EN + '" data-prevenir>leave your email</a>, and we’ll write to you for the beta, then on the day Toonboxd arrives on Android. Nothing else.</p>', 1),
 
     # ---------- L'appel final et le pied ----------
     ('<h2 class="h2" id="t-final"><span>Tous tes manhwas et webtoons.</span> <span>Un seul endroit.</span></h2>',
      '<h2 class="h2" id="t-final"><span>All your manhwa and webtoons.</span> <span>One place.</span></h2>', 1),
-    ('<p class="lead">Toonboxd arrive bientôt sur l’App Store, en France. Android ensuite.</p>', '<p class="lead">Toonboxd is coming soon to the App Store. Android after that.</p>', 1),
+    ('<p class="lead">Toonboxd est disponible sur l’App Store, dans la plupart des pays. Sur Android, il arrive en bêta fermée sur Google Play.</p>',
+     '<p class="lead">Toonboxd is available on the App Store in most countries. On Android, it’s coming to closed beta on Google Play.</p>', 1),
     ('<a class="brand" href="/"><img', '<a class="brand" href="/en/"><img', 1),
     ('<p class="foot-tag">Le manhwa tracker et webtoon tracker en français, sur iPhone.</p>', '<p class="foot-tag">The manhwa tracker and webtoon tracker for iPhone.</p>', 1),
     ('<nav class="foot-links" aria-label="Liens utiles">\n        <a href="/confidentialite/">Confidentialité</a>\n        <a href="https://www.apple.com/legal/internet-services/itunes/dev/stdeula/">Conditions d’utilisation</a>',
@@ -323,30 +327,22 @@ TABLE = [
 
     # ---------- La fenêtre d'inscription : les mêmes champs, la même fonction ----------
     ('data-fermer aria-label="Fermer">', 'data-fermer aria-label="Close">', 1),
-    ('<h2 class="modal-titre" id="prevenir-titre">Sois prévenu du lancement</h2>', '<h2 class="modal-titre" id="prevenir-titre">Hear about the launch</h2>', 1),
-    ('<p class="modal-texte">Laisse ton email&nbsp;: on t’écrit pour la bêta, puis le jour où Toonboxd arrive sur ton téléphone. Rien d’autre.</p>',
-     '<p class="modal-texte">Leave your email: we’ll write to you for the beta, then on the day Toonboxd arrives on your phone. Nothing else.</p>', 1),
+    ('<h2 class="modal-titre" id="prevenir-titre">Sois prévenu sur Android</h2>', '<h2 class="modal-titre" id="prevenir-titre">Hear about the Android release</h2>', 1),
+    ('<p class="modal-texte">Sur Android, Toonboxd arrive en bêta fermée sur Google Play. Laisse ton email&nbsp;: on t’écrit pour la bêta, puis le jour où Toonboxd arrive sur Android. Rien d’autre.</p>',
+     '<p class="modal-texte">On Android, Toonboxd is coming to closed beta on Google Play. Leave your email: we’ll write to you for the beta, then on the day Toonboxd arrives on Android. Nothing else.</p>', 1),
     ('<label class="modal-label" for="prevenir-email">Ton email</label>', '<label class="modal-label" for="prevenir-email">Your email</label>', 1),
     ('placeholder="toi@exemple.fr"', 'placeholder="you@example.com"', 1),
-    ('<legend>Ton téléphone</legend>', '<legend>Your phone</legend>', 1),
-    ('hidden>Toonboxd sort d’abord sur iPhone, Android ensuite&nbsp;: pour toi, le lancement, c’est le jour où il arrive sur Android.</p>',
-     'hidden>Toonboxd comes to iPhone first, Android after that: for you, the launch is the day it arrives on Android.</p>', 1),
     ('<label for="prevenir-site">Laisse ce champ vide</label>', '<label for="prevenir-site">Leave this field empty</label>', 1),
     ('<button class="btn btn-primary modal-envoyer" type="submit">Me prévenir</button>', '<button class="btn btn-primary modal-envoyer" type="submit">Notify Me</button>', 1),
-    ('id="prevenir-aide">Ton email et ton téléphone sont stockés à Paris et ne servent qu’à ces deux messages&nbsp;: la bêta, puis l’arrivée de Toonboxd sur ton téléphone. Ils sont effacés une fois le second parti, au plus tard 12 mois après ton inscription. Pour les retirer avant, écris à <a href="mailto:contact@toonboxd.app">contact@toonboxd.app</a>. <a href="/confidentialite/">Confidentialité</a></p>',
-     'id="prevenir-aide">Your email and phone type are stored in Paris and used only for these two messages: the beta, then Toonboxd arriving on your phone. They’re erased once the second one goes out, and at the latest 12 months after you sign up. To remove them sooner, write to <a href="mailto:contact@toonboxd.app">contact@toonboxd.app</a>. <a href="/privacy/">Privacy</a></p>', 1),
+    ('id="prevenir-aide">Ton email et ton téléphone sont stockés à Paris et ne servent qu’à ces deux messages&nbsp;: la bêta, puis l’arrivée de Toonboxd sur Android. Ils sont effacés une fois le second parti, au plus tard 12 mois après ton inscription. Pour les retirer avant, écris à <a href="mailto:contact@toonboxd.app">contact@toonboxd.app</a>. <a href="/confidentialite/">Confidentialité</a></p>',
+     'id="prevenir-aide">Your email and phone type are stored in Paris and used only for these two messages: the beta, then Toonboxd arriving on Android. They’re erased once the second one goes out, and at the latest 12 months after you sign up. To remove them sooner, write to <a href="mailto:contact@toonboxd.app">contact@toonboxd.app</a>. <a href="/privacy/">Privacy</a></p>', 1),
     ('<h2 class="modal-titre">C’est noté.</h2>', '<h2 class="modal-titre">Got it.</h2>', 1),
-    ('id="prevenir-merci">On t’écrit pour la bêta, puis le jour où Toonboxd arrive sur l’App Store.</p>',
-     'id="prevenir-merci">We’ll write to you for the beta, then on the day Toonboxd arrives on the App Store.</p>', 1),
+    ('id="prevenir-merci">On t’écrit pour la bêta, puis le jour où Toonboxd arrive sur Android.</p>',
+     'id="prevenir-merci">We’ll write to you for the beta, then on the day Toonboxd arrives on Android.</p>', 1),
     ('<button class="btn btn-ghost modal-fin" type="button" data-fermer>Fermer</button>', '<button class="btn btn-ghost modal-fin" type="button" data-fermer>Close</button>', 1),
     ("var ECHEC = 'L’inscription n’a pas abouti. Réessaie, ou écris à contact@toonboxd.app.';",
      "var ECHEC = 'The sign-up didn’t go through. Try again, or write to contact@toonboxd.app.';", 1),
-    ("var MERCI_IPHONE = 'On t’écrit pour la bêta, puis le jour où Toonboxd arrive sur l’App Store.';",
-     "var MERCI_IPHONE = 'We’ll write to you for the beta, then on the day Toonboxd arrives on the App Store.';", 1),
-    ("var MERCI_ANDROID = 'On t’écrit pour la bêta, puis le jour où Toonboxd arrive sur Android.';",
-     "var MERCI_ANDROID = 'We’ll write to you for the beta, then on the day Toonboxd arrives on Android.';", 1),
     ("'Cette adresse n’a pas l’air valide.'", "'This email address doesn’t look right.'", 2),
-    ("'Choisis ton téléphone : iPhone ou Android.'", "'Choose your phone: iPhone or Android.'", 1),
 ]
 
 # Ce qui reste légitimement en français dans la page anglaise : le libellé et
