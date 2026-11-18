@@ -26,4 +26,16 @@
     <xhtml:link rel="alternate" hreflang="fr" href="https://toonboxd.app/confidentialite/"/>
     <xhtml:link rel="alternate" hreflang="en" href="https://toonboxd.app/privacy/"/>
   </url>
+  <url>
+    <loc>https://toonboxd.app/suppression-compte/</loc>
+    <lastmod>2026-11-18</lastmod>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://toonboxd.app/suppression-compte/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://toonboxd.app/account-deletion/"/>
+  </url>
+  <url>
+    <loc>https://toonboxd.app/account-deletion/</loc>
+    <lastmod>2026-11-18</lastmod>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://toonboxd.app/suppression-compte/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://toonboxd.app/account-deletion/"/>
+  </url>
 </urlset>

@@ -11,8 +11,33 @@ defaults:
     values:
       layout: politique
       lang: fr
+      url_fr: /confidentialite/
+      url_en: /privacy/
+      description: "Ce que Toonboxd sait de toi, où ça va, et ce que tu peux en faire."
   - scope:
       path: "privacy"
     values:
       layout: politique
       lang: en
+      url_fr: /confidentialite/
+      url_en: /privacy/
+      description: "What Toonboxd knows about you, where it goes, and what you can do about it."
+# Les deux pages « supprimer son compte », exigées par Google Play (18 novembre
+# 2026). Leur source est ce dépôt ; leur texte reprend la politique publiée
+# (README.md). Le gabarit lit url_fr, url_en et description pour chaque page.
+  - scope:
+      path: "suppression-compte"
+    values:
+      layout: politique
+      lang: fr
+      url_fr: /suppression-compte/
+      url_en: /account-deletion/
+      description: "Comment supprimer ton compte Toonboxd, ce qui part et ce qui reste."
+  - scope:
+      path: "account-deletion"
+    values:
+      layout: politique
+      lang: en
+      url_fr: /suppression-compte/
+      url_en: /account-deletion/
+      description: "How to delete your Toonboxd account, what goes and what stays."

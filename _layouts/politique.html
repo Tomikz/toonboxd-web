@@ -4,11 +4,11 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>{{ page.title }}</title>
-{% if page.lang == "en" %}<meta name="description" content="What Toonboxd knows about you, where it goes, and what you can do about it.">{% else %}<meta name="description" content="Ce que Toonboxd sait de toi, où ça va, et ce que tu peux en faire.">{% endif %}
+<meta name="description" content="{{ page.description }}">
 <link rel="canonical" href="https://toonboxd.app{{ page.url }}">
-<link rel="alternate" hreflang="fr" href="https://toonboxd.app/confidentialite/">
-<link rel="alternate" hreflang="en" href="https://toonboxd.app/privacy/">
-<link rel="alternate" hreflang="x-default" href="https://toonboxd.app/confidentialite/">
+<link rel="alternate" hreflang="fr" href="https://toonboxd.app{{ page.url_fr }}">
+<link rel="alternate" hreflang="en" href="https://toonboxd.app{{ page.url_en }}">
+<link rel="alternate" hreflang="x-default" href="https://toonboxd.app{{ page.url_fr }}">
 <meta name="theme-color" content="#0E0F13">
 <meta name="color-scheme" content="dark">
 <link rel="icon" type="image/png" href="/favicon.png">
@@ -142,7 +142,7 @@
       <img src="/assets/img/icone-96.png" alt="" width="34" height="34">
       <span>Toonboxd</span>
     </a>
-    {% if page.lang == "en" %}<a class="langue" href="/confidentialite/" hreflang="fr" lang="fr">Français</a>{% else %}<a class="langue" href="/privacy/" hreflang="en" lang="en">English</a>{% endif %}
+    {% if page.lang == "en" %}<a class="langue" href="{{ page.url_fr }}" hreflang="fr" lang="fr">Français</a>{% else %}<a class="langue" href="{{ page.url_en }}" hreflang="en" lang="en">English</a>{% endif %}
   </div>
 </header>
 
@@ -155,6 +155,8 @@
     <a class="brand" href="/"><img src="/assets/img/icone-96.png" alt="" width="28" height="28"><span>Toonboxd</span></a>
     <nav class="foot-links" aria-label="{% if page.lang == "en" %}Links{% else %}Liens{% endif %}">
       {% if page.lang == "en" %}<a href="/">Home</a>{% else %}<a href="/">Accueil</a>{% endif %}
+      {% if page.lang == "en" %}<a href="/privacy/">Privacy</a>{% else %}<a href="/confidentialite/">Confidentialité</a>{% endif %}
+      {% if page.lang == "en" %}<a href="/account-deletion/">Delete Account</a>{% else %}<a href="/suppression-compte/">Supprimer mon compte</a>{% endif %}
       <a href="mailto:contact@toonboxd.app">Contact</a>
     </nav>
   </div>
